@@ -1,4 +1,5 @@
 
+import {Link} from 'react-router-dom'
 function compra() {
   return (
     <div class="container">
@@ -137,7 +138,9 @@ function compra() {
                         <input type="text" id="tarjeta-cvv" class="form-control"/>
                     </div>
                 </div>
+                <Link to="/Venta">
                 <input type="submit" value="Continuar al pago" class="btn btn-block btn-lg btn-primary"/>
+                </Link>
             </form>
         </div>
         

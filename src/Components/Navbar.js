@@ -19,22 +19,29 @@ function Navbar() {
         </Link>
 
         <div className="hiddenLinks">
-          <Link to="/"> Home </Link>
           <Link to="/Tienda"> Catalogo </Link>
-          <Link to="/about"> About </Link>
-          <Link to="/login"> Login </Link>
-          <Link to="/Registrar"> Registrar </Link>
+          <Link to="/Empleado"> Empleado </Link>
           <Link to="/Compra"> compra </Link>
           <Link to="/Evento"> Eventos </Link>
+          <Link to="/Contacto"> Contacto </Link>
+          <Link to="/Proveedor"> Proveedor </Link>
+          <Link to="/Departamento"> Departamento </Link>
+          <Link to="/Cliente"> cliente</Link>
+          <Link to="/ProveedorAfiliado"> ProveedorAfiliado</Link>
+        
         </div>
       </div>
       <div className="rightSide">
-        <Link to="/"> Home </Link>
         <Link to="/Tienda"> Catalogo </Link>
-        <Link to="/about"> About </Link>
-        <Link to="/Login"> Login </Link>
-        <Link to="/Registrar"> Registrar </Link>
+        <Link to="/Empleado"> Empleado </Link>
         <Link to="/Evento"> Eventos </Link>
+        <Link to="/Contacto"> Contacto </Link>
+        <Link to="/Proveedor"> Proveedor </Link>
+        <Link to="/Cliente"> Cliente </Link>
+        <Link to="/ProveedorAfiliado"> ProveedorAfiliado</Link>
+        <Link to="/Departamento"> Departamentoo</Link>
+       
+
         <button onClick={toggleNavbar}>
           <ReorderIcon />
         </button>
