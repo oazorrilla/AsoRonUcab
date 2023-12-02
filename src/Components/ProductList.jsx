@@ -34,7 +34,7 @@ export const ProductList = ({
 			{data.map(product => (
 				<div className='item' key={product.id}>
 					<figure>
-						<img src={product.img} alt={product.nameProduct}  />
+					<Link to="/DetalleSantaTeresa"> <img src={product.img} alt={product.nameProduct}  /></Link>
 					</figure>
 					<div className='info-product'>
 						<h2>{product.nameProduct}</h2>
@@ -44,9 +44,6 @@ export const ProductList = ({
 						<button onClick={() => onAddProduct(product)}>
 							Añadir al carrito
 						</button>
-						<Link to="/detalle"> 
-                            <button className='btn-clear-all'> detalle </button>
-                            </Link>
                         
 					</div>
 				</div>

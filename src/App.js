@@ -20,6 +20,7 @@ import Contacto from "./pages/Contacto";
 import DetalleEvento from "./Components/DetalleEvento";
 import EntradaEvento from "./pages/EntradaEvento";
 import Venta from "./pages/Venta";
+import DetalleSantaTeresaBlanco from "./pages/DetalleSantaTeresaBlanco";
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
           <Route exact path="/DetalleEvento" Component={DetalleEvento}/>
           <Route exact path="/EntradaEvento" Component={EntradaEvento}/>
           <Route exact path="/Venta" Component={Venta}/>
+          <Route exact path="/DetalleSantaTeresa" Component={DetalleSantaTeresaBlanco}/>
         </Routes>
         <Footer/>
     </Router>

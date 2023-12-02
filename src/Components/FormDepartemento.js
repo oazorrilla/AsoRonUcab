@@ -34,10 +34,7 @@ function Departamento() {
   <input type="text" class="form-control" placeholder="Fecha Inicio Trabajo"/>
 </div>
 </div>
-</form>
-<form>
 
-</form>
 <div class="col-12 text-center">
         <button type="button"  class="btn btn-dark"  >
         Aceptar
@@ -45,6 +42,7 @@ function Departamento() {
         </button>
       </div>
 
+      </form>
       </div>
         
     );

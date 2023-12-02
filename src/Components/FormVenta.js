@@ -30,7 +30,7 @@ function FormVenta() {
 </div>
   </div>
   
-</form>
+
 
 <div class="col-12 text-center ">
         <button type="button"  class="btn btn-dark"  >
@@ -40,6 +40,7 @@ function FormVenta() {
       </div>
 
 
+      </form>
       </div>
         
     );

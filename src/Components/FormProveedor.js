@@ -59,7 +59,7 @@ function FormProveedor() {
   <input type="email" class="form-control" id="inputEmail4" placeholder="Email"/>
   </div>
 </div>
-</form>
+
 
 <div class="col-12 text-center">
         <button type="button"  class="btn btn-dark"  >
@@ -67,8 +67,10 @@ function FormProveedor() {
        
         </button>
       </div>
+      
+      </form>
       </div>
-        
-    );
+);
+
 }
 export default FormProveedor;

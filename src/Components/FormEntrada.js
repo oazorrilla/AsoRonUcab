@@ -22,7 +22,7 @@ function FormEntrada() {
   <div class="col">
   <textarea class="form-control" rows="5" id="comment" placeholder="Descripcion"></textarea>
   </div>
-</form>
+
 
 <div class="col-12 text-center ">
         <button type="button"  class="btn btn-dark"  >
@@ -32,6 +32,7 @@ function FormEntrada() {
       </div>
 
 
+      </form>
       </div>
         
     );

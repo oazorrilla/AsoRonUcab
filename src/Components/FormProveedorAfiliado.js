@@ -32,7 +32,7 @@ function FormProveedorAfiliado() {
   <input type="text" class="form-control" placeholder="Vendedor"/>
 </div>
 </div>
-</form>
+
 
 <div class="col-12 text-center">
         <button type="button"  class="btn btn-dark"  >
@@ -41,8 +41,9 @@ function FormProveedorAfiliado() {
         </button>
       </div>
     
-</div>
+ </form>
+ </div>
         
-    );
+);
 }
 export default FormProveedorAfiliado;

@@ -30,13 +30,12 @@ export const Header = ({
 
 	return (
 		<header>
-			<h1>Tienda</h1>
-
+			<h1 >Tienda</h1>
 			<div className='container-icon'>
 				<div
 					className='container-cart-icon'
 					onClick={() => setActive(!active)}
-				>
+>
 					<svg
 						xmlns='http://www.w3.org/2000/svg'
 						fill='none'
@@ -68,6 +67,7 @@ export const Header = ({
 									<div className='cart-product' key={product.id}>
 										<div className='info-cart-product'>
 											<span className='cantidad-producto-carrito'>
+										
 												{product.quantity}
 											</span>
 											<p className='titulo-producto-carrito'>

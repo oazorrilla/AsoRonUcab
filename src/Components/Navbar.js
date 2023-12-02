@@ -32,14 +32,13 @@ function Navbar() {
         </div>
       </div>
       <div className="rightSide">
-        <Link to="/Tienda"> Catalogo </Link>
         <Link to="/Empleado"> Empleado </Link>
         <Link to="/Evento"> Eventos </Link>
         <Link to="/Contacto"> Contacto </Link>
         <Link to="/Proveedor"> Proveedor </Link>
         <Link to="/Cliente"> Cliente </Link>
         <Link to="/ProveedorAfiliado"> ProveedorAfiliado</Link>
-        <Link to="/Departamento"> Departamentoo</Link>
+        <Link to="/Departamento"> Departamento</Link>
        
 
         <button onClick={toggleNavbar}>

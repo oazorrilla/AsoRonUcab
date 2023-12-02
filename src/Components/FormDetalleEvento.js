@@ -48,7 +48,7 @@ function FormDetalleEvento() {
 
 
 </div>
-</form>
+
 <div class="col-12 text-center">
         <button type="button"  class="btn btn-dark"  >
         Aceptar
@@ -59,6 +59,7 @@ function FormDetalleEvento() {
 
 
 
+      </form>
       </div>
         
     );
