@@ -1,0 +1,1439 @@
+create table accion_permiso
+(
+    id_accion     serial
+        constraint pk_id_accion
+            primary key
+        constraint id_accion
+            unique,
+    nombre_accion varchar(50) not null
+);
+
+alter table accion_permiso
+    owner to postgres;
+
+create table departamento
+(
+    id_departamento          serial
+        constraint pk_id_departamento
+            primary key
+        constraint id_departamento
+            unique,
+    numero_departamento      integer     not null
+        constraint check_numero_departamento
+            check (numero_departamento > 0),
+    nombre_departamento      varchar(50) not null,
+    descripcion_departamento char(100)   not null
+);
+
+alter table departamento
+    owner to postgres;
+
+create table beneficio
+(
+    id_beneficio           serial
+        constraint pk_id_beneficio
+            primary key
+        constraint id_beneficio
+            unique,
+    nombre_beneficio       varchar(50)  not null,
+    descripcion_beneficio  varchar(100) not null,
+    fecha_inicio_beneficio timestamp    not null,
+    fecha_fin_beneficio    time         not null
+);
+
+alter table beneficio
+    owner to postgres;
+
+create table estado
+(
+    id_estado          serial
+        constraint pk_id_estado
+            primary key
+        constraint id_estado
+            unique,
+    nombre_estado      varchar(50)  not null,
+    descripcion_estado varchar(100) not null
+);
+
+alter table estado
+    owner to postgres;
+
+create table lugar
+(
+    id_lugar     serial
+        constraint pk_id_lugar
+            primary key
+        constraint id_lugar
+            unique,
+    tipo_lugar   varchar(20) not null
+        constraint check_tipo_lugar
+            check ((tipo_lugar)::text = ANY
+                   ((ARRAY ['Ciudad'::character varying, 'Estado'::character varying, 'Pais'::character varying])::text[])),
+    nombre_lugar varchar(50) not null,
+    fk_id_lugar  integer default nextval('lugar_fk_id_lugar_seq'::regclass)
+        constraint fk_id_lugar
+            references lugar
+);
+
+alter table lugar
+    owner to postgres;
+
+create table oferta
+(
+    id_oferta           serial
+        constraint pk_id_oferta
+            primary key
+        constraint id_oferta
+            unique,
+    nombre_oferta       varchar        not null,
+    descripcion_oferta  varchar        not null,
+    valor_oferta        numeric(10, 2) not null
+        constraint check_valor_oferta
+            check (valor_oferta > (0)::numeric),
+    fecha_inicio_oferta timestamp      not null,
+    fecha_fin_oferta    timestamp      not null
+);
+
+alter table oferta
+    owner to postgres;
+
+create table ingrediente
+(
+    id_ingrediente     serial
+        constraint pk_id_ingrediente
+            primary key
+        constraint id_ingrediente
+            unique,
+    nombre_ingrediente varchar(50) not null
+);
+
+alter table ingrediente
+    owner to postgres;
+
+create table metodo
+(
+    id_metodo          serial
+        constraint pk_id_metodo
+            primary key
+        constraint id_metodo
+            unique,
+    nombre_metodo      varchar(50)  not null,
+    descripcion_metodo varchar(100) not null
+);
+
+alter table metodo
+    owner to postgres;
+
+create table destilacion
+(
+    id_destilacion     serial
+        constraint pk_id_destilacion
+            primary key
+        constraint id_destilacion
+            unique,
+    nombre_destilacion varchar(50) not null,
+    numero_destilacion integer     not null
+        constraint check_numero_destilacion
+            check (numero_destilacion > 0),
+    fk_id_metodo       serial
+        constraint fk_id_metodo
+            references metodo
+);
+
+alter table destilacion
+    owner to postgres;
+
+create table categoria
+(
+    id_categoria                 serial
+        constraint pk_id_categoria
+            primary key
+        constraint id_categoria
+            unique,
+    nombre_categoria             varchar       not null
+        constraint check_nombre_categoria
+            check ((nombre_categoria)::text = ANY
+                   ((ARRAY ['Estandar'::character varying, 'Premium'::character varying, 'Super Permium'::character varying, 'Ultra Premium'::character varying, 'Prestige'::character varying])::text[])),
+    porcentaje_alcohol_categoria numeric(4, 2) not null
+        constraint check_porcentaje_alcohol_categoria
+            check (porcentaje_alcohol_categoria > (0)::numeric),
+    grado_alcohol_categoria      integer       not null
+        constraint check_grado_alcohol_categoria
+            check (grado_alcohol_categoria > 0),
+    fk_id_destilacion            serial
+        constraint fk_id_destilacion
+            references destilacion
+);
+
+alter table categoria
+    owner to postgres;
+
+create table anejamiento
+(
+    id_anejamiento           serial
+        constraint pk_id_anejamiento
+            primary key
+        constraint id_anejamiento
+            unique,
+    nombre_anejamiento       varchar(50)  not null,
+    descripcion_anejamiento  varchar(100) not null,
+    fecha_inicio_anejamiento timestamp    not null,
+    fecha_fin_anejamiento    timestamp    not null
+);
+
+alter table anejamiento
+    owner to postgres;
+
+create table tipo_ron
+(
+    id_tipo_ron       serial
+        constraint pk_id_tipo_ron
+            primary key
+        constraint id_tipo_ron
+            unique,
+    nombre_tipo_ron   varchar(20) not null
+        constraint check_nombre_tipo_ron
+            check ((nombre_tipo_ron)::text = ANY
+                   ((ARRAY ['Agricola'::character varying, 'Industrial'::character varying])::text[])),
+    fk_id_lugar       serial
+        constraint fk_id_lugar
+            references lugar,
+    fk_id_anejamiento serial
+        constraint fk_id_anejamiento
+            references anejamiento
+);
+
+alter table tipo_ron
+    owner to postgres;
+
+create table variedad_ron
+(
+    id_variedad_ron                    serial
+        constraint pk_id_variedad_ron
+            primary key
+        constraint id_variedad_ron
+            unique,
+    nombre_variedad_ron                varchar(50)   not null,
+    descripcion_variedad_ron           varchar(100)  not null,
+    porcentaje_produccion_variedad_ron numeric(4, 2) not null
+        constraint check_porcentaje_produccion_variedad_ron
+            check (porcentaje_produccion_variedad_ron > (0)::numeric),
+    fk_id_tipo_ron                     serial
+        constraint fk_id_tipo_ron
+            references tipo_ron
+);
+
+alter table variedad_ron
+    owner to postgres;
+
+create table barril
+(
+    id_barril         serial
+        constraint pk_id_barril
+            primary key
+        constraint id_barril
+            unique,
+    calidad_barril    varchar(20) not null
+        constraint check_calidad_barril
+            check ((calidad_barril)::text = ANY
+                   ((ARRAY ['Malo'::character varying, 'Regular'::character varying, 'Bueno'::character varying, 'Muy Bueno'::character varying, 'Excelente'::character varying])::text[])),
+    tipo_barril       varchar(50) not null,
+    fk_id_anejamiento serial
+        constraint fk_id_anejamiento
+            references anejamiento
+);
+
+alter table barril
+    owner to postgres;
+
+create table tasa_de_cambio
+(
+    id_tasa           serial
+        constraint pk_id_tasa
+            primary key
+        constraint id_tasa
+            unique,
+    valor_tasa        numeric(10, 2) not null
+        constraint check_valor_tasa
+            check (valor_tasa > (0)::numeric),
+    fecha_inicio_tasa timestamp      not null,
+    fecha_fin_tasa    timestamp      not null
+);
+
+alter table tasa_de_cambio
+    owner to postgres;
+
+create table permiso_rol
+(
+    id_permiso_rol serial
+        constraint id_permiso_rol
+            unique,
+    fk_id_accion   serial
+        constraint fk_id_accion
+            references accion_permiso,
+    constraint pk_id_permiso_rol
+        primary key (id_permiso_rol, fk_id_accion)
+);
+
+alter table permiso_rol
+    owner to postgres;
+
+create table categoria_ingrediente
+(
+    id_categoria_ingrediente serial
+        constraint id_categoria_ingrediente
+            unique,
+    fk_id_categoria          serial
+        constraint fk_id_categoria
+            references categoria,
+    fk_id_ingrediente        serial
+        constraint fk_id_ingrediente
+            references ingrediente,
+    constraint pk_id_categoria_ingrediente
+        primary key (id_categoria_ingrediente, fk_id_categoria, fk_id_ingrediente)
+);
+
+alter table categoria_ingrediente
+    owner to postgres;
+
+create table punto_de_venta
+(
+    id_punto_de_venta          serial
+        constraint pk_id_punto_de_venta
+            primary key
+        constraint id_punto_de_venta
+            unique,
+    nombre_punto_de_venta      varchar(50)  not null,
+    mision_punto_de_venta      varchar(100) not null,
+    rif_punto_de_venta         varchar(20)  not null
+        constraint check_rif_punto_de_venta
+            check ((rif_punto_de_venta)::text ~ '^([Jj]{1}-[0-9]{10}$)'::text),
+    fecha_origenpunto_de_venta date         not null
+);
+
+alter table punto_de_venta
+    owner to postgres;
+
+create table evento
+(
+    id_evento               serial
+        constraint pk_id_evento
+            primary key
+        constraint id_evento
+            unique,
+    nombre_evento           varchar(50)  not null,
+    descripcion_evento      varchar(100) not null,
+    numero_edicion_evento   integer      not null
+        constraint check_numero_edicion_evento
+            check (numero_edicion_evento > 0),
+    fecha_inicio_evento     timestamp    not null,
+    fecha_fin_evento        timestamp    not null,
+    locacion_evento         varchar(50)  not null,
+    limite_ocupacion_evento integer      not null
+        constraint check_limite_ocupacion_evento
+            check (limite_ocupacion_evento > 0),
+    fk_id_punto_de_venta    serial
+        constraint fk_id_punto_de_venta
+            references punto_de_venta,
+    fk_id_lugar             serial
+        constraint fk_id_lugar
+            references lugar
+);
+
+alter table evento
+    owner to postgres;
+
+create table entrada
+(
+    id_entrada          serial
+        constraint id_entrada
+            unique,
+    nombre_entrada      varchar(50)    not null,
+    descripcion_entrada varchar(100)   not null,
+    precio_entrada      numeric(10, 2) not null
+        constraint check_precio_entrada
+            check (precio_entrada > (0)::numeric),
+    codigo_entrada      varchar(10)    not null,
+    fk_id_evento        serial
+        constraint fk_id_evento
+            references evento,
+    constraint pk_id_entrada
+        primary key (id_entrada, fk_id_evento)
+);
+
+alter table entrada
+    owner to postgres;
+
+create table pago_entrada
+(
+    id_pago_entrada    serial
+        constraint id_pago_entrada
+            unique,
+    fecha_pago_entrada timestamp      not null,
+    cantidad_entrada   integer        not null
+        constraint check_cantidad_entrada
+            check (cantidad_entrada > 0),
+    total_pago_entrada numeric(10, 2) not null
+        constraint check_total_pago_entrada
+            check (total_pago_entrada > (0)::numeric),
+    fk_id_entrada      serial
+        constraint fk_id_entrada
+            references entrada (id_entrada),
+    fk_id_evento       serial
+        constraint fk_id_evento
+            references evento,
+    constraint pk_id_pago_entrada
+        primary key (id_pago_entrada, fk_id_entrada, fk_id_evento)
+);
+
+alter table pago_entrada
+    owner to postgres;
+
+create table punto_de_venta_tienda_fisica
+(
+    id_punto_de_venta_tienda_fisica           integer default nextval('punto_de_venta_tienda_fisica_id_punto_de_venta_tienda_fisic_seq'::regclass) not null
+        constraint pk_id_punto_de_venta_tienda_fisica
+            primary key
+        constraint id_punto_de_venta_tienda_fisica
+            unique,
+    nombre_punto_de_venta_tienda_fisica       varchar(50)                                                                                          not null,
+    mision_punto_de_venta_tienda_fisica       varchar(100)                                                                                         not null,
+    rif_punto_de_venta_tienda_fisica          varchar(20)                                                                                          not null
+        constraint check_rif_punto_de_venta_tienda_fisica
+            check ((rif_punto_de_venta_tienda_fisica)::text ~ '^([Jj]{1}-[0-9]{10}$)'::text),
+    fecha_origen_punto_de_venta_tienda_fisica timestamp                                                                                            not null,
+    direccion_tienda_fisica                   varchar(50)                                                                                          not null,
+    numero_local_tienda_fisica                integer                                                                                              not null
+        constraint check_numero_local_tienda_fisica
+            check (numero_local_tienda_fisica > 0),
+    fecha_hora_abre_tienda_fisica             timestamp                                                                                            not null,
+    fecha_hora_cierra_tienda_fisica           timestamp                                                                                            not null,
+    fk_id_lugar                               serial
+        constraint fk_id_lugar
+            references lugar
+);
+
+alter table punto_de_venta_tienda_fisica
+    owner to postgres;
+
+create table punto
+(
+    id_punto                           serial
+        constraint pk_id_punto
+            primary key
+        constraint id_punto
+            unique,
+    precio_punto                       numeric(10, 2) not null
+        constraint check_precio_punto
+            check (precio_punto > (0)::numeric),
+    fecha_inicio_tasa_punto            timestamp      not null,
+    fecha_fin_tasa_punto               timestamp      not null,
+    fk_id_punto_de_venta_tienda_fisica integer default nextval('punto_fk_id_punto_de_venta_tienda_fisica_seq'::regclass)
+        constraint fk_id_punto_de_venta_tienda_fisica
+            references punto_de_venta_tienda_fisica
+);
+
+alter table punto
+    owner to postgres;
+
+create table punto_de_venta_online
+(
+    id_punto_de_venta_online           serial
+        constraint pk_id_punto_de_venta_online
+            primary key
+        constraint id_punto_de_venta_online
+            unique,
+    nombre_punto_de_venta_online       varchar(50)  not null,
+    mision_punto_de_venta_online       varchar(100) not null,
+    rif_punto_de_venta_online          varchar(20)  not null
+        constraint check_rif_punto_de_venta_online
+            check ((rif_punto_de_venta_online)::text ~ '^([Jj]{1}-[0-9]{10}$)'::text),
+    fecha_origen_punto_de_venta_online time         not null,
+    url_tienda_online                  varchar(100) not null
+        constraint check_url_tienda_online
+            check ((url_tienda_online)::text ~ '^(https?|ft p)://[^\s/$. ?#].[^\s]*$'::text)
+);
+
+alter table punto_de_venta_online
+    owner to postgres;
+
+create table pedido
+(
+    id_pedido                   serial
+        constraint pk_id_pedido
+            primary key
+        constraint id_pedido
+            unique,
+    numero_pedido               integer   not null
+        constraint check_numero_pedido
+            check (numero_pedido > 0),
+    fecha_realiza_pedido        timestamp not null,
+    fecha_entrega_pedido        timestamp not null,
+    fk_id_punto_de_venta_online serial
+        constraint fk_id_punto_de_venta_online
+            references punto_de_venta_online
+);
+
+alter table pedido
+    owner to postgres;
+
+create table estado_pedido
+(
+    id_estado_pedido           serial
+        constraint id_estado_pedido
+            unique,
+    fecha_inicio_estado_pedido timestamp not null,
+    fecha_fin_estado_pedido    timestamp not null,
+    fk_id_estado               serial
+        constraint fk_id_estado
+            references estado,
+    fk_id_pedido               serial
+        constraint fk_id_pedido
+            references pedido,
+    constraint pk_id_estado_pedido
+        primary key (id_estado_pedido, fk_id_pedido, fk_id_estado)
+);
+
+alter table estado_pedido
+    owner to postgres;
+
+create table persona_juridica
+(
+    id_persona_juridica             serial
+        constraint pk_id_persona_juridica
+            primary key
+        constraint id_persona_juridica
+            unique,
+    rif_persona_juridica            varchar(20)
+        constraint check_rif_persona_juridica
+            check ((rif_persona_juridica)::text ~ '^([Jj]{1}-[0-9]{10}$)'::text),
+    denom_comercial_juridica        varchar(50)    not null,
+    razon_social_juridica           varchar(50)    not null,
+    pagina_web_juridica             varchar(100)   not null
+        constraint check_pagina_web_juridica
+            check ((pagina_web_juridica)::text ~ '^(https?|ft p)://[^\s/$. ?#].[^\s]*$'::text),
+    capital_disponible_juridica     numeric(10, 2) not null
+        constraint check_capital_disponible_juridica
+            check (capital_disponible_juridica > (0)::numeric),
+    direc_fiscal_juridica           varchar(100)   not null,
+    direc_fisica_principal_juridica varchar(100)   not null,
+    fk_id_lugar                     serial
+        constraint fk_id_lugar
+            references lugar,
+    fk_id_lugar_2                   serial
+        constraint fk_id_lugar_2
+            references lugar
+);
+
+alter table persona_juridica
+    owner to postgres;
+
+create table proveedor
+(
+    id_proveedor              serial
+        constraint pk_id_proveedor
+            primary key
+        constraint id_proveedor
+            unique,
+    nombre_proveedor          varchar(50) not null,
+    denom_comercial_proveedor varchar(50) not null,
+    afiliado_proveedor        boolean     not null,
+    fk_id_persona_juridica    serial
+        constraint fk_id_persona_juridica
+            references persona_juridica
+);
+
+alter table proveedor
+    owner to postgres;
+
+create table compra
+(
+    id_compra            serial
+        constraint pk_id_compra
+            primary key
+        constraint id_compra
+            unique,
+    numero_compra        integer        not null
+        constraint check_numero_compra
+            check (numero_compra > 0),
+    fecha_compra         timestamp      not null,
+    total_compra         numeric(10, 2) not null
+        constraint check_total_compra
+            check (total_compra > (0)::numeric),
+    fk_id_punto_de_venta serial
+        constraint fk_id_punto_de_venta
+            references punto_de_venta,
+    fk_id_proveedor      serial
+        constraint fk_id_proveedor
+            references proveedor
+);
+
+alter table compra
+    owner to postgres;
+
+create table proveedor_participa_evento
+(
+    id_proveedor_participa_evento serial
+        constraint id_proveedor_participa_evento
+            unique,
+    fk_id_proveedor               serial
+        constraint fk_id_proveedor
+            references proveedor,
+    fk_id_evento                  serial
+        constraint fk_id_evento
+            references evento,
+    constraint pk_id_proveedor_participa_evento
+        primary key (id_proveedor_participa_evento, fk_id_evento, fk_id_proveedor)
+);
+
+alter table proveedor_participa_evento
+    owner to postgres;
+
+create table ron
+(
+    id_ron          serial
+        constraint id_ron
+            unique,
+    nombre_ron      varchar(50) not null,
+    fk_id_tipo      serial
+        constraint fk_id_tipo
+            references tipo_ron,
+    fk_id_proveedor serial
+        constraint fk_id_proveedor
+            references proveedor,
+    constraint pk_id_ron
+        primary key (id_ron, fk_id_proveedor)
+);
+
+alter table ron
+    owner to postgres;
+
+create table sabor
+(
+    id_sabor        serial
+        constraint pk_id_sabor
+            primary key
+        constraint id_sabor
+            unique,
+    tipo_sabor      varchar(50) not null,
+    fk_id_ron       serial
+        constraint fk_id_ron
+            references ron (id_ron),
+    fk_id_proveedor serial
+        constraint fk_id_proveedor
+            references proveedor
+);
+
+alter table sabor
+    owner to postgres;
+
+create table color
+(
+    id_color          serial
+        constraint pk_id_color
+            primary key
+        constraint id_color
+            unique,
+    nombre_color      varchar(50)  not null,
+    descripcion_color varchar(100) not null,
+    fk_id_ron         serial
+        constraint fk_id_ron
+            references ron (id_ron),
+    fk_id_proveedor   serial
+        constraint fk_id_proveedor
+            references proveedor
+);
+
+alter table color
+    owner to postgres;
+
+create table nota_cata
+(
+    id_nota_cata          serial
+        constraint id_nota_cata
+            unique,
+    descripcion_nota_cata varchar(100) not null,
+    fk_id_evento          serial
+        constraint fk_id_evento
+            references evento,
+    fk_id_ron             serial
+        constraint fk_id_ron
+            references ron (id_ron),
+    fk_id_proveedor       serial
+        constraint fk_id_proveedor
+            references proveedor,
+    constraint pk_id_nota_cata
+        primary key (id_nota_cata, fk_id_evento, fk_id_proveedor, fk_id_ron)
+);
+
+alter table nota_cata
+    owner to postgres;
+
+create table presentacion_ron
+(
+    id_presentacion_ron             serial
+        constraint id_presentacion_ron
+            unique,
+    unidad_volumen_presentacion_ron "char"         not null
+        constraint check_unidad_volumen_presentacion_ron
+            check (unidad_volumen_presentacion_ron = 'L'::"char"),
+    capacidad_presentacion_ron      numeric(4, 2)  not null
+        constraint check_capacidad_presentacion_ron
+            check (capacidad_presentacion_ron > (0)::numeric),
+    nombre_presentacion_ron         varchar(50)    not null,
+    descripcion_presentacion_ron    varchar(100)   not null,
+    precio_presentacion_ron         numeric(10, 2) not null
+        constraint check_precio_presentacion_ron
+            check (precio_presentacion_ron > (0)::numeric),
+    edad_anejo_presentacion_ron     integer        not null
+        constraint check_edad_anejo_presentacion_ron
+            check (edad_anejo_presentacion_ron > 0),
+    fk_id_ron                       serial
+        constraint fk_id_ron
+            references ron (id_ron),
+    fk_id_proveedor                 serial
+        constraint fk_id_proveedor
+            references proveedor,
+    fk_id_catalogo_inventario_ron   serial,
+    fk_id_detalle_compra            serial,
+    fk_id_compra                    serial
+        constraint fk_id_compra
+            references compra,
+    fk_id_punto_de_venta            serial
+        constraint fk_id_punto_de_venta
+            references punto_de_venta,
+    constraint pk_id_presentacion_ron
+        primary key (id_presentacion_ron, fk_id_catalogo_inventario_ron, fk_id_detalle_compra, fk_id_compra,
+                     fk_id_punto_de_venta)
+);
+
+alter table presentacion_ron
+    owner to postgres;
+
+create table catalogo_inventario_ron
+(
+    id_catalogo_inventario_ron serial
+        constraint id_catalogo_inventario_ron
+            unique,
+    fk_id_punto_de_venta       serial
+        constraint fk_id_punto_de_venta
+            references punto_de_venta,
+    fk_id_detalle_compra       serial,
+    fk_id_compra               serial
+        constraint fk_id_compra
+            references compra,
+    constraint pk_id_catalogo_inventario_ron
+        primary key (id_catalogo_inventario_ron, fk_id_punto_de_venta, fk_id_detalle_compra, fk_id_compra)
+);
+
+alter table catalogo_inventario_ron
+    owner to postgres;
+
+alter table presentacion_ron
+    add constraint fk_id_catalogo_inventario_ron
+        foreign key (fk_id_catalogo_inventario_ron) references catalogo_inventario_ron (id_catalogo_inventario_ron);
+
+create table detalle_compra
+(
+    id_detalle_compra              serial
+        constraint id_detalle_compra
+            unique,
+    precio_unitario_detalle_compra numeric(10, 2) not null
+        constraint check_precio_unitario_detalle_compra
+            check (precio_unitario_detalle_compra > (0)::numeric),
+    cant_prod_total_detalle_compra integer        not null
+        constraint check_cant_prod_total_detalle_compra
+            check (cant_prod_total_detalle_compra > 0),
+    fk_id_compra                   serial
+        constraint fk_id_compra
+            references compra,
+    fk_id_presentacion_ron         serial
+        constraint fk_id_presentacion_ron
+            references presentacion_ron (id_presentacion_ron),
+    fk_id_catalogo_inventario_ron  serial
+        constraint fk_id_catalogo_inventario_ron
+            references catalogo_inventario_ron (id_catalogo_inventario_ron),
+    fk_id_punto_de_venta           serial
+        constraint fk_id_punto_de_venta
+            references punto_de_venta,
+    constraint pk_id_detalle_compra
+        primary key (id_detalle_compra, fk_id_compra, fk_id_presentacion_ron, fk_id_catalogo_inventario_ron,
+                     fk_id_punto_de_venta)
+);
+
+alter table detalle_compra
+    owner to postgres;
+
+create table detalle_pedido
+(
+    id_detalle_pedido              serial
+        constraint pk_id_detalle_pedido
+            primary key
+        constraint id_detalle_pedido
+            unique,
+    precio_envio_detalle_pedido    numeric(10, 2) not null
+        constraint check_precio_envio_detalle_pedido
+            check (precio_envio_detalle_pedido > (0)::numeric),
+    cant_prod_total_detalle_pedido integer        not null
+        constraint check_cant_prod_total_detalle_pedido
+            check (cant_prod_total_detalle_pedido > 0),
+    fk_id_pedido                   serial
+        constraint fk_id_pedido
+            references pedido,
+    fk_id_presentacion_ron         serial
+        constraint fk_id_presentacion_ron
+            references presentacion_ron (id_presentacion_ron),
+    fk_id_catalogo_inventario      serial
+        constraint fk_catalogo_inventario
+            references catalogo_inventario_ron (id_catalogo_inventario_ron),
+    fk_id_punto_de_venta           serial
+        constraint fk_id_punto_de_venta
+            references punto_de_venta,
+    fk_id_detalle_compra           serial
+        constraint fk_id_detalle_compra
+            references detalle_compra (id_detalle_compra),
+    fk_id_compra                   serial
+        constraint fk_id_compra
+            references compra
+);
+
+alter table detalle_pedido
+    owner to postgres;
+
+create table imagen_presentacion_ron
+(
+    id_imagen                     serial
+        constraint pk_id_imagen
+            primary key
+        constraint id_imagen
+            unique,
+    nombre_imagen                 varchar(50)  not null,
+    ruta_imagen                   varchar(255) not null,
+    fk_id_presentacion_ron        serial
+        constraint fk_id_presentacion_ron
+            references presentacion_ron (id_presentacion_ron),
+    fk_id_catalogo_inventario_ron serial
+        constraint fk_id_catalogo_inventario_ron
+            references catalogo_inventario_ron (id_catalogo_inventario_ron),
+    fk_id_punto_de_venta          serial
+        constraint fk_id_punto_de_venta
+            references punto_de_venta,
+    fk_id_detalle_compra          serial
+        constraint fk_id_detalle_compra
+            references detalle_compra (id_detalle_compra),
+    fk_id_compra                  serial
+        constraint fk_id_compra
+            references compra
+);
+
+alter table imagen_presentacion_ron
+    owner to postgres;
+
+create table premio
+(
+    id_premio                     serial
+        constraint id_premio
+            unique,
+    nombre_premio                 varchar(50)  not null,
+    descripcion_premio            varchar(100) not null,
+    fecha_premio                  timestamp    not null,
+    fk_id_evento                  serial
+        constraint fk_id_evento
+            references evento,
+    fk_id_presentacion_ron        serial
+        constraint fk_id_presentacion_ron
+            references presentacion_ron (id_presentacion_ron),
+    fk_id_catalogo_inventario_ron serial
+        constraint fk_id_catalogo_inventario_ron
+            references catalogo_inventario_ron (id_catalogo_inventario_ron),
+    fk_id_punto_de_venta          serial
+        constraint fk_id_punto_de_venta
+            references punto_de_venta,
+    fk_id_detalle_compra          serial
+        constraint fk_id_detalle_compra
+            references detalle_compra (id_detalle_compra),
+    fk_id_compra                  serial
+        constraint fk_id_compra
+            references compra,
+    constraint pk_id_premio
+        primary key (id_premio, fk_id_evento, fk_id_presentacion_ron, fk_id_catalogo_inventario_ron,
+                     fk_id_punto_de_venta, fk_id_detalle_compra, fk_id_compra)
+);
+
+alter table premio
+    owner to postgres;
+
+create table presentacion_ron_oferta
+(
+    id_presentacion_ron_oferta    serial
+        constraint id_presentacion_ron_oferta
+            unique,
+    fk_id_oferta                  serial
+        constraint fk_id_oferta
+            references oferta,
+    fk_id_presentacion_ron        serial
+        constraint fk_id_presentacion_ron
+            references presentacion_ron (id_presentacion_ron),
+    fk_id_catalogo_inventario_ron serial
+        constraint fk_id_catalogo_inventrio_ron
+            references catalogo_inventario_ron (id_catalogo_inventario_ron),
+    fk_id_punto_de_venta          serial
+        constraint fk_id_punto_de_venta
+            references punto_de_venta,
+    fk_id_detalle_compra          serial
+        constraint fk_id_detalle_compra
+            references detalle_compra (id_detalle_compra),
+    fk_id_compra                  serial
+        constraint fk_id_compra
+            references compra,
+    constraint pk_id_presentacion_ron_oferta
+        primary key (id_presentacion_ron_oferta, fk_id_oferta, fk_id_presentacion_ron, fk_id_catalogo_inventario_ron,
+                     fk_id_punto_de_venta, fk_id_detalle_compra, fk_id_compra)
+);
+
+alter table presentacion_ron_oferta
+    owner to postgres;
+
+alter table catalogo_inventario_ron
+    add constraint fk_id_detalle_compra
+        foreign key (fk_id_detalle_compra) references detalle_compra (id_detalle_compra);
+
+create table presentacion_ron_evento
+(
+    id_presentacion_ron_evento    serial
+        constraint id_presentacion_ron_evento
+            unique,
+    fk_id_evento                  serial
+        constraint fk_id_evento
+            references evento,
+    fk_id_presentacion_ron        serial
+        constraint fk_id_presentacion_ron
+            references presentacion_ron (id_presentacion_ron),
+    fk_id_catalogo_inventario_ron serial
+        constraint fk_id_catalogo_inventario_ron
+            references catalogo_inventario_ron (id_catalogo_inventario_ron),
+    fk_id_detalle_compra          serial
+        constraint fk_id_detalle_compra
+            references detalle_compra (id_detalle_compra),
+    fk_id_compra                  serial
+        constraint fk_id_compra
+            references compra,
+    fk_id_punto_de_venta          serial
+        constraint fk_id_punto_de_venta
+            references punto_de_venta,
+    constraint pk_id_presentacion_ron_evento
+        primary key (id_presentacion_ron_evento, fk_id_evento, fk_id_presentacion_ron, fk_id_catalogo_inventario_ron,
+                     fk_id_detalle_compra, fk_id_compra, fk_id_punto_de_venta)
+);
+
+alter table presentacion_ron_evento
+    owner to postgres;
+
+create table sabor_ingrediente
+(
+    id_sabor_ingrediente serial
+        constraint id_sabor_ingrediente
+            unique,
+    fk_id_sabor          serial
+        constraint fk_id_sabor
+            references sabor,
+    fk_id_ingrediente    serial
+        constraint fk_id_ingrediente
+            references ingrediente,
+    constraint pk_id_sabor_ingrediente
+        primary key (id_sabor_ingrediente, fk_id_sabor, fk_id_ingrediente)
+);
+
+alter table sabor_ingrediente
+    owner to postgres;
+
+create table persona_natural
+(
+    id_persona_natural       serial
+        constraint pk_id_persona_natural
+            primary key
+        constraint id_persona_natural
+            unique,
+    rif_persona_natural      varchar(20)
+        constraint check_rif_persona_natural
+            check ((rif_persona_natural)::text ~ '^([Jj]{1}-[0-9]{10}$)'::text),
+    ci_natural               varchar(20)  not null
+        constraint check_ci_natural
+            check ((ci_natural)::text ~ '^([0-9]{8}$)'::text),
+    p_nombre_natural         varchar(50)  not null,
+    s_nombre_natural         varchar(50),
+    p_apellido_natural       varchar(50)  not null,
+    s_apellido_natural       varchar(50),
+    direc_hab_natural        varchar(100) not null,
+    genero                   varchar(10)  not null
+        constraint check_genero
+            check ((genero)::text = ANY
+                   ((ARRAY ['Femenino'::character varying, 'Masculino'::character varying, 'Otro'::character varying])::text[])),
+    puntos_natural           integer
+        constraint check_puntos_natural
+            check (puntos_natural > 0),
+    direccion_envio          varchar(100),
+    nacionalidad_natural     varchar(10)  not null
+        constraint check_nacionalidad_natural
+            check ((nacionalidad_natural)::text = ANY
+                   ((ARRAY ['V'::character varying, 'E'::character varying])::text[])),
+    fecha_nacimiento_natural date         not null
+        constraint check_fecha_nacimiento_natural
+            check (fecha_nacimiento_natural <= (CURRENT_DATE - '18 years'::interval)),
+    fk_id_persona_juridica   serial
+        constraint fk_id_persona_juridica
+            references persona_juridica,
+    fk_id_proveedor          serial
+        constraint fk_id_proveedor
+            references proveedor,
+    fk_id_lugar              serial
+        constraint fk_id_lugar
+            references lugar,
+    fk_id_lugar_2            integer default nextval('persona_natural_fk_id_lugar_2_seq'::regclass)
+        constraint fk_id_lugar_2
+            references lugar
+);
+
+alter table persona_natural
+    owner to postgres;
+
+create table empleado
+(
+    id_empleado             serial
+        constraint pk_id_empleado
+            primary key
+        constraint id_emplado
+            unique,
+    profesion               varchar(50) not null,
+    titulo_puesto_empleado  varchar(50) not null,
+    fecha_hora_inicio_turno timestamp   not null,
+    fecha_hora_fin_turno    timestamp   not null,
+    fk_id_empleado          integer default nextval('empleado_fk_id_empleado_seq'::regclass)
+        constraint fk_id_empleado
+            references empleado,
+    fk_id_persona_natural   serial
+        constraint fk_id_persona_natural
+            references persona_natural,
+    fk_id_punto_de_venta    serial
+        constraint fk_id_punto_de_venta
+            references punto_de_venta
+);
+
+alter table empleado
+    owner to postgres;
+
+create table usuario
+(
+    id_usuario            serial
+        constraint pk_id_usuario
+            primary key
+        constraint id_usuario
+            unique,
+    nombre_usuario        varchar(20) not null
+        constraint nombre_usuario
+            unique
+        constraint check_nombre_usuario
+            check ((nombre_usuario)::text ~ '[a-zA-Z0-9_-]{7,21}'::text),
+    contrasena_usuario    varchar(20) not null
+        constraint check_contrasena_usuario
+            check ((contrasena_usuario)::text ~
+                   '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]).{7,21}'::text),
+    fecha_usuario         date        not null,
+    imagen_usuario        bytea       not null,
+    numero_usuario        integer     not null
+        constraint check_numero_usuario
+            check (numero_usuario > 0),
+    fk_id_pedido          serial
+        constraint fk_id_pedido
+            references pedido,
+    fk_id_persona_natural integer default nextval('usuario_fk_id_persona_natural_seq'::regclass)
+        constraint fk_id_persona_natural
+            references persona_natural,
+    fk_id_empleado        integer default nextval('usuario_fk_id_empleado_seq'::regclass)
+        constraint fk_id_empleado
+            references empleado
+);
+
+alter table usuario
+    owner to postgres;
+
+create index fki_fk_id_persona_natural
+    on usuario (fk_id_pedido);
+
+create index fki_fk_id_empleado
+    on usuario (fk_id_empleado);
+
+create table cuota_afiliacion
+(
+    id_cuota_afiliacion            serial
+        constraint pk_id_cuota_afiliacion
+            primary key
+        constraint id_cuota_afiliacion
+            unique,
+    precio_cuota_afiliacion        numeric(10, 2) not null
+        constraint check_precio_cuota_afiliacion
+            check (precio_cuota_afiliacion > (0)::numeric),
+    fecha_inicia__cuota_afiliacion timestamp      not null,
+    fecha_fin_cuota_afiliacion     timestamp      not null,
+    cuota_afiliacion_paga          boolean        not null,
+    fk_id_proveedor                serial
+        constraint fk_id_proveedor
+            references proveedor,
+    fk_id_persona_natural          serial
+        constraint fk_id_persona_natural
+            references persona_natural
+);
+
+alter table cuota_afiliacion
+    owner to postgres;
+
+create table correo_electronico
+(
+    id_correo_electronico              serial
+        constraint pk_id_correo_electronico
+            primary key
+        constraint id_correo_electronico
+            unique,
+    direccion_correo_electronico       varchar(50) not null
+        constraint direccion_correo_electronico
+            unique
+        constraint check_direccion_correo_electronico
+            check ((direccion_correo_electronico)::text ~ '^[^@]+@[^@]+\.[a-zA-Z]{2,}$'::text),
+    fk_id_punto_de_venta_tienda_fisica integer default nextval('correo_electronico_fk_id_punto_de_venta_tienda_fisica_seq'::regclass)
+        constraint fk_id_punto_de_venta_tienda_fisica
+            references punto_de_venta_tienda_fisica,
+    fk_id_persona_natural              integer default nextval('correo_electronico_fk_id_persona_natural_seq'::regclass)
+        constraint fk_id_persona_natural
+            references persona_natural,
+    fk_id_persona_juridica             integer default nextval('correo_electronico_fk_id_persona_juridica_seq'::regclass)
+        constraint fk_id_persona_juridica
+            references persona_juridica
+);
+
+alter table correo_electronico
+    owner to postgres;
+
+create table telefono
+(
+    id_telefono            serial
+        constraint pk_id_telefono
+            primary key
+        constraint id_telefono
+            unique,
+    categoria_telefono     varchar(20) not null
+        constraint check_categoria_telefono
+            check ((categoria_telefono)::text = ANY
+                   ((ARRAY ['Movil'::character varying, 'Personal'::character varying, 'Oficina'::character varying, 'Casa'::character varying, 'Fijo'::character varying, 'Otro'::character varying, 'Principal'::character varying])::text[])),
+    numero_telefono        varchar(20) not null
+        constraint check_numero_telefono
+            check ((numero_telefono)::text ~ '/^(?:\+58)?(?:4[ 126]|2[1246]|8[1 24])?\d{8}$/;'::text),
+    fk_id_proveedor        integer default nextval('telefono_fk_id_proveedor_seq'::regclass)
+        constraint fk_id_proveedor
+            references proveedor,
+    fk_id_proveedor_2      integer default nextval('telefono_fk_id_proveedor_2_seq'::regclass)
+        constraint fk_id_proveedor_2
+            references proveedor,
+    fk_id_punto_de_venta   integer default nextval('telefono_fk_id_punto_de_venta_seq'::regclass)
+        constraint fk_id_punto_de_venta
+            references punto_de_venta,
+    fk_id_persona_natural  integer default nextval('telefono_fk_id_persona_natural_seq'::regclass)
+        constraint fk_id_persona_natural
+            references persona_natural,
+    fk_id_persona_juridica integer default nextval('telefono_fk_id_persona_juridica_seq'::regclass)
+        constraint fk_id_persona_juridica
+            references persona_juridica
+);
+
+alter table telefono
+    owner to postgres;
+
+create table venta
+(
+    id_venta                           serial
+        constraint pk_id_venta
+            primary key
+        constraint id_venta
+            unique,
+    numero_factura_venta               integer        not null
+        constraint check_numero_factura_venta
+            check (numero_factura_venta > 0),
+    fecha_venta                        timestamp      not null,
+    total_venta                        numeric(10, 2) not null
+        constraint check_total_venta
+            check (total_venta > (0)::numeric),
+    punto_ganado_venta                 integer        not null
+        constraint check_punto_ganado_venta
+            check (punto_ganado_venta > 0),
+    fk_id_persona_natural              serial
+        constraint fk_id_persona_natural
+            references persona_natural,
+    fk_id_punto_de_venta_tienda_fisica serial
+        constraint fk_id_punto_de_venta_tienda_fisica
+            references punto_de_venta_tienda_fisica
+);
+
+alter table venta
+    owner to postgres;
+
+create table usuario_rol
+(
+    id_usuario_rol       serial
+        constraint id_usuario_rol
+            unique,
+    fk_id_usuario        serial
+        constraint fk_id_usuario
+            references usuario,
+    fk_id_permiso_rol    serial
+        constraint fk_id_permiso_rol
+            references permiso_rol (id_permiso_rol),
+    fk_id_accion_permiso serial
+        constraint fk_id_accion_permiso
+            references accion_permiso,
+    constraint pk_id_usuario_rol
+        primary key (id_usuario_rol, fk_id_permiso_rol, fk_id_accion_permiso, fk_id_usuario)
+);
+
+alter table usuario_rol
+    owner to postgres;
+
+create table empleado_departamento
+(
+    id_empleado_departamento serial
+        constraint id_empleado_departamento
+            unique,
+    fk_id_departamento       serial
+        constraint fk_id_departamento
+            references departamento,
+    fk_id_empleado           serial
+        constraint fk_id_empleado
+            references empleado,
+    constraint pk_id_empleado_departamento
+        primary key (id_empleado_departamento, fk_id_empleado, fk_id_departamento)
+);
+
+alter table empleado_departamento
+    owner to postgres;
+
+create table beneficio_empleado
+(
+    id_beneficio_empleado serial
+        constraint id_beneficio_empleado
+            unique,
+    fk_id_beneficio       serial
+        constraint fk_id_beneficio
+            references beneficio,
+    fk_id_empleado        serial
+        constraint fk_id_empleado
+            references empleado,
+    constraint pk_id_beneficio_empleado
+        primary key (id_beneficio_empleado, fk_id_empleado, fk_id_beneficio)
+);
+
+alter table beneficio_empleado
+    owner to postgres;
+
+create table detalle_venta
+(
+    id_detalle_venta              serial
+        constraint id_detalle_venta
+            unique,
+    precio_unitario_detalle_venta numeric(10, 2) not null
+        constraint check_precio_unitario_detalle_venta
+            check (precio_unitario_detalle_venta > (0)::numeric),
+    cant_prod_total_detalle_venta integer        not null
+        constraint check_cant_prod_total_detalle_venta
+            check (cant_prod_total_detalle_venta > 0),
+    fk_id_venta                   serial
+        constraint fk_id_venta
+            references venta,
+    fk_id_catalogo_inventario_ron serial
+        constraint fk_id_catalogo_inventario_ron
+            references catalogo_inventario_ron (id_catalogo_inventario_ron),
+    fk_id_detalle_compra          serial
+        constraint fk_id_detalle_compra
+            references detalle_compra (id_detalle_compra),
+    fk_id_compra                  serial
+        constraint fk_id_compra
+            references compra,
+    fk_id_presentacion_ron        serial
+        constraint fk_id_presentcion_ron
+            references presentacion_ron (id_presentacion_ron),
+    fk_id_punto_de_venta          serial
+        constraint fk_id_punto_de_venta
+            references punto_de_venta,
+    fk_id_pago_entrada            serial
+        constraint fk_id_pago_entrada
+            references pago_entrada (id_pago_entrada),
+    fk_id_entrada                 serial
+        constraint fk_id_entrada
+            references entrada (id_entrada),
+    fk_id_evento                  serial
+        constraint fk_id_evento
+            references evento,
+    constraint pk_id_detalle_venta
+        primary key (id_detalle_venta, fk_id_venta, fk_id_catalogo_inventario_ron, fk_id_detalle_compra, fk_id_compra,
+                     fk_id_presentacion_ron, fk_id_punto_de_venta, fk_id_pago_entrada, fk_id_entrada, fk_id_evento)
+);
+
+alter table detalle_venta
+    owner to postgres;
+
+create table metodo_pago_efectivo
+(
+    id_metodo_pago_efectivo serial
+        constraint pk_id_metodo_pago_efectivo
+            primary key
+        constraint id_metodo_pago_efectivo
+            unique,
+    denominacion_efectivo   numeric(10, 2) not null
+        constraint check_denominacion_efectivo
+            check (denominacion_efectivo > (0)::numeric),
+    fk_id_usuario           serial
+        constraint fk_id_usuario
+            references usuario,
+    fk_id_tasa_de_cambio    serial
+        constraint fk_id_tasa_de_cambio
+            references tasa_de_cambio
+);
+
+alter table metodo_pago_efectivo
+    owner to postgres;
+
+create table metodo_pago_tarjeta_debito
+(
+    id_metodo_pago_tarjeta_debito   serial
+        constraint pk_id_metodo_pago_tarjeta_debito
+            primary key
+        constraint id_metodo_pago_tarjeta_debito
+            unique,
+    numero_tarjeta_debito           varchar(20) not null
+        constraint check_numero_tarjeta_debito
+            check ((numero_tarjeta_debito)::text ~
+                   '^(?:4[0-9]{ 12}(?:[0-9] {3})?|5[1-5 ][0-9]{14}| 6(?:011|5[0 -9]{2})[0-9 ]{12}|3[47] [0-9]{13}|( ?:2131|180 0|35\d{3})\ d{11})$'::text),
+    fecha_vence_tarjeta_debito      date        not null
+        constraint check_fecha_vence_tarjeta_debito
+            check (fecha_vence_tarjeta_debito > CURRENT_DATE),
+    codigo_seguridad_tarjeta_debito varchar(10) not null
+        constraint check_codigo_seguridad_tarjeta_debito
+            check ((codigo_seguridad_tarjeta_debito)::text ~ '^[0-9]{3,4} $'::text),
+    nombre_banco_tarjeta_debito     varchar(50) not null,
+    fk_id_usuario                   serial
+        constraint fk_id_usuario
+            references usuario,
+    fk_id_tasa_de_cambio            serial
+        constraint fk_id_tasa_de_cambio
+            references tasa_de_cambio
+);
+
+alter table metodo_pago_tarjeta_debito
+    owner to postgres;
+
+create table metodo_pago_punto_afiliado
+(
+    id_metodo_pago_punto_afiliado serial
+        constraint pk_id_metodo_pago_punto_afiliado
+            primary key
+        constraint id_metodo_pago_punto_afiliado
+            unique,
+    fk_id_usuario                 serial
+        constraint fk_id_usuario
+            references usuario,
+    fk_id_tasa_de_cambio          serial
+        constraint fk_id_tasa_de_cambio
+            references tasa_de_cambio
+);
+
+alter table metodo_pago_punto_afiliado
+    owner to postgres;
+
+create table metodo_pago_cheque
+(
+    id_metodo_pago_cheque serial
+        constraint pk_id_metodo_pago_cheque
+            primary key
+        constraint id_metodo_pago_cheque
+            unique,
+    numero_cheque         varchar(50) not null
+        constraint check_numero_cheque
+            check ((numero_cheque)::text ~ '^[0-9]+$'::text),
+    banco_cheque          varchar(50) not null,
+    fecha_pago_cheque     timestamp   not null,
+    autoriza_cheque       varchar(10) not null
+        constraint check_autoriza_cheque
+            check ((autoriza_cheque)::text = ANY ((ARRAY ['Si'::character varying, 'No'::character varying])::text[])),
+    fk_id_usuario         serial
+        constraint fk_id_usuario
+            references usuario,
+    fk_id_tasa_de_cambio  serial
+        constraint fk_id_tasa_de_cambio
+            references tasa_de_cambio
+);
+
+alter table metodo_pago_cheque
+    owner to postgres;
+
+create table metodo_pago_tarjeta_credito
+(
+    id_metodo_pago_tarjeta_credito   serial
+        constraint pk_id_metodo_pago_tarjeta_credito
+            primary key
+        constraint id_metodo_pago_tarjeta_credito
+            unique,
+    numero_tarjeta_credito           varchar(50) not null
+        constraint check_numero_tarjeta_credito
+            check ((numero_tarjeta_credito)::text ~
+                   '^(?:4[0-9]{ 12}(?:[0-9] {3})?|5[1-5 ][0-9]{14}| 6(?:011|5[0 -9]{2})[0-9 ]{12}|3[47] [0-9]{13})$'::text),
+    fecha_vence_tarjeta_credito      date        not null
+        constraint check_fecha_vence_tarjeta_credito
+            check (fecha_vence_tarjeta_credito > CURRENT_DATE),
+    codigo_seguridad_tarjeta_credito varchar(10) not null
+        constraint check_codigo_seguridad_tarjeta_credito
+            check ((codigo_seguridad_tarjeta_credito)::text ~ '^[0-9]{3,4} $'::text),
+    tipo_tarjeta_credito             varchar(20) not null
+        constraint check_tipo_tarjeta_credito
+            check ((tipo_tarjeta_credito)::text = ANY
+                   ((ARRAY ['Visa'::character varying, 'Mastercard'::character varying])::text[])),
+    fk_id_usuario                    serial
+        constraint fk_id_usuario
+            references usuario,
+    fk_id_tasa_de_cambio             serial
+        constraint fk_id_tasa_de_cambio
+            references tasa_de_cambio
+);
+
+alter table metodo_pago_tarjeta_credito
+    owner to postgres;
+
+create table metodo_pago_venta
+(
+    id_metodo_pago_venta              serial
+        constraint id_metodo_pago_venta
+            unique,
+    monto_venta                       numeric(10, 2) not null
+        constraint check_monto_venta
+            check (monto_venta > (0)::numeric),
+    fk_id_venta                       serial
+        constraint fk_id_venta
+            references venta,
+    fk_id_metodo_pago_efectivo        integer default nextval('metodo_pago_venta_fk_id_metodo_pago_efectivo_seq'::regclass)
+        constraint fk_id_metodo_pago_efectivo
+            references metodo_pago_efectivo,
+    fk_id_metodo_pago_tarjeta_debito  integer default nextval('metodo_pago_venta_fk_id_metodo_pago_tarjeta_debito_seq'::regclass)
+        constraint fk_id_metodo_pago_tarjeta_debito
+            references metodo_pago_tarjeta_debito,
+    fk_id_metodo_pago_punto_afiliado  integer default nextval('metodo_pago_venta_fk_id_metodo_pago_punto_afiliado_seq'::regclass)
+        constraint fk_id_metodo_pago_punto_afiliado
+            references metodo_pago_punto_afiliado,
+    fk_id_metodo_pago_cheque          integer default nextval('metodo_pago_venta_fk_id_metodo_pago_cheque_seq'::regclass)
+        constraint fk_id_metodo_pago_cheque
+            references metodo_pago_cheque,
+    fk_id_metodo_pago_tarjeta_credito integer default nextval('metodo_pago_venta_fk_id_metodo_pago_tarjeta_credito_seq'::regclass)
+        constraint fk_id_metodo_pago_tarjeta_credito
+            references metodo_pago_tarjeta_credito,
+    constraint pk_id_metodo_pago_venta
+        primary key (id_metodo_pago_venta, fk_id_venta)
+);
+
+alter table metodo_pago_venta
+    owner to postgres;
+
