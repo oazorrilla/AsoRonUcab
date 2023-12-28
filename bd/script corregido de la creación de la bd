@@ -1,230 +1,148 @@
-create table accion_permiso
-(
+create table accion_permiso(
     id_accion     serial
-        constraint pk_id_accion
-            primary key
-        constraint id_accion
-            unique,
+  				constraint pk_id_accion primary key
+        		constraint id_accion unique,
     nombre_accion varchar(50) not null
 );
 
-alter table accion_permiso
-    owner to postgres;
-
-create table departamento
-(
-    id_departamento          serial
-        constraint pk_id_departamento
-            primary key
-        constraint id_departamento
-            unique,
-    numero_departamento      integer     not null
-        constraint check_numero_departamento
-            check (numero_departamento > 0),
-    nombre_departamento      varchar(50) not null,
-    descripcion_departamento char(100)   not null
+create table departamento(
+    id_departamento   serial
+        constraint pk_id_departamento primary key
+        constraint id_departamento UNIQUE,
+    numero_departamento      INTEGER     not null
+        constraint check_numero_departamento check (numero_departamento > 0),
+    nombre_departamento      VARCHAR(50) not null,
+    descripcion_departamento VARCHAR(100)   not null
 );
 
-alter table departamento
-    owner to postgres;
-
-create table beneficio
-(
+create table beneficio(
     id_beneficio           serial
-        constraint pk_id_beneficio
-            primary key
-        constraint id_beneficio
-            unique,
+        constraint pk_id_beneficio primary key
+        constraint id_beneficio unique,
     nombre_beneficio       varchar(50)  not null,
     descripcion_beneficio  varchar(100) not null,
-    fecha_inicio_beneficio timestamp    not null,
-    fecha_fin_beneficio    time         not null
+    fecha_inicio_beneficio TIMESTAMP    not null,
+    fecha_fin_beneficio    TIMESTAMP         not null
 );
 
-alter table beneficio
-    owner to postgres;
 
-create table estado
-(
+
+create table estado(
     id_estado          serial
-        constraint pk_id_estado
-            primary key
-        constraint id_estado
-            unique,
+        constraint pk_id_estado primary key
+        constraint id_estado   unique,
     nombre_estado      varchar(50)  not null,
     descripcion_estado varchar(100) not null
 );
 
-alter table estado
-    owner to postgres;
 
-create table lugar
-(
+create table lugar(
     id_lugar     serial
-        constraint pk_id_lugar
-            primary key
-        constraint id_lugar
-            unique,
+        constraint pk_id_lugar  primary key
+        constraint id_lugar  unique,
     tipo_lugar   varchar(20) not null
-        constraint check_tipo_lugar
-            check ((tipo_lugar)::text = ANY
-                   ((ARRAY ['Ciudad'::character varying, 'Estado'::character varying, 'Pais'::character varying])::text[])),
+        CONSTRAINT check_tipo_lugar check ((tipo_lugar)::text = ANY ((ARRAY 			['Ciudad'::character varying, 'Estado'::character varying, 			'Pais'::character varying])::text[])),
     nombre_lugar varchar(50) not null,
-    fk_id_lugar  integer default nextval('lugar_fk_id_lugar_seq'::regclass)
-        constraint fk_id_lugar
-            references lugar
+    fk_id_lugar  integer
+        constraint fk_id_lugar references lugar(id_lugar)
 );
 
-alter table lugar
-    owner to postgres;
 
-create table oferta
-(
+create table oferta(
     id_oferta           serial
-        constraint pk_id_oferta
-            primary key
-        constraint id_oferta
-            unique,
-    nombre_oferta       varchar        not null,
-    descripcion_oferta  varchar        not null,
-    valor_oferta        numeric(10, 2) not null
-        constraint check_valor_oferta
-            check (valor_oferta > (0)::numeric),
+        constraint pk_id_oferta  primary key
+        constraint id_oferta  unique,
+    nombre_oferta       varchar(50)        not null,
+    descripcion_oferta  varchar(100)       not null,
+    valor_oferta        numeric(10, 2)     not null
+        constraint check_valor_oferta check (valor_oferta > (0)::numeric),
     fecha_inicio_oferta timestamp      not null,
     fecha_fin_oferta    timestamp      not null
 );
 
-alter table oferta
-    owner to postgres;
 
-create table ingrediente
-(
+create table ingrediente(
     id_ingrediente     serial
-        constraint pk_id_ingrediente
-            primary key
-        constraint id_ingrediente
-            unique,
+        constraint pk_id_ingrediente  primary key
+        constraint id_ingrediente     unique,
     nombre_ingrediente varchar(50) not null
 );
 
-alter table ingrediente
-    owner to postgres;
 
-create table metodo
-(
+create table metodo(
     id_metodo          serial
-        constraint pk_id_metodo
-            primary key
-        constraint id_metodo
-            unique,
+        constraint pk_id_metodo  primary key
+        constraint id_metodo    unique,
     nombre_metodo      varchar(50)  not null,
     descripcion_metodo varchar(100) not null
 );
 
-alter table metodo
-    owner to postgres;
 
-create table destilacion
-(
+create table destilacion(
     id_destilacion     serial
-        constraint pk_id_destilacion
-            primary key
-        constraint id_destilacion
-            unique,
+        constraint pk_id_destilacion     primary key
+        constraint id_destilacion    unique,
     nombre_destilacion varchar(50) not null,
     numero_destilacion integer     not null
-        constraint check_numero_destilacion
-            check (numero_destilacion > 0),
+        constraint check_numero_destilacion   check (numero_destilacion > 0),
     fk_id_metodo       serial
-        constraint fk_id_metodo
-            references metodo
+        constraint fk_id_metodo references metodo(id_metodo)
 );
 
-alter table destilacion
-    owner to postgres;
 
-create table categoria
-(
+create table categoria(
     id_categoria                 serial
-        constraint pk_id_categoria
-            primary key
-        constraint id_categoria
-            unique,
+        constraint pk_id_categoria     primary key
+        constraint id_categoria     unique,
     nombre_categoria             varchar       not null
-        constraint check_nombre_categoria
-            check ((nombre_categoria)::text = ANY
-                   ((ARRAY ['Estandar'::character varying, 'Premium'::character varying, 'Super Permium'::character varying, 'Ultra Premium'::character varying, 'Prestige'::character varying])::text[])),
+        constraint check_nombre_categoria check ((nombre_categoria)::text = ANY
+                   ((ARRAY ['Estandar'::character varying, 'Premium'::character 							varying, 'Super Permium'::character varying, 'Ultra 							Premium'::character varying, 'Prestige'::character 							varying])::text[])),
     porcentaje_alcohol_categoria numeric(4, 2) not null
-        constraint check_porcentaje_alcohol_categoria
-            check (porcentaje_alcohol_categoria > (0)::numeric),
-    grado_alcohol_categoria      integer       not null
-        constraint check_grado_alcohol_categoria
-            check (grado_alcohol_categoria > 0),
+        constraint check_porcentaje_alcohol_categoria check 			(porcentaje_alcohol_categoria > (0)::numeric),
+    		grado_alcohol_categoria      integer       not null
+        constraint check_grado_alcohol_categoria check (grado_alcohol_categoria > 			0),
     fk_id_destilacion            serial
-        constraint fk_id_destilacion
-            references destilacion
+        constraint fk_id_destilacion    references destilacion(id_destilacion)
 );
 
-alter table categoria
-    owner to postgres;
 
-create table anejamiento
-(
+create table anejamiento(
     id_anejamiento           serial
-        constraint pk_id_anejamiento
-            primary key
-        constraint id_anejamiento
-            unique,
+        constraint pk_id_anejamiento   primary key
+        constraint id_anejamiento   unique,
     nombre_anejamiento       varchar(50)  not null,
     descripcion_anejamiento  varchar(100) not null,
     fecha_inicio_anejamiento timestamp    not null,
     fecha_fin_anejamiento    timestamp    not null
 );
 
-alter table anejamiento
-    owner to postgres;
 
-create table tipo_ron
-(
+
+create table tipo_ron(
     id_tipo_ron       serial
-        constraint pk_id_tipo_ron
-            primary key
-        constraint id_tipo_ron
-            unique,
+        constraint pk_id_tipo_ron   primary key
+        constraint id_tipo_ron  unique,
     nombre_tipo_ron   varchar(20) not null
-        constraint check_nombre_tipo_ron
-            check ((nombre_tipo_ron)::text = ANY
-                   ((ARRAY ['Agricola'::character varying, 'Industrial'::character varying])::text[])),
-    fk_id_lugar       serial
-        constraint fk_id_lugar
-            references lugar,
+        constraint check_nombre_tipo_ron check ((nombre_tipo_ron)::text = ANY
+        ((ARRAY ['Agricola'::VARCHAR, 'Industrial'::VARCHAR])::text[])),
+    fk_id_lugar       serial constraint fk_id_lugar references lugar(id_lugar),
     fk_id_anejamiento serial
-        constraint fk_id_anejamiento
-            references anejamiento
+        constraint fk_id_anejamiento references anejamiento(id_anejamiento)
 );
 
-alter table tipo_ron
-    owner to postgres;
 
-create table variedad_ron
-(
+create table variedad_ron(
     id_variedad_ron                    serial
-        constraint pk_id_variedad_ron
-            primary key
-        constraint id_variedad_ron
-            unique,
+        constraint pk_id_variedad_ron  primary key
+        constraint id_variedad_ron   unique,
     nombre_variedad_ron                varchar(50)   not null,
     descripcion_variedad_ron           varchar(100)  not null,
     porcentaje_produccion_variedad_ron numeric(4, 2) not null
-        constraint check_porcentaje_produccion_variedad_ron
-            check (porcentaje_produccion_variedad_ron > (0)::numeric),
+        constraint check_porcentaje_produccion_variedad_ron check (porcentaje_produccion_variedad_ron > (0)::numeric),
     fk_id_tipo_ron                     serial
-        constraint fk_id_tipo_ron
-            references tipo_ron
+        constraint fk_id_tipo_ron     references tipo_ron(id_tipo_ron)
 );
 
-alter table variedad_ron
-    owner to postgres;
 
 create table barril
 (
@@ -243,8 +161,7 @@ create table barril
             references anejamiento
 );
 
-alter table barril
-    owner to postgres;
+
 
 create table tasa_de_cambio
 (
@@ -260,8 +177,7 @@ create table tasa_de_cambio
     fecha_fin_tasa    timestamp      not null
 );
 
-alter table tasa_de_cambio
-    owner to postgres;
+
 
 create table permiso_rol
 (
@@ -275,8 +191,7 @@ create table permiso_rol
         primary key (id_permiso_rol, fk_id_accion)
 );
 
-alter table permiso_rol
-    owner to postgres;
+
 
 create table categoria_ingrediente
 (
@@ -293,8 +208,7 @@ create table categoria_ingrediente
         primary key (id_categoria_ingrediente, fk_id_categoria, fk_id_ingrediente)
 );
 
-alter table categoria_ingrediente
-    owner to postgres;
+
 
 create table punto_de_venta
 (
@@ -311,8 +225,7 @@ create table punto_de_venta
     fecha_origenpunto_de_venta date         not null
 );
 
-alter table punto_de_venta
-    owner to postgres;
+
 
 create table evento
 (
@@ -340,8 +253,7 @@ create table evento
             references lugar
 );
 
-alter table evento
-    owner to postgres;
+
 
 create table entrada
 (
@@ -361,8 +273,7 @@ create table entrada
         primary key (id_entrada, fk_id_evento)
 );
 
-alter table entrada
-    owner to postgres;
+
 
 create table pago_entrada
 (
@@ -386,12 +297,11 @@ create table pago_entrada
         primary key (id_pago_entrada, fk_id_entrada, fk_id_evento)
 );
 
-alter table pago_entrada
-    owner to postgres;
+
 
 create table punto_de_venta_tienda_fisica
 (
-    id_punto_de_venta_tienda_fisica           integer default nextval('punto_de_venta_tienda_fisica_id_punto_de_venta_tienda_fisic_seq'::regclass) not null
+    id_punto_de_venta_tienda_fisica           integer not null
         constraint pk_id_punto_de_venta_tienda_fisica
             primary key
         constraint id_punto_de_venta_tienda_fisica
@@ -413,8 +323,7 @@ create table punto_de_venta_tienda_fisica
             references lugar
 );
 
-alter table punto_de_venta_tienda_fisica
-    owner to postgres;
+
 
 create table punto
 (
@@ -428,13 +337,12 @@ create table punto
             check (precio_punto > (0)::numeric),
     fecha_inicio_tasa_punto            timestamp      not null,
     fecha_fin_tasa_punto               timestamp      not null,
-    fk_id_punto_de_venta_tienda_fisica integer default nextval('punto_fk_id_punto_de_venta_tienda_fisica_seq'::regclass)
+    fk_id_punto_de_venta_tienda_fisica integer 
         constraint fk_id_punto_de_venta_tienda_fisica
             references punto_de_venta_tienda_fisica
 );
 
-alter table punto
-    owner to postgres;
+
 
 create table punto_de_venta_online
 (
@@ -454,8 +362,6 @@ create table punto_de_venta_online
             check ((url_tienda_online)::text ~ '^(https?|ft p)://[^\s/$. ?#].[^\s]*$'::text)
 );
 
-alter table punto_de_venta_online
-    owner to postgres;
 
 create table pedido
 (
@@ -474,8 +380,6 @@ create table pedido
             references punto_de_venta_online
 );
 
-alter table pedido
-    owner to postgres;
 
 create table estado_pedido
 (
@@ -494,8 +398,6 @@ create table estado_pedido
         primary key (id_estado_pedido, fk_id_pedido, fk_id_estado)
 );
 
-alter table estado_pedido
-    owner to postgres;
 
 create table persona_juridica
 (
@@ -525,8 +427,6 @@ create table persona_juridica
             references lugar
 );
 
-alter table persona_juridica
-    owner to postgres;
 
 create table proveedor
 (
@@ -543,8 +443,6 @@ create table proveedor
             references persona_juridica
 );
 
-alter table proveedor
-    owner to postgres;
 
 create table compra
 (
@@ -568,8 +466,6 @@ create table compra
             references proveedor
 );
 
-alter table compra
-    owner to postgres;
 
 create table proveedor_participa_evento
 (
@@ -586,8 +482,6 @@ create table proveedor_participa_evento
         primary key (id_proveedor_participa_evento, fk_id_evento, fk_id_proveedor)
 );
 
-alter table proveedor_participa_evento
-    owner to postgres;
 
 create table ron
 (
@@ -605,8 +499,7 @@ create table ron
         primary key (id_ron, fk_id_proveedor)
 );
 
-alter table ron
-    owner to postgres;
+
 
 create table sabor
 (
@@ -624,8 +517,7 @@ create table sabor
             references proveedor
 );
 
-alter table sabor
-    owner to postgres;
+
 
 create table color
 (
@@ -644,8 +536,6 @@ create table color
             references proveedor
 );
 
-alter table color
-    owner to postgres;
 
 create table nota_cata
 (
@@ -666,8 +556,7 @@ create table nota_cata
         primary key (id_nota_cata, fk_id_evento, fk_id_proveedor, fk_id_ron)
 );
 
-alter table nota_cata
-    owner to postgres;
+
 
 create table presentacion_ron
 (
@@ -707,8 +596,7 @@ create table presentacion_ron
                      fk_id_punto_de_venta)
 );
 
-alter table presentacion_ron
-    owner to postgres;
+
 
 create table catalogo_inventario_ron
 (
@@ -726,8 +614,7 @@ create table catalogo_inventario_ron
         primary key (id_catalogo_inventario_ron, fk_id_punto_de_venta, fk_id_detalle_compra, fk_id_compra)
 );
 
-alter table catalogo_inventario_ron
-    owner to postgres;
+
 
 alter table presentacion_ron
     add constraint fk_id_catalogo_inventario_ron
@@ -761,8 +648,6 @@ create table detalle_compra
                      fk_id_punto_de_venta)
 );
 
-alter table detalle_compra
-    owner to postgres;
 
 create table detalle_pedido
 (
@@ -797,8 +682,6 @@ create table detalle_pedido
             references compra
 );
 
-alter table detalle_pedido
-    owner to postgres;
 
 create table imagen_presentacion_ron
 (
@@ -826,8 +709,7 @@ create table imagen_presentacion_ron
             references compra
 );
 
-alter table imagen_presentacion_ron
-    owner to postgres;
+
 
 create table premio
 (
@@ -860,8 +742,6 @@ create table premio
                      fk_id_punto_de_venta, fk_id_detalle_compra, fk_id_compra)
 );
 
-alter table premio
-    owner to postgres;
 
 create table presentacion_ron_oferta
 (
@@ -891,8 +771,7 @@ create table presentacion_ron_oferta
                      fk_id_punto_de_venta, fk_id_detalle_compra, fk_id_compra)
 );
 
-alter table presentacion_ron_oferta
-    owner to postgres;
+
 
 alter table catalogo_inventario_ron
     add constraint fk_id_detalle_compra
@@ -926,8 +805,7 @@ create table presentacion_ron_evento
                      fk_id_detalle_compra, fk_id_compra, fk_id_punto_de_venta)
 );
 
-alter table presentacion_ron_evento
-    owner to postgres;
+
 
 create table sabor_ingrediente
 (
@@ -944,8 +822,7 @@ create table sabor_ingrediente
         primary key (id_sabor_ingrediente, fk_id_sabor, fk_id_ingrediente)
 );
 
-alter table sabor_ingrediente
-    owner to postgres;
+
 
 create table persona_natural
 (
@@ -989,13 +866,12 @@ create table persona_natural
     fk_id_lugar              serial
         constraint fk_id_lugar
             references lugar,
-    fk_id_lugar_2            integer default nextval('persona_natural_fk_id_lugar_2_seq'::regclass)
+    fk_id_lugar_2            integer 
         constraint fk_id_lugar_2
             references lugar
 );
 
-alter table persona_natural
-    owner to postgres;
+
 
 create table empleado
 (
@@ -1008,7 +884,7 @@ create table empleado
     titulo_puesto_empleado  varchar(50) not null,
     fecha_hora_inicio_turno timestamp   not null,
     fecha_hora_fin_turno    timestamp   not null,
-    fk_id_empleado          integer default nextval('empleado_fk_id_empleado_seq'::regclass)
+    fk_id_empleado          integer 
         constraint fk_id_empleado
             references empleado,
     fk_id_persona_natural   serial
@@ -1019,8 +895,6 @@ create table empleado
             references punto_de_venta
 );
 
-alter table empleado
-    owner to postgres;
 
 create table usuario
 (
@@ -1046,16 +920,15 @@ create table usuario
     fk_id_pedido          serial
         constraint fk_id_pedido
             references pedido,
-    fk_id_persona_natural integer default nextval('usuario_fk_id_persona_natural_seq'::regclass)
+    fk_id_persona_natural integer 
         constraint fk_id_persona_natural
             references persona_natural,
-    fk_id_empleado        integer default nextval('usuario_fk_id_empleado_seq'::regclass)
+    fk_id_empleado        integer 
         constraint fk_id_empleado
             references empleado
 );
 
-alter table usuario
-    owner to postgres;
+
 
 create index fki_fk_id_persona_natural
     on usuario (fk_id_pedido);
@@ -1084,8 +957,6 @@ create table cuota_afiliacion
             references persona_natural
 );
 
-alter table cuota_afiliacion
-    owner to postgres;
 
 create table correo_electronico
 (
@@ -1099,19 +970,17 @@ create table correo_electronico
             unique
         constraint check_direccion_correo_electronico
             check ((direccion_correo_electronico)::text ~ '^[^@]+@[^@]+\.[a-zA-Z]{2,}$'::text),
-    fk_id_punto_de_venta_tienda_fisica integer default nextval('correo_electronico_fk_id_punto_de_venta_tienda_fisica_seq'::regclass)
+    fk_id_punto_de_venta_tienda_fisica integer 
         constraint fk_id_punto_de_venta_tienda_fisica
             references punto_de_venta_tienda_fisica,
-    fk_id_persona_natural              integer default nextval('correo_electronico_fk_id_persona_natural_seq'::regclass)
+    fk_id_persona_natural              integer 
         constraint fk_id_persona_natural
             references persona_natural,
-    fk_id_persona_juridica             integer default nextval('correo_electronico_fk_id_persona_juridica_seq'::regclass)
+    fk_id_persona_juridica             integer
         constraint fk_id_persona_juridica
             references persona_juridica
 );
 
-alter table correo_electronico
-    owner to postgres;
 
 create table telefono
 (
@@ -1127,25 +996,24 @@ create table telefono
     numero_telefono        varchar(20) not null
         constraint check_numero_telefono
             check ((numero_telefono)::text ~ '/^(?:\+58)?(?:4[ 126]|2[1246]|8[1 24])?\d{8}$/;'::text),
-    fk_id_proveedor        integer default nextval('telefono_fk_id_proveedor_seq'::regclass)
+    fk_id_proveedor        integer 
         constraint fk_id_proveedor
             references proveedor,
-    fk_id_proveedor_2      integer default nextval('telefono_fk_id_proveedor_2_seq'::regclass)
+    fk_id_proveedor_2      integer 
         constraint fk_id_proveedor_2
             references proveedor,
-    fk_id_punto_de_venta   integer default nextval('telefono_fk_id_punto_de_venta_seq'::regclass)
+    fk_id_punto_de_venta   integer 
         constraint fk_id_punto_de_venta
             references punto_de_venta,
-    fk_id_persona_natural  integer default nextval('telefono_fk_id_persona_natural_seq'::regclass)
+    fk_id_persona_natural  integer 
         constraint fk_id_persona_natural
             references persona_natural,
-    fk_id_persona_juridica integer default nextval('telefono_fk_id_persona_juridica_seq'::regclass)
+    fk_id_persona_juridica integer 
         constraint fk_id_persona_juridica
             references persona_juridica
 );
 
-alter table telefono
-    owner to postgres;
+
 
 create table venta
 (
@@ -1172,8 +1040,7 @@ create table venta
             references punto_de_venta_tienda_fisica
 );
 
-alter table venta
-    owner to postgres;
+
 
 create table usuario_rol
 (
@@ -1193,8 +1060,7 @@ create table usuario_rol
         primary key (id_usuario_rol, fk_id_permiso_rol, fk_id_accion_permiso, fk_id_usuario)
 );
 
-alter table usuario_rol
-    owner to postgres;
+
 
 create table empleado_departamento
 (
@@ -1211,8 +1077,7 @@ create table empleado_departamento
         primary key (id_empleado_departamento, fk_id_empleado, fk_id_departamento)
 );
 
-alter table empleado_departamento
-    owner to postgres;
+
 
 create table beneficio_empleado
 (
@@ -1229,8 +1094,7 @@ create table beneficio_empleado
         primary key (id_beneficio_empleado, fk_id_empleado, fk_id_beneficio)
 );
 
-alter table beneficio_empleado
-    owner to postgres;
+
 
 create table detalle_venta
 (
@@ -1275,8 +1139,7 @@ create table detalle_venta
                      fk_id_presentacion_ron, fk_id_punto_de_venta, fk_id_pago_entrada, fk_id_entrada, fk_id_evento)
 );
 
-alter table detalle_venta
-    owner to postgres;
+
 
 create table metodo_pago_efectivo
 (
@@ -1296,8 +1159,7 @@ create table metodo_pago_efectivo
             references tasa_de_cambio
 );
 
-alter table metodo_pago_efectivo
-    owner to postgres;
+
 
 create table metodo_pago_tarjeta_debito
 (
@@ -1325,8 +1187,7 @@ create table metodo_pago_tarjeta_debito
             references tasa_de_cambio
 );
 
-alter table metodo_pago_tarjeta_debito
-    owner to postgres;
+
 
 create table metodo_pago_punto_afiliado
 (
@@ -1343,8 +1204,7 @@ create table metodo_pago_punto_afiliado
             references tasa_de_cambio
 );
 
-alter table metodo_pago_punto_afiliado
-    owner to postgres;
+
 
 create table metodo_pago_cheque
 (
@@ -1369,8 +1229,7 @@ create table metodo_pago_cheque
             references tasa_de_cambio
 );
 
-alter table metodo_pago_cheque
-    owner to postgres;
+
 
 create table metodo_pago_tarjeta_credito
 (
@@ -1401,8 +1260,7 @@ create table metodo_pago_tarjeta_credito
             references tasa_de_cambio
 );
 
-alter table metodo_pago_tarjeta_credito
-    owner to postgres;
+
 
 create table metodo_pago_venta
 (
@@ -1415,25 +1273,21 @@ create table metodo_pago_venta
     fk_id_venta                       serial
         constraint fk_id_venta
             references venta,
-    fk_id_metodo_pago_efectivo        integer default nextval('metodo_pago_venta_fk_id_metodo_pago_efectivo_seq'::regclass)
+    fk_id_metodo_pago_efectivo        integer 
         constraint fk_id_metodo_pago_efectivo
             references metodo_pago_efectivo,
-    fk_id_metodo_pago_tarjeta_debito  integer default nextval('metodo_pago_venta_fk_id_metodo_pago_tarjeta_debito_seq'::regclass)
+    fk_id_metodo_pago_tarjeta_debito  integer 
         constraint fk_id_metodo_pago_tarjeta_debito
             references metodo_pago_tarjeta_debito,
-    fk_id_metodo_pago_punto_afiliado  integer default nextval('metodo_pago_venta_fk_id_metodo_pago_punto_afiliado_seq'::regclass)
+    fk_id_metodo_pago_punto_afiliado  integer 
         constraint fk_id_metodo_pago_punto_afiliado
             references metodo_pago_punto_afiliado,
-    fk_id_metodo_pago_cheque          integer default nextval('metodo_pago_venta_fk_id_metodo_pago_cheque_seq'::regclass)
+    fk_id_metodo_pago_cheque          integer 
         constraint fk_id_metodo_pago_cheque
             references metodo_pago_cheque,
-    fk_id_metodo_pago_tarjeta_credito integer default nextval('metodo_pago_venta_fk_id_metodo_pago_tarjeta_credito_seq'::regclass)
+    fk_id_metodo_pago_tarjeta_credito integer 
         constraint fk_id_metodo_pago_tarjeta_credito
             references metodo_pago_tarjeta_credito,
     constraint pk_id_metodo_pago_venta
         primary key (id_metodo_pago_venta, fk_id_venta)
 );
-
-alter table metodo_pago_venta
-    owner to postgres;
-
