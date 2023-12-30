@@ -1,0 +1,920 @@
+--BD ASORONUCAB
+
+
+--Crear tabla usuario
+create table usuario(
+    id_usuario            serial      not null  UNIQUE,
+    nombre_usuario        varchar(20) not null	UNIQUE,
+        constraint check_nombre_usuario check ((nombre_usuario)::text ~ '[a-zA-Z0-9_-]{7,21}'::text),
+    contrasena_usuario    varchar(20) not null
+        constraint check_contrasena_usuario check ((contrasena_usuario)::text ~ '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]).{7,21}'::text),
+    fecha_usuario         date        not null,
+    imagen_usuario        bytea       not null,
+    numero_usuario        integer     not null
+        constraint check_numero_usuario check (numero_usuario > 0),
+    fk_id_pedido          serial	not null,
+    fk_id_persona_natural serial,
+    fk_id_empleado        serial,
+    CONSTRAINT pk_id_usuario PRIMARY KEY (id_usuario),
+    CONSTRAINT fk_id_pedido FOREIGN KEY (fk_id_pedido) REFERENCES pedido(id_pedido),
+    CONSTRAINT fk_id_persona_natural FOREIGN KEY (fk_id_persona_natural) REFERENCES persona_natural(id_persona_natural),
+    CONSTRAINT fk_id_empleado FOREIGN KEY (fk_id_empleado) REFERENCES empleado(id_empleado)
+);
+
+
+--Crear tabla accion_permiso
+create table accion_permiso(
+    id_accion     serial	not null    UNIQUE,
+    nombre_accion varchar(50)	NOT NULL,
+    CONSTRAINT pk_id_accion PRIMARY KEY (id_accion)
+);
+
+
+--Crear tabla empleado
+create table empleado(
+    id_empleado             serial	not null   UNIQUE,
+    profesion               varchar(50) not null,
+    titulo_puesto_empleado  varchar(50) not null,
+    fecha_hora_inicio_turno timestamp   not null,
+    fecha_hora_fin_turno    timestamp   not null,
+    fk_id_empleado          serial,
+    fk_id_persona_natural   serial 	not null,
+    fk_id_punto_de_venta    serial	not null,
+    CONSTRAINT pk_id_empleado PRIMARY KEY (id_empleado),
+    CONSTRAINT fk_id_empleado FOREIGN KEY (fk_id_empleado) REFERENCES empleado(id_empleado),
+    CONSTRAINT fk_id_persona_natural FOREIGN KEY (fk_id_persona_natural) REFERENCES persona_natural(id_persona_natural),
+    CONSTRAINT fk_id_punto_de_venta FOREIGN KEY (fk_id_punto_de_venta) REFERENCES punto_de_venta(id_punto_de_venta)
+);
+
+
+--Crear tabla departamento
+create table departamento(
+    id_departamento          serial	not nul   UNIQUE,
+    numero_departamento      integer    NOT NULL
+        constraint check_numero_departamentcheck (numero_departamento > 0),
+    nombre_departamento      varchar(50)  not null,
+    descripcion_departamento varchar(100) not null,
+    CONSTRAINT pk_id_departamento PRIMARY KEY (id_departamento)
+);
+
+
+--Crear tabla beneficio
+create table beneficio(
+    id_beneficio           serial	not null  UNIQUE,
+    nombre_beneficio       varchar(50)  not null,
+    descripcion_beneficio  varchar(100) not null,
+    fecha_inicio_beneficio timestamp    not null,
+    fecha_fin_beneficio    timestamp    not null,
+    CONSTRAINT pk_id_beneficio PRIMARY KEY (id_beneficio)
+);
+
+
+--Crear tabla proveedor
+create table proveedor(
+    id_proveedor              serial	  not null   UNIQUE,
+    nombre_proveedor          varchar(50) not null,
+    denom_comercial_proveedor varchar(50) not null,
+    afiliado_proveedor        boolean     not null,
+    fk_id_persona_juridica    serial	  not null,
+    CONSTRAINT pk_id_proveedor FOREIGN KEY (id_proveedor),
+    CONSTRAINT fk_id_persona_juridica FOREIGN KEY (fk_id_persona_juridica) REFERENCES persona_juridica(id_persona_juridica)
+);
+
+
+--Crear tabla cuota_afiliacion
+create table cuota_afiliacion(
+    id_cuota_afiliacion            serial	  not null  UNIQUE,
+    precio_cuota_afiliacion        numeric(10, 2) not null
+        constraint check_precio_cuota_afiliacion check (precio_cuota_afiliacion > (0)::numeric),
+    fecha_inicia__cuota_afiliacion timestamp      not null,
+    fecha_fin_cuota_afiliacion     timestamp      not null,
+    cuota_afiliacion_paga          boolean        not null,
+    fk_id_proveedor                serial	  not null,
+    fk_id_persona_natural          serial	  not null,
+    CONSTRAINT pk_id_cuota_afiliacion PRIMARY KEY (id_cuota_afiliacion),
+    CONSTRAINT fk_id_proveedor FOREIGN KEY (fk_id_proveedor) REFERENCES proveedor(id_proveedor),
+    CONSTRAINT fk_id_persona_natural FOREIGN KEY (fk_id_persona_natural) REFERENCES persona_natural(id_persona_natural)
+);
+
+
+--Crear tabla pedido
+create table pedido(
+    id_pedido                   serial	  not null  UNIQUE,
+    numero_pedido               integer   not null
+        constraint check_numero_pedido check (numero_pedido > 0),
+    fecha_realiza_pedido        timestamp not null,
+    fecha_entrega_pedido        timestamp not null,
+    fk_id_punto_de_venta_online serial    not null,
+    CONSTRAINT pk_id_pedido PRIMARY KEY (id_pedido),
+    CONSTRAINT fk_id_punto_de_venta_online FOREIGN KEY (fk_id_punto_de_venta_online) REFERENCES punto_de_venta_online(id_punto_de_venta_online)
+);
+
+
+--Crear tabla estado
+create table estado(
+    id_estado          serial	    not null    UNIQUE,
+    nombre_estado      varchar(50)  not null,
+    descripcion_estado varchar(100) not null,
+    CONSTRAINT pk_id_estado PRIMARY KEY (id_estado)
+);    
+
+
+--Crear tabla detalle_pedido
+create table detalle_pedido(
+    id_detalle_pedido              serial	  not null   UNIQUE,
+    precio_envio_detalle_pedido    numeric(10, 2) not null check (precio_envio_detalle_pedido > (0)::numeric),
+    cant_prod_total_detalle_pedido integer        not null
+        constraint check_cant_prod_total_detalle_pedido check (cant_prod_total_detalle_pedido > 0),
+    fk_id_pedido                   serial	  not null,
+    fk_id_presentacion_ron         serial	  not null,
+    fk_id_catalogo_inventario      serial	  not null,
+    fk_id_punto_de_venta           serial	  not null,
+    fk_id_detalle_compra           serial	  not null,
+    fk_id_compra                   serial	  not null,
+    CONSTRAINT pk_id_detalle_pedido PRIMARY KEY (id_detalle_pedido),
+    CONSTRAINT fk_id_pedido FOREIGN KEY (fk_id_pedido) REFERENCES pedido(id_pedido),
+    CONSTRAINT fk_id_presentacion_ron FOREIGN KEY (fk_id_presentacion_ron) REFERENCES presentacion_ron(pk_id_presentacion_ron),
+    CONSTRAINT fk_id_catalogo_inventario_ron FOREIGN KEY (fk_id_catalogo_inventario_ron) REFERENCES catalogo_inventario_ron(pk_id_catalogo_inventario_ron),
+    CONSTRAINT fk_id_punto_de_venta FOREIGN KEY (fk_id_punto_de_venta) REFERENCES punto_de_venta(id_punto_de_venta),
+    CONSTRAINT fk_id_detalle_compra FOREIGN KEY (fk_id_detalle_compra) REFERENCES detalle_compra(pk_id_detalle_compra),
+    CONSTRAINT fk_id_compra FOREIGN KEY (fk_id_compra) REFERENCES compra(id_compra)
+);
+
+
+--Crear tabla evento
+create table evento(
+    id_evento               serial	 not null   UNIQUE,
+    nombre_evento           varchar(50)  not null,
+    descripcion_evento      varchar(100) not null,
+    numero_edicion_evento   integer      not null
+        constraint check_numero_edicion_evento check (numero_edicion_evento > 0),
+    fecha_inicio_evento     timestamp    not null,
+    fecha_fin_evento        timestamp    not null,
+    locacion_evento         varchar(50)  not null,
+    limite_ocupacion_evento integer      not null
+        constraint check_limite_ocupacion_evento check (limite_ocupacion_evento > 0),
+    fk_id_punto_de_venta    serial	 not null,
+    fk_id_lugar             serial	 not null,
+    CONSTRAINT pk_id_evento PRIMARY KEY (id_evento),
+    CONSTRAINT fk_id_punto_de_venta FOREIGN KEY (fk_id_punto_de_venta) REFERENCES punto_de_venta(id_punto_de_venta),
+    CONSTRAINT fk_id_lugar FOREIGN KEY (fk_id_lugar) REFERENCES lugar(id_lugar)
+);
+
+
+--Crear tabla correo_electronico
+create table correo_electronico(
+    id_correo_electronico              serial	   not null     UNIQUE,
+    direccion_correo_electronico       varchar(50) not null	UNIQUE,
+        constraint check_direccion_correo_electronico check ((direccion_correo_electronico)::text ~ '^[^@]+@[^@]+\.[a-zA-Z]{2,}$'::text),
+    fk_id_punto_de_venta_tienda_fisica serial	   not null,
+    fk_id_persona_natural              serial	   not null,
+    fk_id_persona_juridica             serial	   not null,
+    CONSTRAINT pk_id_correo_electronico PRIMARY KEY (id_correo_electronico),
+    CONSTRAINT fk_id_punto_de_venta_tienda_fisica FOREIGN KEY (fk_id_punto_de_venta_tienda_fisica) REFERENCES punto_de_venta_tienda_fisica(id_punto_de_venta_tienda_fisica),
+    CONSTRAINT fk_id_persona_natural FOREIGN KEY (fk_id_persona_natural) REFERENCES persona_natural(id_persona_natural),
+    CONSTRAINT fk_id_persona_juridica FOREIGN KEY (fk_id_persona_juridica) REFERENCES persona_juridico(id_persona_juridico)
+);
+
+
+--Crear tabla telefono
+create table telefono(
+    id_telefono            serial      not null   UNIQUE,
+    categoria_telefono     varchar(20) not null
+        constraint check_categoria_telefono check ((categoria_telefono)::text = ANY ((ARRAY ['Movil'::character varying, 'Personal'::character varying, 'Oficina'::character varying, 'Casa'::character varying, 'Fijo'::character varying, 'Otro'::character varying, 'Principal'::character varying])::text[])),
+    numero_telefono        varchar(20) not null
+        constraint check_numero_telefono check ((numero_telefono)::text ~ '/^(?:\+58)?(?:4[ 126]|2[1246]|8[1 24])?\d{8}$/;'::text),
+    fk_id_proveedor        serial,
+    fk_id_proveedor_2      serial,
+    fk_id_punto_de_venta   serial,
+    fk_id_persona_natural  serial,
+    fk_id_persona_juridica serial,
+    CONSTRAINT pk_id_telefono PRIMARY KEY (id_telefono),
+    CONSTRAINT fk_id_proveedor FOREIGN KEY (fk_id_proveedor) REFERENCES proveedor(id_proveedor),
+    CONSTRAINT fk_id_proveedor_2 FOREIGN KEY (fk_id_proveedor_2) REFERENCES proveedor(id_proveedor),
+    CONSTRAINT fk_id_punto_de_venta FOREIGN KEY (fk_id_punto_de_venta) REFERENCES punto_de_venta(id_punto_de_venta),
+    CONSTRAINT fk_id_persona_natural FOREIGN KEY (fk_id_persona_natural) REFERENCES persona_natural(id_persona_natural),
+    CONSTRAINT fk_id_persona_juridica FOREIGN KEY (fk_id_persona_juridica) REFERENCES persona_juridico(id_persona_juridico)
+);
+
+
+
+--Crear tabla lugar
+create table lugar(
+    id_lugar     serial	     not null UNIQUE,	
+    tipo_lugar   varchar(20) not null
+        constraint check_tipo_lugar check ((tipo_lugar)::text = ANY((ARRAY ['Ciudad'::character varying, 'Estado'::character varying, 'Pais'::character varying])::text[])),
+    nombre_lugar varchar(50) not null,
+    fk_id_lugar  serial,
+    CONSTRAINT pk_id_lugar PRIMARY KEY (id_lugar),
+    CONSTRAINT fk_id_lugar FOREIGN KEY (fk_id_lugar) REFERENCES lugar(id_lugar)
+);
+
+
+--Crear tabla punto
+create table punto(
+    id_punto                           serial	      not null   UNIQUE,
+    precio_punto                       numeric(10, 2) not null
+        constraint check_precio_punto check (precio_punto > (0)::numeric),
+    fecha_inicio_tasa_punto            timestamp      not null,
+    fecha_fin_tasa_punto               timestamp      not null,
+    fk_id_punto_de_venta_tienda_fisica serial,
+    CONSTRAINT pk_id_punto PRIMARY KEY (id_punto),
+    CONSTRAINT fk_id_punto_de_venta_tienda_fisica FOREIGN KEY (fk_id_punto_de_venta_tienda_fisica) REFERENCES punto_de_venta_tienda_fisica(id_punto_de_venta_tienda_fisica)
+);
+
+
+--Crear tabla compra
+create table compra(
+    id_compra            serial		not null   UNIQUE,
+    numero_compra        integer        not null
+        constraint check_numero_compra check (numero_compra > 0),
+    fecha_compra         timestamp      not null,
+    total_compra         numeric(10, 2) not null
+        constraint check_total_compra check (total_compra > (0)::numeric),
+    fk_id_punto_de_venta serial		not null,
+    fk_id_proveedor      serial		not null,
+    CONSTRAINT pk_id_compra PRIMARY KEY (id_compra),
+    CONSTRAINT fk_id_punto_de_venta FOREIGN KEY (fk_id_punto_de_venta) REFERENCES punto_de_venta(id_punto_de_venta),
+    CONSTRAINT fk_id_proveedor FOREIGN KEY (fk_id_proveedor) REFERENCES proveedor(id_proveedor)
+);
+
+
+--Crear tabla venta
+create table venta(
+    id_venta                           serial	      not null   UNIQUE,	
+    numero_factura_venta               integer        not null
+        constraint check_numero_factura_venta check (numero_factura_venta > 0),
+    fecha_venta                        timestamp      not null,
+    total_venta                        numeric(10, 2) not null
+        constraint check_total_venta check (total_venta > (0)::numeric),
+    punto_ganado_venta                 integer        not null
+        constraint check_punto_ganado_venta check (punto_ganado_venta > 0),
+    fk_id_persona_natural              serial	not null,
+    fk_id_punto_de_venta_tienda_fisica serial	not null,
+    CONSTRAINT pk_id_venta PRIMARY KEY (id_venta),
+    CONSTRAINT fk_id_persona_natural FOREIGN KEY (fk_id_persona_natural) REFERENCES persona_natural(id_persona_natural),
+    CONSTRAINT fk_id_punto_de_venta_tienda_fisica FOREIGN KEY (fk_id_punto_de_venta_tienda_fisica) REFERENCES punto_de_venta_tienda_fisica(id_punto_de_venta_tienda_fisica)
+);
+
+
+--Crear tabla oferta
+create table oferta(
+    id_oferta           serial	       not null   UNIQUE,
+    nombre_oferta       varchar        not null,
+    descripcion_oferta  varchar        not null,
+    valor_oferta        numeric(10, 2) not null
+	constraint check_valor_oferta check (valor_oferta > (0)::numeric),
+    fecha_inicio_oferta timestamp      not null,
+    fecha_fin_oferta    timestamp      not null,
+    CONSTRAINT pk_id_oferta PRIMARY KEY (id_oferta)
+);
+
+
+--Crear tabla imagen_presentacion_ron
+create table imagen_presentacion_ron(
+    id_imagen                     serial	not null   UNIQUE,
+    nombre_imagen                 varchar(50)  not null,
+    ruta_imagen                   varchar(255) not null,
+    fk_id_presentacion_ron        serial	not null,
+    fk_id_catalogo_inventario_ron serial	not null,
+    fk_id_punto_de_venta          serial	not null,
+    fk_id_detalle_compra          serial	not null,
+    fk_id_compra                  serial	not null,
+    CONSTRAINT pk_id_imagen PRIMARY KEY (id_imagen_presentacion_ron),
+    CONSTRAINT fk_id_presentacion_ron FOREIGN KEY (fk_id_presentacion_ron) REFERENCES presentacion_ron(pk_id_presentacion_ron),
+    CONSTRAINT fk_id_catalogo_inventario_ron FOREIGN KEY (fk_id_catalogo_inventario_ron) REFERENCES catalogo_inventario_ron(pk_id_catalogo_inventario_ron),
+    CONSTRAINT fk_id_punto_de_venta FOREIGN KEY (fk_id_punto_de_venta) REFERENCES punto_de_venta(id_punto_de_venta),
+    CONSTRAINT fk_id_detalle_compra FOREIGN KEY (fk_id_detalle_compra) REFERENCES detalle_compra(pk_id_detalle_compra),
+    CONSTRAINT fk_id_compra FOREIGN KEY (fk_id_compra) REFERENCES compra(id_compra)
+);
+
+
+--Crear tabla sabor
+create table sabor(
+    id_sabor        serial	not null   UNIQUE,
+    tipo_sabor      varchar(50) not null,
+    fk_id_ron       serial	not null,
+    fk_id_proveedor serial	not null,
+    CONSTRAINT pk_id_sabor PRIMARY KEY (id_sabor),
+    CONSTRAINT fk_id_ron FOREIGN KEY (fk_id_ron) REFERENCES ron(pk_id_ron),
+    CONSTRAINT fk_id_proveedor FOREIGN KEY (fk_id_proveedor) REFERENCES proveedor(id_proveedor)
+);
+
+
+--Crear tabla ingrediente
+create table ingrediente(
+    id_ingrediente     serial	   not null    UNIQUE,
+    nombre_ingrediente varchar(50) not null,
+    CONSTRAINT pk_id_ingrediente PRIMARY KEY (id_ingrediente)
+);
+
+
+--Crear tabla color
+create table color(
+    id_color          serial	   not null   UNIQUE,
+    nombre_color      varchar(50)  not null,
+    descripcion_color varchar(100) not null,
+    fk_id_ron         serial		not null,
+    fk_id_proveedor   serial		not null,
+    CONSTRAINT pk_id_color PRIMARY KEY (id_color),
+    CONSTRAINT fk_id_ron FOREIGN KEY (fk_id_ron) REFERENCES ron(pk_id_ron),
+    CONSTRAINT fk_id_proveedor FOREIGN KEY (fk_id_proveedor) REFERENCES proveedor(id_proveedor)
+);
+
+
+
+--Crear tabla categoria
+create table categoria(
+    id_categoria                 serial		not null   UNIQUE,
+    nombre_categoria             varchar       not null
+        constraint check_nombre_categoria check ((nombre_categoria)::text = ANY ((ARRAY ['Estandar'::character varying, 'Premium'::character varying, 'Super Permium'::character varying, 'Ultra Premium'::character varying, 'Prestige'::character varying])::text[])),
+    porcentaje_alcohol_categoria numeric(4, 2) not null
+        constraint check_porcentaje_alcohol_categoria check (porcentaje_alcohol_categoria > (0)::numeric),
+    grado_alcohol_categoria      integer       not null
+        constraint check_grado_alcohol_categoria check (grado_alcohol_categoria > 0),
+    fk_id_destilacion            serial		not null,
+    CONSTRAINT pk_id_categoria PRIMARY KEY(id_categoria),
+    CONSTRAINT fk_id_destilacion FOREIGN KEY(fk_id_destilacion) REFRENCES destilacion(id_destilacion)
+);
+
+
+--Crear tabla tipo_ron
+create table tipo_ron(
+    id_tipo_ron       serial	  not null   UNIQUE,
+    nombre_tipo_ron   varchar(20) not null
+        constraint check_nombre_tipo_ron check ((nombre_tipo_ron)::text = ANY ((ARRAY ['Agricola'::character varying, 'Industrial'::character varying])::text[])),
+    fk_id_lugar       serial		not null,
+    fk_id_anejamiento serial		not null,
+    CONSTRAINT pk_id_tipo_ron PRIMARY KEY (id_tipo_ron),
+    CONSTRAINT fk_id_lugar FOREIGN KEY (fk_id_lugar) REFERENCES lugar(id_lugar),
+    CONSTRAINT fk_id_anejamiento FOREIGN KEY (fk_id_anejamiento) REFERENCES anejamiento(id_anejamiento)
+);
+
+
+--Crear tabla variedad_ron
+create table variedad_ron(
+    id_variedad_ron                    serial	     not null   UNIQUE,
+    nombre_variedad_ron                varchar(50)   not null,
+    descripcion_variedad_ron           varchar(100)  not null,
+    porcentaje_produccion_variedad_ron numeric(4, 2) not null
+        constraint check_porcentaje_produccion_variedad_ron check (porcentaje_produccion_variedad_ron > (0)::numeric),
+    fk_id_tipo_ron                     serial		not null,
+    CONSTRAINT pk_id_variedad_ron PRIMARY KEY (id_variedad_ron),
+    CONSTRAINT fk_id_tipo_ron FOREIGN KEY (fk_id_tipo_ron) REFERENCES tipo_ron(id_tipo_ron)
+);
+
+
+
+--Crear tabla destilacion
+create table destilacion(
+    id_destilacion     serial	   not null   UNIQUE,
+    nombre_destilacion varchar(50) not null,
+    numero_destilacion integer     not null
+        constraint check_numero_destilacion check (numero_destilacion > 0),
+    fk_id_metodo       serial		not null,
+    CONSTRAINT pk_id_destilacion PRIMARY KEY(id_destilacion),
+    CONSTRAINT fk_id_metodo FOREIGN KEY(fk_id_metodo) REFERENCES metodo(id_metodo)
+);
+
+
+
+--Crear tabla metodo
+create table metodo(
+    id_metodo          serial	    not null   UNIQUE,
+    nombre_metodo      varchar(50)  not null,
+    descripcion_metodo varchar(100) not null,
+    CONSTRAINT pk_id_metodo PRIMARY KEY (id_metodo)
+);
+
+
+--Crear tabla anejamiento
+create table anejamiento(
+    id_anejamiento           serial	  not null   UNIQUE,
+    nombre_anejamiento       varchar(50)  not null,
+    descripcion_anejamiento  varchar(100) not null,
+    fecha_inicio_anejamiento timestamp    not null,
+    fecha_fin_anejamiento    timestamp    not null,
+    CONSTRAINT pk_id_anejamiento PRIMARY KEY (id_anejamiento)
+);
+
+
+--Crear tabla barril
+create table barril(
+    id_barril         serial	  not null   UNIQUE,
+    calidad_barril    varchar(20) not null
+        constraint check_calidad_barril check ((calidad_barril)::text = ANY ((ARRAY ['Malo'::character varying, 'Regular'::character varying, 'Bueno'::character varying, 'Muy Bueno'::character varying, 'Excelente'::character varying])::text[])),
+    tipo_barril       varchar(50) not null,
+    fk_id_anejamiento serial	not null,
+    CONSTRAINT pk_id_barril PRIMARY KEY (id_barril),
+    CONSTRAINT fk_id_anejamiento FOREIGN KEY (fk_id_anejamiento) REFERENCES anejamiento(id_anejamiento)
+);
+
+
+--Crear tabla tasa_de_cambio
+create table tasa_de_cambio(
+    id_tasa           serial	     not null   UNIQUE,
+    valor_tasa        numeric(10, 2) not null
+        constraint check_valor_tasa check (valor_tasa > (0)::numeric),
+    fecha_inicio_tasa timestamp      not null,
+    fecha_fin_tasa    timestamp      not null,
+    CONSTRAINT pk_id_tasa PRIMARY KEY (id_tasa)
+);
+
+
+--Crear tabla usuario_rol
+create table usuario_rol(
+    id_usuario_rol       serial	not null    UNIQUE,
+    fk_id_usuario        serial	not null,
+    fk_id_permiso_rol    serial	not null,
+    fk_id_accion_permiso serial	not null,
+    CONSTRAINT pk_id_usuario_rol PRIMARY KEY (id_usuario_rol, fk_id_permiso_rol, fk_id_accion_permiso, fk_id_usuario),
+    CONSTRAINT fk_id_usuario FOREIGN KEY (fk_id_usuario) REFERENCES usuario(id_usuario),
+    CONSTRAINT fk_id_permiso_rol FOREIGN KEY (fk_id_permiso_rol) REFERENCES permiso_rol(pk_id_permiso_rol),
+    CONSTRAINT fk_id_accion_permiso FOREIGN KEY (fk_id_accion_permiso) REFERENCES accion_permiso(id_accion_permiso)
+);
+
+
+
+--Crear tabla permiso_rol
+create table permiso_rol(
+    id_permiso_rol serial	not null   UNIQUE,
+    fk_id_accion   serial	not null,
+    CONSTRAINT pk_id_permiso_rol PRIMARY KEY (id_permiso_rol, fk_id_accion),
+    CONSTRAINT fk_id_accion FOREIGN KEY (fk_id_accion) REFERENCES accion(id_accion)
+);
+
+
+--Crear tabla empleado_departamento
+create table empleado_departamento(
+    id_empleado_departamento serial	not null   UNIQUE,
+    fk_id_departamento       serial	not null,
+    fk_id_empleado           serial	not null,
+    CONSTRAINT pk_id_empleado_departamento PRIMARY KEY (id_empleado_departamento, fk_id_empleado, fk_id_departamento),
+    CONSTRAINT fk_id_empleado FOREIGN KEY (fk_id_empleado) REFERENCES empleado(id_empleado),
+    CONSTRAINT fk_id_departamento FOREIGN KEY (fk_id_departamento) REFERENCES departamento(id_departamento)
+);
+
+
+
+--Crear tabla beneficio_empleado
+create table beneficio_empleado(
+    id_beneficio_empleado serial	not null   UNIQUE,
+    fk_id_beneficio       serial	not null,
+    fk_id_empleado        serial	not null,
+    CONSTRAINT pk_id_beneficio_empleado PRIMARY KEY (id_beneficio_empleado, fk_id_empleado, fk_id_beneficio),
+    CONSTRAINT fk_id_empleado FOREIGN KEY (fk_id_empleado) REFERENCES empleado(id_empleado),
+    CONSTRAINT fk_id_beneficio FOREIGN KEY (fk_id_beneficio) REFERENCES beneficio(id_beneficio)
+);
+
+
+
+--Crear tabla estado_pedido
+create table estado_pedido(
+    id_estado_pedido           serial	 not null  UNIQUE,
+    fecha_inicio_estado_pedido timestamp not null,
+    fecha_fin_estado_pedido    timestamp not null,
+    fk_id_estado               serial	 not null,
+    fk_id_pedido               serial	 not null,
+    CONSTRAINT pk_id_estado_pedido PRIMARY KEY (id_estado_pedido, fk_id_pedido, fk_id_estado),
+    CONSTRAINT fk_id_estado FOREIGN KEY (fk_id_estado) REFERENCES estado(id_estado),
+    CONSTRAINT fk_id_pedido FOREIGN KEY (fk_id_pedido) REFERENCES pedido(id_pedido)
+);
+
+
+--Crear tabla proveedor_participa_evento
+create table proveedor_participa_evento(
+    id_proveedor_participa_evento serial	not null  UNIQUE,
+    fk_id_proveedor               serial	not null,
+    fk_id_evento                  serial	not null,
+    CONSTRAINT pk_id_proveedor_participa_evento PRIMARY KEY (id_proveedor_participa_evento, fk_id_evento, fk_id_proveedor),
+    CONSTRAINT fk_id_proveedor FOREIGN KEY (fk_id_proveedor) REFERENCES proveedor(id_proveedor),
+    CONSTRAINT fk_id_evento FOREIGN KEY (fk_id_evento) REFERENCES evento(id_evento)
+);
+
+
+--Crear tabla premio
+create table premio(
+    id_premio                     serial	not null  UNIQUE,
+    nombre_premio                 varchar(50)  not null,
+    descripcion_premio            varchar(100) not null,
+    fecha_premio                  timestamp    not null,
+    fk_id_evento                  serial	not null,
+    fk_id_presentacion_ron        serial	not null,
+    fk_id_catalogo_inventario_ron serial	not null,
+    fk_id_punto_de_venta          serial	not null,
+    fk_id_detalle_compra          serial	not null,
+    fk_id_compra                  serial	not null,
+    CONSTRAINT pk_id_premio PRIMARY KEY (id_premio, fk_id_evento, fk_id_presentacion_ron, fk_id_catalogo_inventario_ron, fk_id_punto_de_venta, fk_id_detalle_compra, fk_id_compra),
+    CONSTRAINT fk_id_evento FOREIGN KEY (fk_id_evento) REFERENCES evento(id_evento), 
+    CONSTRAINT fk_id_presentacion_ron FOREIGN KEY (fk_id_presentacion_ron) REFERENCES presentacion_ron(pk_id_presentacion_ron),
+    CONSTRAINT fk_id_catalogo_inventario_ron FOREIGN KEY (fk_id_catalogo_inventario_ron) REFERENCES catalogo_inventario_ron(pk_id_catalogo_inventario_ron),
+    CONSTRAINT fk_id_punto_de_venta FOREIGN KEY (fk_id_punto_de_venta) REFERENCES punto_de_venta(id_punto_de_venta),
+    CONSTRAINT fk_id_detalle_compra FOREIGN KEY (fk_id_detalle_compra) REFERENCES detalle_compra(pk_id_detalle_compra),
+    CONSTRAINT fk_id_compra FOREIGN KEY (fk_id_compra) REFERENCES compra(id_compra)
+);
+
+
+
+--Crear tabla entrada
+create table entrada(
+    id_entrada          serial		not null  UNIQUE,
+    nombre_entrada      varchar(50)    not null,
+    descripcion_entrada varchar(100)   not null,
+    precio_entrada      numeric(10, 2) not null
+        constraint check_precio_entrada check (precio_entrada > (0)::numeric),
+    codigo_entrada      varchar(10)    not null,
+    fk_id_evento        serial		not null,
+    CONSTRAINT pk_id_entrada PRIMARY KEY (id_entrada, fk_id_evento),
+    CONSTRAINT fk_id_evento FOREIGN KEY (fk_id_evento) REFERENCES evento(id_evento)
+);
+
+
+--Crear tabla pago_entrada
+create table pago_entrada(
+    id_pago_entrada    serial	      not null   UNIQUE,
+    fecha_pago_entrada timestamp      not null,
+    cantidad_entrada   integer        not null
+        constraint check_cantidad_entrada check (cantidad_entrada > 0),
+    total_pago_entrada numeric(10, 2) not null
+        constraint check_total_pago_entrada check (total_pago_entrada > (0)::numeric),
+    fk_id_entrada      serial		not null,
+    fk_id_evento       serial		not null,
+    CONSTRAINT pk_id_pago_entrada PRIMARY KEY (id_pago_entrada, fk_id_entrada, fk_id_evento),
+    CONSTRAINT fk_id_entrada FOREIGN KEY (fk_id_entrada) REFERENCES entrada(pk_id_entrada),
+    CONSTRAINT fk_id_evento FOREIGN KEY (fk_id_evento) REFERENCES evento(id_evento)
+);
+
+
+--Crear tabla nota_cata
+create table nota_cata(
+    id_nota_cata          serial	not null  UNIQUE,
+    descripcion_nota_cata varchar(100) not null,
+    fk_id_evento          serial	not null,
+    fk_id_ron             serial	not null,
+    fk_id_proveedor       serial	not null,
+    CONSTRAINT pk_id_nota_cata PRIMARY KEY (id_nota_cata, fk_id_evento, fk_id_ron, fk_id_proveedor),
+    CONSTRAINT fk_id_evento FOREIGN KEY (fk_id_evento) REFERENCES evento(id_evento),
+    CONSTRAINT fk_id_ron FOREIGN KEY (fk_id_ron) REFERENCES ron(pk_id_ron),
+    CONSTRAINT fk_id_proveedor FOREIGN KEY (fk_id_proveedor) REFERENCES proveedor(id_proveedor)
+);
+
+
+--Crear tabla presentacion_ron
+create table presentacion_ron(
+    id_presentacion_ron             serial	   not null  UNIQUE,
+    unidad_volumen_presentacion_ron "char"         not null
+        constraint check_unidad_volumen_presentacion_ron check (unidad_volumen_presentacion_ron = 'L'::"char"),
+    capacidad_presentacion_ron      numeric(4, 2)  not null
+        constraint check_capacidad_presentacion_ron check (capacidad_presentacion_ron > (0)::numeric),
+    nombre_presentacion_ron         varchar(50)    not null,
+    descripcion_presentacion_ron    varchar(100)   not null,
+    precio_presentacion_ron         numeric(10, 2) not null
+        constraint check_precio_presentacion_ron check (precio_presentacion_ron > (0)::numeric),
+    edad_anejo_presentacion_ron     integer        not null
+        constraint check_edad_anejo_presentacion_ron check (edad_anejo_presentacion_ron > 0),
+    fk_id_ron                       serial	not null,
+    fk_id_proveedor                 serial	not null,
+    fk_id_catalogo_inventario_ron   serial	not null,
+    fk_id_detalle_compra            serial	not null,
+    fk_id_compra                    serial	not null,
+    fk_id_punto_de_venta            serial	not null,
+    CONSTRAINT pk_id_presentacion_ron PRIMARY KEY (id_presentacion_ron, fk_id_catalogo_inventario_ron, fk_id_detalle_compra, fk_id_compra, fk_id_punto_de_venta),
+    CONSTRAINT fk_id_ron FOREIGN KEY (fk_id_ron) REFERENCES ron(pk_id_ron),
+    CONSTRAINT fk_id_proveedor FOREIGN KEY (fk_id_proveedor) REFERENCES proveedor(id_proveedor),
+    CONSTRAINT fk_id_catalogo_inventario_ron FOREIGN KEY (fk_id_catalogo_inventario_ron) REFERENCES catalogo_inventario_ron(id_catalogo_inventario_ron),
+    CONSTRAINT fk_id_detalle_compra FOREIGN KEY (fk_id_detalle_compra) REFERENCES detalle_compra(pk_id_detalle_compra),
+    CONSTRAINT fk_id_compra FOREIGN KEY (fk_id_compra) REFERENCES compra(id_compra),
+    CONSTRAINT fk_id_punto_de_venta FOREIGN KEY (fk_id_punto_de_venta) REFERENCES punto_de_venta(id_punto_de_venta)
+);
+
+
+--Crear tabla presentacion_ron_oferta
+create table presentacion_ron_oferta(
+    id_presentacion_ron_oferta    serial	not null UNIQUE,
+    fk_id_oferta                  serial	not null,
+    fk_id_presentacion_ron        serial	not null,
+    fk_id_catalogo_inventario_ron serial	not null,
+    fk_id_punto_de_venta          serial	not null,
+    fk_id_detalle_compra          serial	not null,
+    fk_id_compra                  serial	not null,
+    CONSTRAINT pk_id_presentacion_ron_oferta PRIMARY KEY (id_presentacion_ron_oferta, fk_id_oferta, fk_id_presentacion_ron, fk_id_catalogo_inventario_ron, fk_id_punto_de_venta, fk_id_detalle_compra, fk_id_compra),
+    CONSTRAINT fk_id_oferta FOREIGN KEY (fk_id_oferta) REFERENCES oferta(id_oferta),
+    CONSTRAINT fk_id_presentacion_ron FOREIGN KEY (fk_id_presentacion_ron) REFERENCES presentacion_ron(pk_id_presentacion_ron),
+    CONSTRAINT fk_id_catalogo_inventario_ron FOREIGN KEY (fk_id_catalogo_inventario_ron) REFERENCES catalogo_inventario_ron(pk_id_catalogo_inventario_ron),
+    CONSTRAINT fk_id_punto_de_venta FOREIGN KEY (fk_id_punto_de_venta) REFERENCES punto_de_venta(id_punto_de_venta),
+    CONSTRAINT fk_id_detalle_compra FOREIGN KEY (fk_id_detalle_compra) REFERENCES detalle_compra(pk_id_detalle_compra),
+    CONSTRAINT fk_id_compra FOREIGN KEY (fk_id_compra) REFERENCES compra(id_compra)
+);
+
+
+
+--Crear tabla ron
+create table ron(
+    id_ron          serial 	not null  UNIQUE,
+    nombre_ron      varchar(50) not null,
+    fk_id_tipo      serial	not null,
+    fk_id_proveedor serial	not null,
+    CONSTRAINT pk_id_ron PRIMARY KEY (id_ron, fk_id_proveedor),
+    CONSTRAINT fk_id_tipo FOREIGN KEY (fk_id_tipo) REFERENCES tipo_ron(id_tipo_ron),
+    CONSTRAINT fk_id_proveedor FOREIGN KEY (fk_id_proveedor) REFERENCES proveedor(id_proveedor)
+);
+
+
+--Crear tabla catalogo_inventario_ron
+create table catalogo_inventario_ron(
+    id_catalogo_inventario_ron serial	not null  UNIQUE,
+    fk_id_punto_de_venta       serial	not null,
+    fk_id_detalle_compra       serial	not null,
+    fk_id_compra               serial	not null,
+    CONSTRAINT pk_id_catalogo_inventario_ron PRIMARY KEY (id_catalogo_inventario_ron, fk_id_punto_de_venta, fk_id_detalle_compra, fk_id_compra),
+    CONSTRAINT fk_id_punto_de_venta FOREIGN KEY (fk_id_punto_de_venta) REFERENCES punto_de_venta(id_punto_de_venta),
+    CONSTRAINT fk_id_detalle_compra FOREIGN KEY (fk_id_detalle_compra) REFERENCES detalle_compra(pk_id_detalle_compra),
+    CONSTRAINT fk_id_compra FOREIGN KEY (fk_id_compra) REFERENCES compra(id_compra)
+);
+
+
+--Crear tabla presentacion_ron_evento
+create table presentacion_ron_evento(
+    id_presentacion_ron_evento    serial	not null  UNIQUE,
+    fk_id_evento                  serial	not null,
+    fk_id_presentacion_ron        serial	not null,
+    fk_id_catalogo_inventario_ron serial	not null,
+    fk_id_detalle_compra          serial	not null,
+    fk_id_compra                  serial	not null,
+    fk_id_punto_de_venta          serial	not null,
+    CONSTRAINT pk_id_presentacion_ron_evento PRIMARY KEY (id_presentacion_ron_evento, fk_id_evento, fk_id_presentacion_ron, fk_id_catalogo_inventario_ron, fk_id_detalle_compra, fk_id_compra, fk_id_punto_de_venta),
+    CONSTRAINT fk_id_evento FOREIGN KEY (fk_id_evento) REFERENCES evento(id_evento), 
+    CONSTRAINT fk_id_presentacion_ron FOREIGN KEY (fk_id_presentacion_ron) REFERENCES presentacion_ron(pk_id_presentacion_ron),
+    CONSTRAINT fk_id_catalogo_inventario_ron FOREIGN KEY (fk_id_catalogo_inventario_ron) REFERENCES catalogo_inventario_ron(pk_id_catalogo_inventario_ron),
+    CONSTRAINT fk_id_punto_de_venta FOREIGN KEY (fk_id_punto_de_venta) REFERENCES punto_de_venta(id_punto_de_venta),
+    CONSTRAINT fk_id_detalle_compra FOREIGN KEY (fk_id_detalle_compra) REFERENCES detalle_compra(pk_id_detalle_compra),
+    CONSTRAINT fk_id_compra FOREIGN KEY (fk_id_compra) REFERENCES compra(id_compra)
+);
+
+
+--Crear tabla detalle_compra
+create table detalle_compra(
+    id_detalle_compra              serial	  not null   UNIQUE,
+    precio_unitario_detalle_compra numeric(10, 2) not null
+        constraint check_precio_unitario_detalle_compra check (precio_unitario_detalle_compra > (0)::numeric),
+    cant_prod_total_detalle_compra integer        not null
+        constraint check_cant_prod_total_detalle_compra check (cant_prod_total_detalle_compra > 0),
+    fk_id_compra                   serial	not null,
+    fk_id_presentacion_ron         serial	not null,
+    fk_id_catalogo_inventario_ron  serial	not null,
+    fk_id_punto_de_venta           serial	not null,
+    CONSTRAINT pk_id_detalle_compra PRIMARY KEY(id_detalle_compra, fk_id_compra, fk_id_presentacion_ron, fk_id_catalogo_inventario_ron, fk_id_punto_de_venta),
+    CONSTRAINT fk_id_compra FOREIGN KEY (fk_id_compra) REFERENCES compra(id_compra),
+    CONSTRAINT fk_id_presentacion_ron FOREIGN KEY (fk_id_presentacion_ron) REFERENCES presentacion_ron(pk_id_presentacion_ron),
+    CONSTRAINT fk_id_catalogo_inventario_ron FOREIGN KEY (fk_id_catalogo_inventario_ron) REFERENCES catalogo_inventario_ron(pk_id_catalogo_inventario_ron),
+    CONSTRAINT fk_id_punto_de_venta FOREIGN KEY (fk_id_punto_de_venta) REFERENCES punto_de_venta(id_punto_de_venta),
+);
+
+
+--Crear tabla detalle_venta
+create table detalle_venta(
+    id_detalle_venta              serial	not null  UNIQUE,
+    precio_unitario_detalle_venta numeric(10, 2) not null
+        constraint check_precio_unitario_detalle_venta check (precio_unitario_detalle_venta > (0)::numeric),
+    cant_prod_total_detalle_venta integer        not null
+        constraint check_cant_prod_total_detalle_venta check (cant_prod_total_detalle_venta > 0),
+    fk_id_venta                   serial	not null,
+    fk_id_catalogo_inventario_ron serial	not null,
+    fk_id_detalle_compra          serial	not null,
+    fk_id_compra                  serial	not null,
+    fk_id_presentacion_ron        serial	not null,
+    fk_id_punto_de_venta          serial	not null,
+    fk_id_pago_entrada            serial	not null,
+    fk_id_entrada                 serial	not null,
+    fk_id_evento                  serial	not null,
+    CONSTRAINT pk_id_detalle_venta PRIMARY KEY (id_detalle_venta, fk_id_venta, fk_id_catalogo_inventario_ron, fk_id_detalle_compra, fk_id_compra, fk_id_presentacion_ron, fk_id_punto_de_venta, fk_id_pago_entrada, fk_id_entrada, fk_id_evento),
+    CONSTRAINT fk_id_venta FOREIGN KEY (fk_id_venta) REFERENCES venta(id_venta),
+    CONSTRAINT fk_id_catalogo_inventario_ron FOREIGN KEY (fk_id_catalogo_inventario_ron) REFERENCES catalogo_inventario_ron(pk_id_catalogo_inventario_ron),
+    CONSTRAINT fk_id_detalle_compra FOREIGN KEY (fk_id_detalle_compra) REFERENCES detalle_compra(pk_id_detalle_compra),
+    CONSTRAINT fk_id_compra FOREIGN KEY (fk_id_compra) REFERENCES compra(id_compra),
+    CONSTRAINT fk_id_presentacion_ron FOREIGN KEY (fk_id_presentacion_ron) REFERENCES presentacion_ron(pk_id_presentacion_ron),
+    CONSTRAINT fk_id_punto_de_venta FOREIGN KEY (fk_id_punto_de_venta) REFERENCES punto_de_venta(id_punto_de_venta),
+    CONSTRAINT fk_id_pago_entrada FOREIGN KEY (fk_id_pago_entrada) REFERENCES pago_entrada(pk_id_pago_entrada),
+    CONSTRAINT fk_id_entrada FOREIGN KEY (fk_id_entrada) REFERENCES entrada(pk_id_entrada),
+    CONSTRAINT fk_id_evento FOREIGN KEY (fk_id_evento) REFERENCES evento(id_evento)
+);
+
+
+--Crear tabla sabor ingrediente
+create table sabor_ingrediente(
+    id_sabor_ingrediente serial		not null  UNIQUE,
+    fk_id_sabor          serial		not null,
+    fk_id_ingrediente    serial		not null,
+    CONSTRAINT pk_id_sabor_ingrediente PRIMARY KEY (id_sabor_ingrediente, fk_id_sabor, fk_id_ingrediente),
+    CONSTRAINT fk_id_sabor FOREIGN KEY (fk_id_sabor) REFERENCES sabor(id_sabor),
+    CONSTRAINT fk_id_ingrediente FOREIGN KEY (fk_id_ingrediente) REFERENCES ingrediente(id_ingrediente)
+);
+
+
+--Crear tabla categoria_ingrediente
+create table categoria_ingrediente(
+    id_categoria_ingrediente serial	not null  UNIQUE,
+    fk_id_categoria          serial	not null,
+    fk_id_ingrediente        serial	not null,
+    CONSTRAINT pk_id_categoria_ingrediente PRIMARY KEY (id_categoria_ingrediente, fk_id_categoria, fk_id_ingrediente),
+    CONSTRAINT fk_id_categoria FOREIGN KEY (fk_id_categoria) REFERENCES categoria(id_categoria),
+    CONSTRAINT fk_id_ingrediente FOREIGN KEY (fk_id_ingrediente) REFERENCES ingrediente(id_ingrediente)
+);
+
+
+--Crear tabla metodo_pago_venta
+create table metodo_pago_venta(
+    id_metodo_pago_venta              serial	not null  UNIQUE,
+    monto_venta                       numeric(10, 2) not null
+        constraint check_monto_venta check (monto_venta > (0)::numeric),
+    fk_id_venta                       serial,
+    fk_id_metodo_pago_efectivo        serial,
+    fk_id_metodo_pago_tarjeta_debito  serial,
+    fk_id_metodo_pago_punto_afiliado  serial,
+    fk_id_metodo_pago_cheque          serial,
+    fk_id_metodo_pago_tarjeta_credito serial,
+    CONSTRAINT pk_id_metodo_pago_venta PRIMARY KEY (id_metodo_pago_venta, fk_id_venta),
+    CONSTRAINT fk_id_venta FOREIGN KEY (fk_id_venta) REFERENCES venta(id_venta),
+    CONSTRAINT fk_id_metodo_pago_efectivo FOREIGN KEY (fk_id_metodo_pago_efectivo) REFERENCES metodo_pago_efectivo(id_metodo_pago_efectivo),
+    CONSTRAINT fk_id_metodo_pago_tarjeta_debito FOREIGN KEY (fk_id_metodo_pago_tarjeta_debito) REFERENCES metodo_pago_tarjeta_debito(id_metodo_pago_tarjeta_debito),
+    CONSTRAINT fk_id_metodo_pago_punto_afiliado FOREIGN KEY (fk_id_metodo_pago_punto_afiliado) REFERENCES metodo_pago_punto_afiliado(id_metodo_pago_punto_afiliado),
+    CONSTRAINT fk_id_metodo_pago_cheque FOREIGN KEY (fk_id_metodo_pago_cheque) REFERENCES metodo_pago_cheque(id_metodo_pago_cheque),
+    CONSTRAINT fk_id_metodo_pago_tarjeta_credito FOREIGN KEY (fk_id_metodo_pago_tarjeta_credito) REFERENCES metodo_pago_tarjeta_credito(id_metodo_pago_tarjeta_credito)
+);
+
+
+--Crear tabla punto_de_venta
+create table punto_de_venta(
+    id_punto_de_venta          serial	    not null   UNIQUE,
+    nombre_punto_de_venta      varchar(50)  not null,
+    mision_punto_de_venta      varchar(100) not null,
+    rif_punto_de_venta         varchar(20)  not null
+        constraint check_rif_punto_de_venta check ((rif_punto_de_venta)::text ~ '^([Jj]{1}-[0-9]{10}$)'::text),
+    fecha_origen_punto_de_venta date         not null,
+    CONSTRAINT pk_id_punto_de_venta PRIMARY KEY (id_punto_de_venta)
+);
+
+
+--Crear tabla punto_de_venta_tienda_fisica
+create table punto_de_venta_tienda_fisica(
+    id_punto_de_venta_tienda_fisica  serial		       not null  UNIQUE,
+    nombre_punto_de_venta_tienda_fisica       varchar(50)      not null,
+    mision_punto_de_venta_tienda_fisica       varchar(100)     not null,
+    rif_punto_de_venta_tienda_fisica          varchar(20)      not null
+        constraint check_rif_punto_de_venta_tienda_fisica check ((rif_punto_de_venta_tienda_fisica)::text ~ '^([Jj]{1}-[0-9]{10}$)'::text),
+    fecha_origen_punto_de_venta_tienda_fisica timestamp        not null,
+    direccion_tienda_fisica                   varchar(50)      not null,
+    numero_local_tienda_fisica                integer          not null
+        constraint check_numero_local_tienda_fisica check (numero_local_tienda_fisica > 0),
+    fecha_hora_abre_tienda_fisica             timestamp        not null,
+    fecha_hora_cierra_tienda_fisica           timestamp        not null,
+    fk_id_lugar                               serial		not null,
+    CONSTRAINT pk_id_punto_de_venta_tienda_fisica PRIMARY KEY (id_punto_de_venta_tienda_fisica),
+    CONSTRAINT fk_id_lugar FOREIGN KEY (fk_id_lugar) REFERENCES lugar(id_lugar)
+);
+
+
+--Crear tabla punto_de_venta_online
+create table punto_de_venta_online(
+    id_punto_de_venta_online           serial	    not null   UNIQUE,
+    nombre_punto_de_venta_online       varchar(50)  not null,
+    mision_punto_de_venta_online       varchar(100) not null,
+    rif_punto_de_venta_online          varchar(20)  not null
+        constraint check_rif_punto_de_venta_online check ((rif_punto_de_venta_online)::text ~ '^([Jj]{1}-[0-9]{10}$)'::text),
+    fecha_origen_punto_de_venta_online time         not null,
+    url_tienda_online                  varchar(100) not null
+        constraint check_url_tienda_online check ((url_tienda_online)::text ~ '^(https?|ft p)://[^\s/$. ?#].[^\s]*$'::text),
+    CONSTRAINT pk_id_punto_de_venta_online PRIMARY KEY (id_punto_de_venta_online)
+);
+
+
+--Crear tabla persona_natural
+create table persona_natural(
+    id_persona_natural       serial	 not null  UNIQUE,
+    rif_persona_natural      varchar(20)
+        constraint check_rif_persona_natural check ((rif_persona_natural)::text ~ '^([Jj]{1}-[0-9]{10}$)'::text),
+    ci_natural               varchar(20)  not null
+        constraint check_ci_natural check ((ci_natural)::text ~ '^([0-9]{8}$)'::text),
+    p_nombre_natural         varchar(50)  not null,
+    s_nombre_natural         varchar(50),
+    p_apellido_natural       varchar(50)  not null,
+    s_apellido_natural       varchar(50),
+    direc_hab_natural        varchar(100) not null,
+    genero                   varchar(10)  not null
+        constraint check_genero check ((genero)::text = ANY ((ARRAY ['Femenino'::character varying, 'Masculino'::character varying, 'Otro'::character varying])::text[])),
+    puntos_natural           integer
+        constraint check_puntos_natural check (puntos_natural > 0),
+    direccion_envio          varchar(100),
+    nacionalidad_natural     varchar(10)  not null
+        constraint check_nacionalidad_natural check ((nacionalidad_natural)::text = ANY ((ARRAY ['V'::character varying, 'E'::character varying])::text[])),
+    fecha_nacimiento_natural date         not null
+        constraint check_fecha_nacimiento_natural check (fecha_nacimiento_natural <= (CURRENT_DATE - '18 years'::interval)),
+    fk_id_persona_juridica   serial	not null,
+    fk_id_proveedor          serial	not null,
+    fk_id_lugar              serial	not null,
+    fk_id_lugar_2            serial,
+    CONSTRAINT pk_id_persona_natural PRIMARY KEY (id_persona_natural),
+    CONSTRAINT fk_id_persona_juridica FOREIGN KEY (fk_id_persona_juridica) REFERENCES persona_juridica(id_persona_juridica),
+    CONSTRAINT fk_id_proveedor FOREIGN KEY (fk_id_proveedor) REFERENCES proveedor(id_proveedor),
+    CONSTRAINT fk_id_lugar FOREIGN KEY (fk_id_lugar) REFERENCES lugar(id_lugar),
+    CONSTRAINT fk_id_lugar_2 FOREIGN KEY (fk_id_lugar_2) REFERENCES lugar(id_lugar)
+);
+
+
+Crear tabla persona_juridica
+create table persona_juridica(
+    id_persona_juridica             serial	   not null  UNIQUE,
+    rif_persona_juridica            varchar(20)
+        constraint check_rif_persona_juridica check ((rif_persona_juridica)::text ~ '^([Jj]{1}-[0-9]{10}$)'::text),
+    denom_comercial_juridica        varchar(50)    not null,
+    razon_social_juridica           varchar(50)    not null,
+    pagina_web_juridica             varchar(100)   not null
+        constraint check_pagina_web_juridica check ((pagina_web_juridica)::text ~ '^(https?|ft p)://[^\s/$. ?#].[^\s]*$'::text),
+    capital_disponible_juridica     numeric(10, 2) not null
+        constraint check_capital_disponible_juridica check (capital_disponible_juridica > (0)::numeric),
+    direc_fiscal_juridica           varchar(100)   not null,
+    direc_fisica_principal_juridica varchar(100)   not null,
+    fk_id_lugar                     serial	not null,
+    fk_id_lugar_2                   serial	not null,
+    CONSTRAINT pk_id_persona_juridica FOREIGN KEY (id_persona_juridica),
+    CONSTRAINT fk_id_lugar FOREIGN KEY (fk_id_lugar) REFERENCES lugar(id_lugar),
+    CONSTRAINT fk_id_lugar_2 FOREIGN KEY (fk_id_lugar_2) REFERENCES lugar(id_lugar)
+);
+
+
+--Crear tabla metodo_pago_efectivo
+create table metodo_pago_efectivo(
+    id_metodo_pago_efectivo serial	not null  UNIQUE,
+    denominacion_efectivo   numeric(10, 2) not null
+        constraint check_denominacion_efectivo check (denominacion_efectivo > (0)::numeric),
+    fk_id_usuario           serial	not null,
+    fk_id_tasa_de_cambio    serial	not null,
+    CONSTRAINT pk_id_metodo_pago_efectivo PRIMARY KEY (id_metodo_pago_efectivo),
+    CONSTRAINT fk_id_usuario FOREIGN KEY (fk_id_usuario) REFERENCES usuario(id_usuario),
+    CONSTRAINT fk_id_tasa_de_cambio FOREIGN KEY (fk_id_tasa_de_cambio) REFERENCES tasa_de_cambio(id_tasa_de_cambio)
+);
+
+
+--Crear tabla metodo_pago_tarjeta_debito
+create table metodo_pago_tarjeta_debito(
+    id_metodo_pago_tarjeta_debito   serial	not null  UNIQUE,
+    numero_tarjeta_debito           varchar(20) not null
+        constraint check_numero_tarjeta_debito check ((numero_tarjeta_debito)::text ~ '^(?:4[0-9]{ 12}(?:[0-9] {3})?|5[1-5 ][0-9]{14}| 6(?:011|5[0 -9]{2})[0-9 ]{12}|3[47] [0-9]{13}|( ?:2131|180 0|35\d{3})\ d{11})$'::text),
+    fecha_vence_tarjeta_debito      date        not null
+        constraint check_fecha_vence_tarjeta_debito check (fecha_vence_tarjeta_debito > CURRENT_DATE),
+    codigo_seguridad_tarjeta_debito varchar(10) not null  check ((codigo_seguridad_tarjeta_debito)::text ~ '^[0-9]{3,4} $'::text),
+    nombre_banco_tarjeta_debito     varchar(50) not null,
+    fk_id_usuario                   serial	not null,
+    fk_id_tasa_de_cambio            serial	not null,
+    CONSTRAINT pk_id_metodo_pago_tarjeta_debito PRIMARY KEY (id_metodo_pago_tarjeta_debito),
+    CONSTRAINT fk_id_usuario FOREIGN KEY (fk_id_usuario) REFERENCES usuario(id_usuario),
+    CONSTRAINT fk_id_tasa_de_cambio FOREIGN KEY (fk_id_tasa_de_cambio) REFERENCES tasa_de_cambio(id_tasa_de_cambio)
+);
+
+
+--Crear tabla metodo_pago_punto_afiliado
+create table metodo_pago_punto_afiliado(
+    id_metodo_pago_punto_afiliado serial	not null  UNIQUE,
+    fk_id_usuario                 serial	not null,
+    fk_id_tasa_de_cambio          serial	not null,
+    CONSTRAINT pk_id_metodo_pago_punto_afiliado PRIMARY KEY (id_metodo_pago_punto_afiliado),
+    CONSTRAINT fk_id_usuario FOREIGN KEY (fk_id_usuario) REFERENCES usuario(id_usuario),
+    CONSTRAINT fk_id_tasa_de_cambio FOREIGN KEY (fk_id_tasa_de_cambio) REFERENCES tasa_de_cambio(id_tasa_de_cambio)
+);
+
+
+--Crear tabla metodo_pago_cheque
+create table metodo_pago_cheque(
+    id_metodo_pago_cheque serial	not null  UNIQUE,
+    numero_cheque         varchar(50) not null
+        constraint check_numero_cheque check ((numero_cheque)::text ~ '^[0-9]+$'::text),
+    banco_cheque          varchar(50) not null,
+    fecha_pago_cheque     timestamp   not null,
+    autoriza_cheque       varchar(10) not null
+        constraint check_autoriza_cheque check ((autoriza_cheque)::text = ANY ((ARRAY ['Si'::character varying, 'No'::character varying])::text[])),
+    fk_id_usuario         serial	not null,
+    fk_id_tasa_de_cambio  serial	not null,
+    CONSTRAINT pk_id_metodo_pago_cheque PRIMARY KEY (id_metodo_pago_cheque),
+    CONSTRAINT fk_id_usuario FOREIGN KEY (fk_id_usuario) REFERENCES usuario(id_usuario),
+    CONSTRAINT fk_id_tasa_de_cambio FOREIGN KEY (fk_id_tasa_de_cambio) REFERENCES tasa_de_cambio(id_tasa_de_cambio)
+);
+
+
+--Crear tabla metodo_pago_tarjeta_credito
+create table metodo_pago_tarjeta_credito(
+    id_metodo_pago_tarjeta_credito   serial	not null   UNIQUE,
+    numero_tarjeta_credito           varchar(50) not null
+        constraint check_numero_tarjeta_credito check ((numero_tarjeta_credito)::text ~ '^(?:4[0-9]{ 12}(?:[0-9] {3})?|5[1-5 ][0-9]{14}| 6(?:011|5[0 -9]{2})[0-9 ]{12}|3[47] [0-9]{13})$'::text),
+    fecha_vence_tarjeta_credito      date        not null
+        constraint check_fecha_vence_tarjeta_credito check (fecha_vence_tarjeta_credito > CURRENT_DATE),
+    codigo_seguridad_tarjeta_credito varchar(10) not null
+        constraint check_codigo_seguridad_tarjeta_credito check ((codigo_seguridad_tarjeta_credito)::text ~ '^[0-9]{3,4} $'::text),
+    tipo_tarjeta_credito             varchar(20) not null
+        constraint check_tipo_tarjeta_credito
+            check ((tipo_tarjeta_credito)::text = ANY ((ARRAY ['Visa'::character varying, 'Mastercard'::character varying])::text[])),
+    fk_id_usuario                    serial	not null,
+    fk_id_tasa_de_cambio             serial	not null,
+    CONSTRAINT pk_id_metodo_pago_tarjeta_credito PRIMARY KEY (id_metodo_pago_tarjeta_credito),
+    CONSTRAINT fk_id_usuario FOREIGN KEY (fk_id_usuario) REFERENCES usuario(id_usuario),
+    CONSTRAINT fk_id_tasa_de_cambio FOREIGN KEY (fk_id_tasa_de_cambio) REFERENCES tasa_de_cambio(id_tasa_de_cambio)
+);
