@@ -664,8 +664,7 @@ create table persona_juridica(
         constraint check_rif_persona_juridica check ((rif_persona_juridica)::text ~ '^([Jj]{1}-[0-9]{10}$)'::text),
     denom_comercial_juridica        varchar(50)    not null,
     razon_social_juridica           varchar(50)    not null,
-    pagina_web_juridica             varchar(100)   not null
-        constraint check_pagina_web_juridica check ((pagina_web_juridica)::text ~ '^(https?|ft p)://[^\s/$. ?#].[^\s]*$'::text),
+    pagina_web_juridica             varchar(100)   not null,
     capital_disponible_juridica     numeric(10, 2) not null
         constraint check_capital_disponible_juridica check (capital_disponible_juridica > (0)::numeric),
     direc_fiscal_juridica           varchar(100)   not null,
