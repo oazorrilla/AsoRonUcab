@@ -604,8 +604,6 @@ create table punto_de_venta_tienda_fisica(
     direccion_tienda_fisica                   varchar(50)      not null,
     numero_local_tienda_fisica                integer          not null
         constraint check_numero_local_tienda_fisica check (numero_local_tienda_fisica > 0),
-    fecha_hora_abre_tienda_fisica             timestamp        not null,
-    fecha_hora_cierra_tienda_fisica           timestamp        not null,
     fk_id_lugar                               serial		not null,
     constraint pk_id_punto_de_venta_tienda_fisica PRIMARY KEY (id_punto_de_venta_tienda_fisica)
 );
