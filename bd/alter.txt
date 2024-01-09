@@ -384,3 +384,18 @@ alter column fk_id_lugar_2 drop not null;
 --Especificar columnas NULL
 alter table persona_juridica
 alter column rif_persona_juridica drop not null;
+
+
+--Especificar columnas NULL
+alter table imagen_presentacion_ron alter column fk_id_presentacion_ron drop not null;
+
+
+--Especificar columnas NULL
+alter table imagen_presentacion_ron
+alter column fk_id_catalogo_inventario_ron drop not null,
+alter column fk_id_punto_de_venta drop not null;
+
+
+--Especificar columnas NULL
+alter table usuario
+alter column imagen_usuario drop not null;
