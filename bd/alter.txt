@@ -121,11 +121,6 @@ ADD    CONSTRAINT fk_id_tipo_ron FOREIGN KEY (fk_id_tipo_ron) REFERENCES tipo_ro
 ;
 
 
---Agregar llaves de la tabla barril
-ALTER TABLE barril
-ADD    CONSTRAINT fk_id_anejamiento FOREIGN KEY (fk_id_anejamiento) REFERENCES anejamiento(id_anejamiento)
-;
-
 
 --Agregar llaves de la tabla permiso_rol
 ALTER TABLE permiso_rol

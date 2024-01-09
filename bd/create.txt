@@ -324,17 +324,6 @@ create table anejamiento(
 );
 
 
---Crear tabla barril
-create table barril(
-    id_barril         serial	  not null   UNIQUE,
-    calidad_barril    varchar(20) not null
-        constraint check_calidad_barril check ((calidad_barril)::text = ANY ((ARRAY ['Malo'::character varying, 'Regular'::character varying, 'Bueno'::character varying, 'Muy Bueno'::character varying, 'Excelente'::character varying])::text[])),
-    tipo_barril       varchar(50) not null,
-    fk_id_anejamiento serial	not null,
-    constraint pk_id_barril PRIMARY KEY (id_barril)
-);
-
-
 --Crear tabla tasa_de_cambio
 create table tasa_de_cambio(
     id_tasa           serial	     not null   UNIQUE,
