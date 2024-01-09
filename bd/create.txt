@@ -622,7 +622,7 @@ create table punto_de_venta_online(
     fk_id_punto_de_venta 		serial 		not null,
     rif_punto_de_venta_online          varchar(20)  not null
         constraint check_rif_punto_de_venta_online check ((rif_punto_de_venta_online)::text ~ '^([Jj]{1}-[0-9]{10}$)'::text),
-    fecha_origen_punto_de_venta_online time         not null,
+    fecha_origen_punto_de_venta_online timestamp         not null,
     url_tienda_online                  varchar(100) not null
         constraint check_url_tienda_online check ((url_tienda_online)::text ~ '^(https?|ft p)://[^\s/$. ?#].[^\s]*$'::text),
     constraint pk_id_punto_de_venta_online PRIMARY KEY(id_punto_de_venta_online,fk_id_punto_de_venta);
