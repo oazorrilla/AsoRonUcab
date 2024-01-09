@@ -173,7 +173,7 @@ create table telefono(
 --Crear tabla lugar
 create table lugar(
     id_lugar     serial	     not null UNIQUE,	
-    tipo_lugar   varchar(20) not null
+    tipo_lugar   varchar(20) not null,
     nombre_lugar varchar(50) not null,
     fk_id_lugar  serial,
     constraint pk_id_lugar PRIMARY KEY (id_lugar)
