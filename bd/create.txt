@@ -281,7 +281,7 @@ create table color(
 create table categoria(
     id_categoria                 serial		not null   UNIQUE,
     nombre_categoria             varchar       not null
-        constraint check_nombre_categoria check ((nombre_categoria)::text = ANY ((ARRAY ['Estandar'::character varying, 'Premium'::character varying, 'Super Permium'::character varying, 'Ultra Premium'::character varying, 'Prestige'::character varying])::text[])),
+        constraint check_nombre_categoria check ((nombre_categoria)::text = ANY ((ARRAY ['Estandar'::character varying, 'Premium'::character varying, 'Super Premium'::character varying, 'Ultra Premium'::character varying, 'Prestige'::character varying])::text[])),
     porcentaje_alcohol_categoria numeric(4, 2) not null
         constraint check_porcentaje_alcohol_categoria check (porcentaje_alcohol_categoria > (0)::numeric),
     grado_alcohol_categoria      integer       not null
