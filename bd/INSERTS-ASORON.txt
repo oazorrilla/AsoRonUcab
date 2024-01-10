@@ -2384,20 +2384,13 @@ values
     ('Ron Santa Teresa', 2, 4),
     ('Ron Carupano', 1, 5);
 -------------------------------------Categoria-------------
-insert into categoria (nombre_categoria, porcentaje_alcohol_categoria, grado_alcohol_categoria, fk_id_ron, fk_id_proveedor) VALUES
-('Estandar',40,40,5,5),
-('Premium',40,40,4,4),
-('Premium',40,40,5,5),
-('Super Premium',40,40,4,4),
-('Super Premium',40,40,5,5),
-('Ultra Premium',40,40,5,5),
-('Prestige',40,40,5,5),
-('Prestige',40,40,5,5),
-('Prestige',40,40,5,5),
-('Premium',40,40,1,1),
-('Premium',38,38,2,2)
+insert into categoria (nombre_categoria, porcentaje_alcohol_categoria, grado_alcohol_categoria) VALUES
+('Estandar',40,40),
+('Premium',40,40),
+('Super Premium',40,40),
+('Ultra Premium',40,40),
+('Prestige',40,40)
 ;
-
 
 ------------------------VARIEDAD RON
 insert into variedad_ron(nombre_variedad_ron, descripcion_variedad_ron, porcentaje_produccion_variedad_ron, fk_id_tipo_ron) values
@@ -2503,6 +2496,404 @@ insert into sabor_ingrediente(fk_id_sabor, fk_id_ingrediente) values
  (7,5),
  (1,26);
 
+------------------------------------------------------Presentacion Ron--------------------------------------------------
+insert into presentacion_ron (unidad_volumen_presentacion_ron, capacidad_presentacion_ron, nombre_presentacion_ron, descripcion_presentacion_ron, precio_presentacion_ron, edad_anejo_presentacion_ron, fk_id_ron, fk_id_proveedor, fk_id_categoria,fk_id_color,fk_id_sabor)
+values
+    ('L', 0.70, 'Pampero Aniversario', 'Reconocido como uno de los mejores rones del mundo.', 30, 6, 1,1,2,1,4),
+    ('L', 0.75, 'Pampero Seleccion', 'Seleccionado a mano entre 10 barriles diferentes.', 15, 8, 1,1, 2,1,4),
+    ('L', 0.70, 'Pampero Especial', 'Tan reconocido que no usan su nombre, sino que se conoce como Caballito Frenao', 10, 4, 1,1, 2,2,1),
+    ('L', 0.70, 'Pampero Blanco', 'Refrescante, limpio, facil de beber y de alta calidad.', 15, 1, 1,1, 2,2,1),
+    ('L', 1, 'Cacique Añejo Superior', 'Incluye hasta 47 rones diferentes de hasta 2 años de maduracion.', 15, 5, 2,2, 2,2,4),
+    ('L', 0.70, 'Ron Roble Viejo Maestro', 'Facil de disfrutar para degustar solo o en cocteleria de alta gama.', 35, 6, 3,3, 2,4,7),
+    ('L', 0.70, 'Ron Roble Viejo Extra Añejo', 'Creado por reservas de 8 a 12 años.', 50, 8, 3,3, 2,4,1),
+    ('L', 0.70, 'Ron Roble Viejo Ultra Añejo', 'Excelente para degustar solo o mezclado.', 33, 12, 3,3, 2,4,3),
+    ('L', 1.75, 'Ron Roble Viejo Zafra', 'Un single vintage de 15 años en barrica.', 260, 15, 3,3, 2,4,3),
+    ('L', 0.75, 'Santa Teresa 1796', 'Audaz y elegante.', 28, 35, 4,4, 3,4,4),
+    ('L', 0.70, 'Santa Teresa Gran Reserva', 'Ideal para disfrutar con cola negra o cualquier coctel.', 10, 5, 4,4, 1,2,5),
+    ('L', 0.75, 'Santa Teresa Linaje', 'Ideal para disfrutar.', 16, 3, 4,4, 2,2,4),
+    ('L', 0.75, 'Arakú', 'Es el resultado de combinar los añejos de Santa Teresa.', 16, 2, 4,4, 2,4,4),
+    ('L', 0.70, 'Ron Carupano Legendario', 'Unico en Venezuela y en el mundo.', 645, 25, 5,5, 5,4,2),
+    ('L', 0.70, 'Ron Carupano X.O', 'Edicion limitada y numerada anual.', 449, 18, 5,5, 5,5,2),
+    ('L', 0.70, 'Ron Carupano Reserve 1996', 'Edicion especial de tan solo 5.000 botellas de cristal al año.', 170, 15, 5,5, 5,4,4),
+    ('L', 0.75, 'Ron Carupano 21', 'Madres de resrvas privadas hasta 21 años de envejecimiento.', 38, 21, 5,5, 4,4,2),
+    ('L', 0.75, 'Ron Carupano 18', 'Madres de reservas limitadas de hasta 18 años de envejecimiento.', 30, 18, 5,5, 3,4,3),
+    ('L', 0.75, 'Ron Carupano 12', 'Madres de reservas especiales de hasta 12 años de envejecimiento.', 16, 12, 5,5, 2,4,2),
+    ('L', 0.75, 'Ron Carupano 6', 'Madres de reservas especiales de hasta 6 años de envejecimiento.', 10, 6, 5,5, 1,4,1);
 
 
+-------------------------EVENTO--------------------------------------------------------------
+insert into evento(nombre_evento, descripcion_evento, numero_edicion_evento, fecha_inicio_evento, fecha_fin_evento, locacion_evento, limite_ocupacion_evento,fk_id_punto_de_venta,fk_id_lugar) values
+('Festival del Ron', 'Festival anual dedicado a celebrar y promover la cultura del ron', 1, '2024-07-15 12:00:00', '2024-07-17 23:59:59', 'Centro de Convenciones', 1000, 1, 989),
+('Taller de Cata de Ron', 'Aprendizaje y degustación de diferentes tipos de ron', 3, '2024-09-01 18:00:00', '2024-09-01 20:00:00', 'Club de Degustación de Ron', 20, 1, 990),
+('Exposición de Ron Artesanal', 'Muestra de rones artesanales de diferentes productores locales', 2, '2024-10-10 10:00:00', '2024-10-12 18:00:00', 'Galería de Arte', 200, 1, 991),
+('Cócteles de Ron en la Playa', 'Evento de degustación de cócteles de ron en la playa', 1, '2024-07-20 16:00:00', '2024-07-20 20:00:00', 'Playa Paraíso', 50, 1, 992),
+('Conferencia sobre la Historia del Ron', 'Charla informativa sobre la evolución y cultura del ron a lo largo de la historia', 1, '2024-11-05 15:00:00', '2024-11-05 17:00:00', 'Salón de Conferencias', 100, 1, 993),
+('Cena Maridaje con Ron Premium', 'Exquisita cena maridada con rones premium de distintas regiones', 1, '2024-12-15 19:30:00', '2024-12-15 23:00:00', 'Restaurante Gourmet', 30, 1, 1043),
+('Feria Internacional del Ron', 'Evento anual que reúne a los mejores productores de ron a nivel mundial', 12, '2024-08-10 10:00:00', '2024-08-15 22:00:00', 'Centro de Convenciones', 5000, 1, 994),
+('Taller de Coctelería con Ron', 'Aprende a preparar cocteles clásicos y creativos con ron', 5, '2024-09-05 16:00:00', '2024-09-05 18:00:00', 'Bar de Coctelería', 25, 1, 995),
+('Degustación de Ron Premium', 'Experiencia de degustación de rones premium de diferentes países', 7, '2024-10-20 18:30:00', '2024-10-20 20:30:00', 'Club de Degustación', 50, 1, 996),
+('Cata Vertical de Ron', 'Degustación de diferentes añadas de ron de una misma destilería', 2, '2024-11-10 19:00:00', '2024-11-10 21:00:00', 'Bodega de Ron', 15, 1, 997),
+('Fiesta Temática del Caribe', 'Noche de música, baile y cócteles caribeños con ron', 1, '2024-07-30 21:00:00', '2024-07-31 02:00:00', 'Club Nocturno', 200, 1, 998),
+('Taller de Maridaje de Ron y Chocolate', 'Descubre la combinación perfecta entre ron y chocolate', 1, '2024-12-03 15:00:00', '2024-12-03 17:00:00', 'Tienda de Chocolate', 30, 1, 1037),
+('Exposición de Etiquetas de Ron', 'Muestra de etiquetas históricas y artísticas de botellas de ron', 4, '2024-12-10 10:00:00', '2024-12-12 18:00:00', 'Museo de Arte', 100, 1, 1038),
+('Cócteles de Ron en el Rooftop', 'Disfruta de cócteles de ron en una terraza con vista panorámica', 3, '2024-12-15 19:00:00', '2024-12-15 23:00:00', 'Rooftop Bar', 40, 1, 1039),
+('Concurso Nacional de Bartenders', 'Competencia para elegir al mejor bartender de ron del país', 9, '2024-12-20 14:00:00', '2024-12-20 18:00:00', 'Centro de Convenciones', 200, 1, 1040),
+('Gala de Premiación de Ron', 'Evento de gala para reconocer a los mejores rones del año', 6, '2024-12-30 19:30:00', '2024-12-30 23:00:00', 'Salón de Eventos', 150, 1, 1041),
+('Festival de Ron y Música', 'Evento que combina la degustación de rones con presentaciones musicales en vivo', 3, '2024-08-25 16:00:00', '2024-08-26 02:00:00', 'Parque de la Ciudad', 500, 1, 1042),
+('Tour por Destilería de Ron', 'Recorrido guiado por una destilería de ron para conocer su proceso de producción', 2, '2024-09-10 10:00:00', '2024-09-10 12:00:00', 'Destilería de Ron', 30, 1, 1043),
+('Conferencia sobre Tendencias del Consumo de Ron', 'Charla informativa sobre las últimas tendencias en el consumo de ron a nivel mundial', 5, '2024-09-20 15:00:00', '2024-09-20 17:00:00', 'Centro de Convenciones', 100, 1, 1044),
+('Noche de Ron y Habanos', 'Evento exclusivo de maridaje entre ron y habanos selectos', 4, '2024-10-05 20:00:00', '2024-10-05 23:00:00', 'Cigar Lounge', 40, 1, 1045),
+('Fiesta de Ron y Salsa', 'Noche de baile con música salsa y cócteles de ron', 6, '2024-10-15 21:00:00', '2024-10-16 02:00:00', 'Club de Salsa', 200, 1, 1046),
+('Taller de Elaboración de Mojitos', 'Aprende a preparar mojitos clásicos y variantes con diferentes tipos de ron', 3, '2024-12-05 18:00:00', '2024-12-05 20:00:00', 'Escuela de Cocina', 25, 1, 1066),
+('Cata de Ron y Queso', 'Degustación de rones maridados con una selección de quesos artesanales', 2, '2024-12-10 19:00:00', '2024-12-10 21:00:00', 'Vinoteca', 30, 1, 1067),
+('Tarde de Ron y Arte', 'Exposición de obras de arte con degustación de rones premium', 4, '2024-12-15 17:00:00', '2024-12-15 20:00:00', 'Galería de Arte', 50, 1, 1068),
+('Competencia de Coctelería con Ron', 'Desafío entre bartenders para crear el mejor cóctel con ron', 8, '2024-12-20 16:00:00', '2024-12-20 19:00:00', 'Bar de Coctelería', 100, 1, 1069),
+('Fiesta de Fin de Año con Ron', 'Celebra la llegada del Año Nuevo con música, baile y cócteles de ron', 2, '2024-12-31 21:00:00', '2025-01-01 03:00:00', 'Salón de Eventos', 300, 1, 1070),
+('Maratón del Ron', 'Evento deportivo en el que los participantes recorren diferentes destilerías de ron', 1, '2024-08-10 08:00:00', '2024-08-10 18:00:00', 'Varias Destilerías', 1000, 1, 1071),
+('Taller de Mezcla de Ron', 'Aprende a mezclar diferentes tipos de ron para crear tu propio blend', 4, '2024-09-05 14:00:00', '2024-09-05 16:00:00', 'Academia de Ron', 20, 1, 1072),
+('Festival Gastronómico del Ron', 'Evento culinario donde reconocidos chefs crean platos inspirados en el ron', 7, '2024-10-15 12:00:00', '2024-10-17 22:00:00', 'Centro de Convenciones', 500, 1, 1073),
+('Degustación de Ron y Cigars', 'Experiencia de maridaje entre rones premium y puros de calidad', 3, '2024-11-10 18:30:00', '2024-11-10 20:30:00', 'Terraza de Cigars', 30, 1, 1074),
+('Noche de Ron y Jazz', 'Velada musical con presentaciones de jazz y degustación de rones selectos', 5, '2024-11-20 20:00:00', '2024-11-20 23:00:00', 'Club de Jazz', 50, 1, 1075),
+('Cócteles de Ron y Sunset', 'Disfruta de cócteles de ron mientras contemplas una hermosa puesta de sol', 2, '2024-12-05 17:30:00', '2024-12-05 19:30:00', 'Bar en la Playa', 40, 1, 1076),
+('Concurso de Cata a Ciegas', 'Competencia para identificar diferentes rones a través de la cata a ciegas', 4, '2024-12-10 16:00:00', '2024-12-10 18:00:00', 'Salón de Catas', 30, 1, 1077),
+('Exposición de Coleccionables de Ron', 'Muestra de botellas antiguas, etiquetas y otros objetos relacionados con el ron', 6, '2024-12-15 10:00:00', '2024-12-15 16:00:00', 'Museo del Ron', 100, 1, 1078),
+('Cócteles de Ron y Arte Urbano', 'Degustación de cócteles de ron en un evento de arte callejero', 3, '2024-12-20 19:00:00', '2024-12-20 22:00:00', 'Plaza de la Ciudad', 200, 1, 1079),
+('Gran Fiesta del Ron', 'Evento de clausura con música en vivo, espectáculos y una amplia variedad de rones', 10, '2024-12-31 21:00:00', '2025-01-01 05:00:00', 'Recinto Ferial', 1000, 1, 1080),
+('Taller de Coctelería Tiki', 'Aprende a preparar y decorar cocteles tiki con ron y frutas tropicales', 2, '2024-08-15 17:00:00', '2024-08-15 19:00:00', 'Bar Tiki Lounge', 25, 1, 1081),
+('Feria del Ron Artesanal', 'Exposición y venta de rones artesanales de pequeñas destilerías locales', 6, '2024-09-10 11:00:00', '2024-09-10 18:00:00', 'Plaza del Mercado', 200, 1, 1082),
+('Tarde de Ron y Sushi', 'Degustación de rones maridados con una selección de sushi gourmet', 3, '2024-09-20 19:00:00', '2024-09-20 21:00:00', 'Restaurante de Sushi', 30, 1, 1083),
+('Concurso de Mixología con Ron', 'Competencia entre bartenders para crear el mejor cóctel innovador con ron', 7, '2024-10-05 16:00:00', '2024-10-05 19:00:00', 'Centro de Convenciones', 100, 1, 1084),
+('Noche de Ron y Flamenco', 'Espectáculo de música flamenca acompañado de una selección de rones', 4, '2024-10-15 20:30:00', '2024-10-15 23:30:00', 'Tablao Flamenco', 50, 1, 1085),
+('Cócteles de Ron y Piscina', 'Disfruta de refrescantes cócteles de ron junto a una piscina con vistas al mar', 3, '2024-11-05 14:00:00', '2024-11-05 17:00:00', 'Club de Playa', 40, 1, 1086),
+('Taller de Maridaje de Ron y Chocolate', 'Descubre las mejores combinaciones entre rones y chocolates de calidad', 5, '2024-11-20 18:00:00', '2024-11-20 20:00:00', 'Tienda de Chocolates', 30, 1, 1087),
+('Exposición de Arte Inspirada en el Ron', 'Muestra de obras de artistas locales inspiradas en la cultura del ron', 8, '2024-12-10 10:00:00', '2024-12-10 16:00:00', 'Galería de Arte', 100, 1, 1088),
+('Tarde de Ron y Cigars', 'Disfruta de rones exclusivos maridados con puros de calidad en una terraza', 4, '2024-12-15 17:00:00', '2024-12-15 20:00:00', 'Terraza de Cigars', 50, 1, 1089),
+('Gran Fiesta de Año Nuevo con Ron', 'Celebra la llegada del Año Nuevo con música, baile y una amplia selección de rones', 3, '2024-12-31 21:00:00', '2025-01-01 04:00:00', 'Salón de Eventos', 500, 1, 1090),
+('Cata Vertical de Ron', 'Experiencia de degustación de diferentes añadas de un ron específico', 2, '2025-01-15 18:00:00', '2025-01-15 20:00:00', 'Bodega de Ron', 20, 1, 1091),
+('Tarde de Ron y Tabaco', 'Degustación de rones premium maridados con una selección de cigarros', 6, '2025-02-10 17:00:00', '2025-02-10 19:00:00', 'Salón de Fumadores', 30, 1, 1092),
+('Festival del Ron y Música', 'Evento al aire libre con música en vivo y una amplia variedad de rones para disfrutar', 9, '2025-03-20 14:00:00', '2025-03-20 22:00:00', 'Parque Central', 500, 1, 1093),
+('Venezuela Rum Festival', 'Evento donde se degustarán 6 rones provenientes del Caribe', 2, '2023-04-20 14:00:00', '2023-04-20 22:00:00', 'Plaza Mickey UCAB', 500, 1, 701);
+
+-------------------------------------------OFERTA---------------------------
+insert into oferta (nombre_oferta, descripcion_oferta, valor_oferta, fecha_inicio_oferta, fecha_fin_oferta)  values
+('Dia de los enamorados','Para San Valentin recibe un descuento para tu pareja',10,'2023-02-12 8:00:00','2023-02-14 20:00:00'),
+('De vacaciones','Oferta especial gana dinero con una compra mayor a $30',10,'2023-02-01 8:00:00','2023-02-28 20:00:00'),
+('Cumpleaños ronero','En tu cumpleaños te obsequiamos $10', 10,'2023-03-01 8:00:00','2023-03-31 20:00:00')
+;
+
+
+--------------------------------------ENTRADA-----------------------------------
+insert into entrada (nombre_entrada, descripcion_entrada, precio_entrada, codigo_entrada, fk_id_evento) values
+('Entrada General', 'Acceso general al evento', 20.00, 'EG001', 1),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 50.00, 'VIP001', 1),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 30.00, 'EE001', 2),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 60.00, 'EP001', 2),
+('Entrada Básica', 'Entrada básica para disfrutar del evento', 25.00, 'EB001', 3),
+('Entrada Deluxe', 'Entrada deluxe con beneficios adicionales', 55.00, 'ED001', 3),
+('Entrada Regular', 'Entrada regular para acceder al evento', 40.00, 'ER001', 4),
+('Entrada Gold', 'Entrada gold con acceso privilegiado', 70.00, 'EG002', 4),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 35.00, 'EE002', 5),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 65.00, 'EP002', 5),
+('Entrada General', 'Acceso general al evento', 22.00, 'EG003', 6),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 55.00, 'VIP002', 6),
+('Entrada Básica', 'Entrada básica para disfrutar del evento', 28.00, 'EB002', 7),
+('Entrada Deluxe', 'Entrada deluxe con beneficios adicionales', 58.00, 'ED002', 7),
+('Entrada Regular', 'Entrada regular para acceder al evento', 45.00, 'ER002', 8),
+('Entrada Gold', 'Entrada gold con acceso privilegiado', 75.00, 'EG004', 8),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 38.00, 'EE003', 9),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 68.00, 'EP003', 9),
+('Entrada General', 'Acceso general al evento', 25.00, 'EG005', 10),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 60.00, 'VIP003', 10),
+('Entrada Básica', 'Entrada básica para disfrutar del evento', 32.00, 'EB003', 11),
+('Entrada Deluxe', 'Entrada deluxe con beneficios adicionales', 62.00, 'ED003', 11),
+('Entrada Regular', 'Entrada regular para acceder al evento', 48.00, 'ER003', 12),
+('Entrada Gold', 'Entrada gold con acceso privilegiado', 78.00, 'EG006', 12),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 41.00, 'EE004', 13),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 71.00, 'EP004', 13),
+('Entrada General', 'Acceso general al evento', 28.00, 'EG007', 14),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 65.00, 'VIP004', 14),
+('Entrada Básica', 'Entrada básica para disfrutar del evento', 34.00, 'EB004', 15),
+('Entrada Deluxe', 'Entrada deluxe con beneficios adicionales', 64.00, 'ED004', 15),
+('Entrada Regular', 'Entrada regular para acceder al evento', 50.00, 'ER004', 16),
+('Entrada Gold', 'Entrada gold con acceso privilegiado', 80.00, 'EG008', 16),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 44.00, 'EE005', 17),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 68.00, 'EP003', 18),
+('Entrada General', 'Acceso general al evento', 25.00, 'EG005', 19),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 60.00, 'VIP003', 20),
+('Entrada Básica', 'Entrada básica para disfrutar del evento', 32.00, 'EB003', 21),
+('Entrada Deluxe', 'Entrada deluxe con beneficios adicionales', 62.00, 'ED003', 22),
+('Entrada Regular', 'Entrada regular para acceder al evento', 48.00, 'ER003', 23),
+('Entrada Gold', 'Entrada gold con acceso privilegiado', 78.00, 'EG006', 24),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 41.00, 'EE004', 25),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 71.00, 'EP004', 26),
+('Entrada General', 'Acceso general al evento', 28.00, 'EG007', 27),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 65.00, 'VIP004', 28),
+('Entrada Básica', 'Entrada básica para disfrutar del evento', 34.00, 'EB004', 29),
+('Entrada Deluxe', 'Entrada deluxe con beneficios adicionales', 64.00, 'ED004', 30),
+('Entrada Regular', 'Entrada regular para acceder al evento', 50.00, 'ER004', 31),
+('Entrada Gold', 'Entrada gold con acceso privilegiado', 80.00, 'EG008', 32),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 44.00, 'EE005', 33),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 76.00, 'EP005', 33),
+('Entrada General', 'Acceso general al evento', 30.00, 'EG009', 34),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 70.00, 'VIP005', 34),
+('Entrada Básica', 'Entrada básica para disfrutar del evento', 35.00, 'EB005', 35),
+('Entrada Deluxe', 'Entrada deluxe con beneficios adicionales', 75.00, 'ED005', 35),
+('Entrada Regular', 'Entrada regular para acceder al evento', 55.00, 'ER005', 36),
+('Entrada Gold', 'Entrada gold con acceso privilegiado', 85.00, 'EG010', 36),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 48.00, 'EE006', 37),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 78.00, 'EP006', 37),
+('Entrada General', 'Acceso general al evento', 32.00, 'EG011', 38),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 75.00, 'VIP006', 38),
+('Entrada Básica', 'Entrada básica para disfrutar del evento', 38.00, 'EB006', 39),
+('Entrada Deluxe', 'Entrada deluxe con beneficios adicionales', 68.00, 'ED006', 39),
+('Entrada Regular', 'Entrada regular para acceder al evento', 50.00, 'ER006', 40),
+('Entrada Gold', 'Entrada gold con acceso privilegiado', 80.00, 'EG012', 40),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 42.00, 'EE007', 41),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 72.00, 'EP007', 41),
+('Entrada General', 'Acceso general al evento', 35.00, 'EG013', 42),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 80.00, 'VIP007', 42),
+('Entrada Básica', 'Entrada básica para disfrutar del evento', 40.00, 'EB007', 43),
+('Entrada Deluxe', 'Entrada deluxe con beneficios adicionales', 70.00, 'ED007', 43),
+('Entrada Regular', 'Entrada regular para acceder al evento', 52.00, 'ER007', 44),
+('Entrada Gold', 'Entrada gold con acceso privilegiado', 82.00, 'EG014', 44),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 46.00, 'EE008', 45),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 76.00, 'EP008', 45),
+('Entrada General', 'Acceso general al evento', 38.00, 'EG015', 46),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 85.00, 'VIP008', 46),
+('Entrada Básica', 'Entrada básica para disfrutar del evento', 42.00, 'EB008', 47),
+('Entrada Deluxe', 'Entrada deluxe con beneficios adicionales', 72.00, 'ED008', 47),
+('Entrada Regular', 'Entrada regular para acceder al evento', 54.00, 'ER008', 48),
+('Entrada Gold', 'Entrada gold con acceso privilegiado', 84.00, 'EG016', 48),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 50.00, 'EE009', 49),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 80.00, 'EP009', 49),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 90.00, 'VIP009', 50);
+
+
+-------------------------------------------------PAGO ENTRADA----------------------------
+insert into pago_entrada(fecha_pago_entrada, cantidad_entrada, total_pago_entrada,fk_id_entrada,fk_id_evento) values
+('2024-01-08', 2, 60.00, 1,1),
+('2024-01-08', 1, 76.00, 17,9),
+('2024-01-09', 4, 120.00, 50,33),
+('2024-01-08', 3, 150.00, 77,47),
+('2024-01-08', 2, 100.00, 79,48),
+('2024-01-09', 1, 60.00, 80,48),
+('2024-01-09', 4, 200.00, 82,49),
+('2024-01-11', 3, 150.00, 63,40),
+('2024-01-12', 2, 100.00, 25,13),
+('2024-01-12', 4, 200.00, 29,15);
+
+
+
+--------------------------------------NOTA CATA------------------------------------
+insert into nota_cata (descripcion_nota_cata,fk_id_evento,fk_id_presentacion_ron) values
+('Ron de sabor y aromas excepcionales.',1,1),
+('Posee un aroma suave perfectamente equilibrado para su disfute.',2,2),
+('Licor ligero cuyos sabores brillan en cualquier mezcla.',3,3),
+('Posee sabores capaces de mezclarse con otros. Ron joven, fresco y limpio.',4,4),
+('Aroma suave contrastados con notas a madera.',5,5),
+('Aromas de melaza,vainilla,madera,avellanas,pimienta negra y flores',6,6),
+('Licor robusto con caracter amaderado.',7,7),
+('De gran suavidad y cuerpo, nos regala un final intenso, redondo y perfecto.',8,8),
+('Proporciona un final largo, intenso y sedoso.Es la armonia para disfrutar un tabaco.',9,9),
+('Aromas afrutados con notas de madera, y con un sabor unico.',10,10),
+('Aroma afrutado que evoca la caña y se fusiona con notas suaves a madera',11,11),
+('Aroma dulce y almendrado.',12,12),
+('Mestizo de ron y cafe con toques del cremoso cafe y aromatica infusion.',13,13),
+('Permanencia larga en boca y perfecto equilibrio.',14,14),
+('Permanencia larga en boca con un sutil perfume de flores rojas.',15,15),
+('Llena la boca de un maquico equilibrio. Fuerza en boca, elegancia y personalidad.',16,16),
+('Permanencia larga en boca con una sensacion alcoholica intensa y agradable.',17,17),
+('Entrada vigorosa con cuerpo firme y balanceado. Agradable permanencia en boca.',18,18),
+('Permanencia media a larga, equilibrado y delicioso.',19,19),
+('Equilibrado en boca con aromas a alcohol, flores, melaza, leve madera.',20,20),
+('Ron de sabor y aromas excepcionales.',21,1),
+('Posee un aroma suave perfectamente equilibrado para su disfute.',22,2),
+('Licor ligero cuyos sabores brillan en cualquier mezcla.',23,3),
+('Posee sabores capaces de mezclarse con otros. Ron joven, fresco y limpio.',24,4),
+('Aroma suave contrastados con notas a madera.',25,5),
+('Aromas de melaza,vainilla,madera,avellanas,pimienta negra y flores',26,6),
+('Licor robusto con caracter amaderado.',27,7),
+('De gran suavidad y cuerpo, nos regala un final intenso, redondo y perfecto.',28,8),
+('Proporciona un final largo, intenso y sedoso.Es la armonia para disfrutar un tabaco.',29,9),
+('Aromas afrutados con notas de madera, y con un sabor unico.',30,10),
+('Aroma afrutado que evoca la caña y se fusiona con notas suaves a madera',31,11),
+('Aroma dulce y almendrado.',32,12),
+('Mestizo de ron y cafe con toques del cremoso cafe y aromatica infusion.',33,13),
+('Permanencia larga en boca y perfecto equilibrio.',34,14),
+('Permanencia larga en boca con un sutil perfume de flores rojas.',35,15),
+('Llena la boca de un maquico equilibrio. Fuerza en boca, elegancia y personalidad.',36,16),
+('Permanencia larga en boca con una sensacion alcoholica intensa y agradable.',37,17),
+('Entrada vigorosa con cuerpo firme y balanceado. Agradable permanencia en boca.',38,18),
+('Permanencia media a larga, equilibrado y delicioso.',39,19),
+('Equilibrado en boca con aromas a alcohol, flores, melaza, leve madera.',40,20),
+('Aromas afrutados con notas de madera, y con un sabor unico.',41,10),
+('Aroma afrutado que evoca la caña y se fusiona con notas suaves a madera',42,11),
+('Aroma dulce y almendrado.',43,12),
+('Mestizo de ron y cafe con toques del cremoso cafe y aromatica infusion.',44,13),
+('Permanencia larga en boca y perfecto equilibrio.',45,14),
+('Permanencia larga en boca con un sutil perfume de flores rojas.',46,15),
+('Llena la boca de un maquico equilibrio. Fuerza en boca, elegancia y personalidad.',47,16),
+('Permanencia larga en boca con una sensacion alcoholica intensa y agradable.',48,17),
+('Entrada vigorosa con cuerpo firme y balanceado. Agradable permanencia en boca.',49,18),
+('Permanencia media a larga, equilibrado y delicioso.',50,19);
+
+----------------------------------------PRESENTACION RON EVENTO
+insert into presentacion_ron_evento (fk_id_evento,fk_id_presentacion_ron) values
+(1,1),
+(2,2),
+(3,3),
+(4,4),
+(5,5),
+(6,6),
+(7,7),
+(8,8),
+(9,9),
+(10,10),
+(11,11),
+(12,12),
+(13,13),
+(14,14),
+(15,15),
+(16,16),
+(17,17),
+(18,18),
+(19,19),
+(20,20),
+(21,1),
+(22,2),
+(23,3),
+(24,4),
+(25,5),
+(26,6),
+(27,7),
+(28,8),
+(29,9),
+(30,10),
+(31,11),
+(32,12),
+(33,13),
+(34,14),
+(35,15),
+(36,16),
+(37,17),
+(38,18),
+(39,19),
+(40,20),
+(41,10),
+(42,11),
+(43,12),
+(44,13),
+(45,14),
+(46,15),
+(47,16),
+(48,17),
+(49,18),
+(50,19);
+
+------------------------------------PROVEEDOR PARTICIPA EVENTO
+insert into proveedor_participa_evento (fk_id_proveedor,fk_id_evento) values
+(1,1),
+(1,2),
+(1,3),
+(2,25),
+(3,26),
+(3,27),
+(3,28),
+(4,30),
+(4,31),
+(4,32),
+(5,37),
+(5,48),
+(5,50);
+
+
+---------------------------------PRESENTACION RON OFERTA
+insert into presentacion_ron_oferta (fk_id_presentacion_ron,fk_id_oferta) values
+(1,1),
+(3,1),
+(5,2),
+(6,1),
+(8,1),
+(9,3),
+(12,3),
+(15,3),
+(17,2);
+
+------------------------------------TASA DE CAMBIO
+INSERT INTO tasa_de_cambio (valor_tasa, fecha_inicio_tasa, fecha_fin_tasa) VALUES 
+(4.54, '2023-12-25 00:00:00', '2023-12-28 23:59:59'),
+(4.56, '2023-12-29 00:00:00', '2023-12-31 23:59:59'),
+(4.57, '2024-01-01 00:00:00', '2024-01-05 23:59:59'),
+(4.55, '2024-01-06 00:00:00', '2024-01-10 23:59:59'),
+(4.58, '2024-01-11 00:00:00', '2024-01-15 23:59:59'),
+(4.60, '2024-01-16 00:00:00', '2024-01-20 23:59:59'),
+(4.62, '2024-01-21 00:00:00', '2024-01-25 23:59:59'),
+(4.61, '2024-01-26 00:00:00', '2024-01-30 23:59:59'),
+(4.59, '2024-01-31 00:00:00', '2024-02-04 23:59:59'),
+(5,'2024-01-01 12:00:00','2024-02-01 8:00:00');
+
+
+---------------------------------PUNTO
+insert into punto (precio_punto, fecha_inicio_tasa_punto, fecha_fin_tasa_punto,fk_id_punto_de_venta_tienda_fisica,fk_id_punto_de_venta) values
+(10.5, '2024-01-01 00:00:00', '2024-12-31 23:59:59', 1, 1),
+(9.75, '2024-02-01 00:00:00', '2024-02-28 23:59:59', 1, 1),
+(11.2, '2024-03-01 00:00:00', '2024-03-31 23:59:59', 1, 1),
+(8.9, '2024-04-01 00:00:00', '2024-04-30 23:59:59', 1, 1),
+(10.1, '2024-05-01 00:00:00', '2024-05-31 23:59:59', 1, 1),
+(9.3, '2024-06-01 00:00:00', '2024-06-30 23:59:59', 1, 1),
+(10.8, '2024-07-01 00:00:00', '2024-07-31 23:59:59', 1, 1),
+(9.6, '2024-08-01 00:00:00', '2024-08-31 23:59:59', 1, 1),
+(11.4, '2024-09-01 00:00:00', '2024-09-30 23:59:59', 1, 1),
+(10.2, '2024-10-01 00:00:00', '2024-10-31 23:59:59', 1, 1);
+
+
+
+-------------------------------------COMPRA
+insert into compra (numero_compra, fecha_compra, total_compra,fk_id_punto_de_venta,fk_id_proveedor) values
+(1, '2024-01-01 09:00:00', 6450, 1, 5),
+(2, '2024-01-02 10:30:00', 225, 1, 1),
+(3, '2024-01-05 14:45:00', 400, 1, 1),
+(4, '2024-01-08 11:20:00', 375, 1, 2),
+(5, '2024-01-10 16:00:00', 898, 1, 5),
+(6, '2024-01-12 13:10:00', 250, 1, 3),
+(7, '2024-01-15 10:45:00', 1040, 1, 3),
+(8, '2024-01-18 15:30:00', 336, 1, 4),
+(9, '2024-01-20 12:40:00', 100, 1, 4),
+(10, '2024-01-22 09:15:00', 680, 1, 5);
+
+
+----------------------------DETALLE_COMPRA
+insert into detalle_compra (precio_unitario_detalle_compra, cant_prod_total_detalle_compra,fk_id_compra,fk_id_presentacion_ron) values
+(645,10,1,14),
+(15,15,2,2),
+(10,40,3,3),
+(15,25,4,5),
+(449,2,5,15),
+(50,5,6,7),
+(260,4,7,9),
+(28,12,8,10),
+(10,10,9,11),
+(170,4,10,16);
+
+-------------------------------CATALOGO INVENTARIO RON
+insert into catalogo_inventario_ron (fk_id_punto_de_venta,fk_id_detalle_compra,fk_id_compra,fk_id_presentacion_ron) values
+(1,1,1,14),
+(1,2,2,2),
+(1,3,3,3),
+(1,4,4,5),
+(1,5,5,15),
+(1,6,6,7),
+(1,7,7,9),
+(1,8,8,10),
+(1,9,9,11),
+(1,10,10,16);
+
+------------------------------PREMIO
+insert into premio (nombre_premio, descripcion_premio, fecha_premio,fk_id_evento,fk_id_presentacion_ron,fk_id_catalogo_inventario_ron,fk_id_punto_de_venta) values
+('San Francisco World Spirits Competition','Ganador de 1 medalla.','2008-10-20 18:00:00',14,14,1,1),
+('Congreso Internacional de Madrid','Ganador de 7 medallas.','2009-12-20 18:00:00',14,14,1,1),
+('Concurso Mundial de Bruselas','Ganador de 1 medalla.','2013-05-20 18:00:00',14,14,1,1),
+('Gran Tenedor Oro','Ganador de 1 medalla.','2020-11-05 18:00:00',14,14,1,1),
+('International Rum Conference','Ganador de 1 medalla','2009-01-14 18:00:00',14,14,1,1),
+('London Spirits Competition','Ganador de 2 medallas.','2018-10-27 18:00:00',14,14,1,1);
 
