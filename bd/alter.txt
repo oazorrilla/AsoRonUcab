@@ -382,6 +382,11 @@ alter column imagen_usuario drop not null;
 alter table presentacion_ron
 alter column fk_id_categoria drop not null;
 
+--Especificar columnas NULL
+alter table persona_natural
+alter column fk_id_proveedor drop not null,
+alter column fk_id_persona_juridica drop not null;
+
 
 --Especificar columnas NULL
 alter table detalle_venta
