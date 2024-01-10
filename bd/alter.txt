@@ -102,12 +102,6 @@ ADD    CONSTRAINT fk_id_presentacion_ron FOREIGN KEY (fk_id_presentacion_ron,fk_
 ;
 
 
---Agregar llaves de la tabla categoria
-ALTER TABLE categoria
-ADD    CONSTRAINT fk_id_ron FOREIGN KEY(fk_id_ron,fk_id_proveedor) REFERENCES ron(id_ron, fk_id_proveedor)
-;
-
-
 --Agregar llaves de la tabla tipo_ron
 ALTER TABLE tipo_ron
 ADD    CONSTRAINT fk_id_lugar FOREIGN KEY (fk_id_lugar) REFERENCES lugar(id_lugar),
@@ -175,7 +169,8 @@ ALTER TABLE presentacion_ron
 ADD    CONSTRAINT fk_id_ron FOREIGN KEY (fk_id_ron,fk_id_proveedor) REFERENCES ron(id_ron,fk_id_proveedor),
 ADD    CONSTRAINT fk_id_catalogo_inventario_ron FOREIGN KEY (fk_id_catalogo_inventario_ron,fk_id_punto_de_venta) REFERENCES catalogo_inventario_ron(id_catalogo_inventario_ron,fk_id_punto_de_venta)
 add constraint fk_id_sabor FOREIGN KEY(fk_id_sabor) REFERENCES sabor(id_sabor),
-add constraint fk_id_color FOREIGN KEY (fk_id_color) REFERENCES color(id_color)
+add constraint fk_id_color FOREIGN KEY (fk_id_color) REFERENCES color(id_color),
+add constraint fk_id_categoria foreign key (fk_id_categoria) references categoria(id_categoria)
 ;
 
 

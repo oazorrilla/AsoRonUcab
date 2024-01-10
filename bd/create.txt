@@ -286,8 +286,6 @@ create table categoria(
         constraint check_porcentaje_alcohol_categoria check (porcentaje_alcohol_categoria > (0)::numeric),
     grado_alcohol_categoria      integer       not null
         constraint check_grado_alcohol_categoria check (grado_alcohol_categoria > 0),
-    fk_id_ron			 serial,
-    fk_id_proveedor		 serial,
     constraint pk_id_categoria PRIMARY KEY (id_categoria)
 );
 
@@ -464,6 +462,7 @@ create table presentacion_ron(
     fk_id_punto_de_venta            serial	not null,
     fk_id_sabor 		    serial	not null,
     fk_id_color 		    serial	not null,
+    fk_id_categoria		    serial	not null,
     constraint pk_id_presentacion_ron PRIMARY KEY(id_presentacion_ron, fk_id_catalogo_inventario_ron, fk_id_punto_de_venta)
 );
 
