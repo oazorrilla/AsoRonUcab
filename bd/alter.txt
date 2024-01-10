@@ -40,7 +40,7 @@ add constraint fk_id_punto_de_venta_online FOREIGN KEY(fk_id_punto_de_venta_onli
 --Agregar llaves de la tabla detalle_pedido
 ALTER TABLE detalle_pedido
 ADD    CONSTRAINT fk_id_pedido FOREIGN KEY (fk_id_pedido) REFERENCES pedido(id_pedido),
-ADD    CONSTRAINT fk_id_catalogo_inventario_ron FOREIGN KEY (fk_id_catalogo_inventario_ron,fk_id_punto_de_venta) REFERENCES catalogo_inventario_ron(id_catalogo_inventario_ron,fk_id_punto_de_venta)
+add constraint fk_id_catalogo_inventario_ron foreign key(fk_id_catalogo_inventario_ron,fk_id_detalle_compra,fk_id_compra,fk_id_punto_de_venta,fk_id_presentacion_ron) references catalogo_inventario_ron(id_catalogo_inventario_ron,fk_id_punto_de_venta,fk_id_detalle_compra,fk_id_compra,fk_id_presentacion_ron)
 ;
 
 
@@ -98,7 +98,7 @@ add constraint fk_id_punto_de_venta_tienda_fisica FOREIGN KEY(fk_id_punto_de_ven
 
 --Agregar llaves de la tabla imagen_presentacion_ron
 ALTER TABLE imagen_presentacion_ron
-ADD    CONSTRAINT fk_id_presentacion_ron FOREIGN KEY (fk_id_presentacion_ron,fk_id_catalogo_inventario_ron,fk_id_punto_de_venta) REFERENCES presentacion_ron(id_presentacion_ron,fk_id_catalogo_inventario_ron,fk_id_punto_de_venta)
+add constraint fk_id_presentacion_ron foreign key (fk_id_presentacion_ron) references presentacion_ron(id_presentacion_ron)
 ;
 
 
@@ -166,14 +166,12 @@ ADD    CONSTRAINT fk_id_evento FOREIGN KEY (fk_id_evento) REFERENCES evento(id_e
 --Agregar llaves de la tabla catalogo_inventario_ron
 ALTER TABLE catalogo_inventario_ron
 ADD    CONSTRAINT fk_id_punto_de_venta FOREIGN KEY (fk_id_punto_de_venta) REFERENCES punto_de_venta(id_punto_de_venta),
-ADD    CONSTRAINT fk_id_detalle_compra FOREIGN KEY (fk_id_detalle_compra,fk_id_compra,fk_id_presentacion_ron,fk_id_catalogo_inventario_ron_2,fk_id_punto_de_venta_2) REFERENCES detalle_compra(id_detalle_compra,fk_id_compra,fk_id_presentacion_ron,fk_id_catalogo_inventario_ron,fk_id_punto_de_venta);
-;
+ADD    CONSTRAINT fk_id_detalle_compra foreign key (fk_id_detalle_compra,fk_id_compra,fk_id_presentacion_ron) references detalle_compra(id_detalle_compra,fk_id_compra,fk_id_presentacion_ron);
 
 
 --Agregar llaves de la tabla presentacion_ron
 ALTER TABLE presentacion_ron
 ADD    CONSTRAINT fk_id_ron FOREIGN KEY (fk_id_ron,fk_id_proveedor) REFERENCES ron(id_ron,fk_id_proveedor),
-ADD    CONSTRAINT fk_id_catalogo_inventario_ron FOREIGN KEY (fk_id_catalogo_inventario_ron,fk_id_punto_de_venta) REFERENCES catalogo_inventario_ron(id_catalogo_inventario_ron,fk_id_punto_de_venta)
 add constraint fk_id_sabor FOREIGN KEY(fk_id_sabor) REFERENCES sabor(id_sabor),
 add constraint fk_id_color FOREIGN KEY (fk_id_color) REFERENCES color(id_color),
 add constraint fk_id_categoria foreign key (fk_id_categoria) references categoria(id_categoria)
@@ -209,7 +207,7 @@ ADD    CONSTRAINT fk_id_ron FOREIGN KEY (fk_id_ron,fk_id_proveedor) REFERENCES r
 --Agregar llaves de la tabla presentacion_ron_oferta
 ALTER TABLE presentacion_ron_oferta
 ADD    CONSTRAINT fk_id_oferta FOREIGN KEY (fk_id_oferta) REFERENCES oferta(id_oferta),
-ADD    CONSTRAINT fk_id_presentacion_ron FOREIGN KEY (fk_id_presentacion_ron,fk_id_catalogo_inventario_ron,fk_id_punto_de_venta) REFERENCES presentacion_ron(id_presentacion_ron,fk_id_catalogo_inventario_ron,fk_id_punto_de_venta)
+add constraint fk_id_presentacion_ron foreign key (fk_id_presentacion_ron) references presentacion_ron(id_presentacion_ron)
 ;
 
 
@@ -223,21 +221,21 @@ ADD    CONSTRAINT fk_id_proveedor FOREIGN KEY (fk_id_proveedor) REFERENCES prove
 --Agregar llaves de la tabla presentacion_ron_evento
 ALTER TABLE presentacion_ron_evento
 ADD    CONSTRAINT fk_id_evento FOREIGN KEY (fk_id_evento) REFERENCES evento(id_evento),
-ADD    CONSTRAINT fk_id_presentacion_ron FOREIGN KEY (fk_id_presentacion_ron,fk_id_catalogo_inventario_ron,fk_id_punto_de_venta) REFERENCES presentacion_ron(id_presentacion_ron,fk_id_catalogo_inventario_ron,fk_id_punto_de_venta)
+add constraint fk_id_presentacion_ron foreign key (fk_id_presentacion_ron) references presentacion_ron(id_presentacion_ron)
 ;
 
 
 --Agregar llaves de la tabla detalle_compra
 ALTER TABLE detalle_compra
 ADD    CONSTRAINT fk_id_compra FOREIGN KEY (fk_id_compra) REFERENCES compra(id_compra),
-ADD CONSTRAINT fk_id_presentacion_ron FOREIGN KEY (fk_id_presentacion_ron,fk_id_catalogo_inventario_ron,fk_id_punto_de_venta) REFERENCES presentacion_ron(id_presentacion_ron,fk_id_catalogo_inventario_ron,fk_id_punto_de_venta)
+ADD	CONSTRAINT fk_id_presentacion_ron foreign key (fk_id_presentacion_ron) references presentacion_ron(id_presentacion_ron)
 ;
 
 
 --Agregar llaves de la tabla detalle_venta
 ALTER TABLE detalle_venta
 ADD    CONSTRAINT fk_id_venta FOREIGN KEY (fk_id_venta) REFERENCES venta(id_venta),
-ADD    CONSTRAINT fk_id_catalogo_inventario_ron FOREIGN KEY (fk_id_catalogo_inventario_ron,fk_id_punto_de_venta) REFERENCES catalogo_inventario_ron(id_catalogo_inventario_ron, fk_id_punto_de_venta),
+add constraint fk_id_catalogo_inventario_ron foreign key (fk_id_catalogo_inventario_ron,fk_id_punto_de_venta,fk_id_detalle_compra,fk_id_compra,fk_id_presentacion_ron) references catalogo_inventario_ron(id_catalogo_inventario_ron,fk_id_punto_de_venta,fk_id_detalle_compra,fk_id_compra,fk_id_presentacion_ron),
 ADD    CONSTRAINT fk_id_pago_entrada FOREIGN KEY (fk_id_pago_entrada,fk_id_entrada,fk_id_evento) REFERENCES pago_entrada(id_pago_entrada,fk_id_entrada,fk_id_evento)
 ;
 
@@ -389,3 +387,15 @@ alter column imagen_usuario drop not null;
 --Especificar columnas NULL
 alter table presentacion_ron
 alter column fk_id_categoria drop not null;
+
+
+--Especificar columnas NULL
+alter table detalle_venta
+alter column fk_id_catalogo_inventario_ron drop not null,
+alter column fk_id_punto_de_venta drop not null,
+alter column fk_id_detalle_compra drop not null,
+alter column fk_id_compra drop not null,
+alter column fk_id_presentacion_ron drop not null,
+alter column fk_id_pago_entrada drop not null,
+alter column fk_id_evento drop not null,
+alter column fk_id_entrada drop not null;

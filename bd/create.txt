@@ -119,7 +119,10 @@ create table detalle_pedido(
     fk_id_pedido                   serial	  not null,
     fk_id_catalogo_inventario_ron  serial	  not null,
     fk_id_punto_de_venta           serial	  not null,
-    constraint pk_id_detalle_pedido primary key(id_detalle_pedido,fk_id_pedido,fk_id_catalogo_inventario_ron,fk_id_punto_de_venta)
+    fk_id_detalle_compra 	serial	not null,
+    fk_id_compra 	serial	not null,
+    fk_id_presentacion_ron 	serial	not null,
+    constraint pk_id_detalle_pedido primary key(id_detalle_pedido,fk_id_pedido,fk_id_catalogo_inventario_ron,fk_id_punto_de_venta,fk_id_detalle_compra,fk_id_compra,fk_id_presentacion_ron)
 );
 
 
@@ -245,8 +248,6 @@ create table imagen_presentacion_ron(
     nombre_imagen                 varchar(50)  not null,
     ruta_imagen                   varchar(255) not null,
     fk_id_presentacion_ron        serial	not null,
-    fk_id_catalogo_inventario_ron serial	not null,
-    fk_id_punto_de_venta          serial	not null,
     constraint pk_id_imagen PRIMARY KEY (id_imagen)
 );
 
@@ -458,13 +459,10 @@ create table presentacion_ron(
         constraint check_edad_anejo_presentacion_ron check (edad_anejo_presentacion_ron > 0),
     fk_id_ron                       serial	not null,
     fk_id_proveedor                 serial	not null,
-    fk_id_catalogo_inventario_ron   serial	not null,
-    fk_id_punto_de_venta            serial	not null,
     fk_id_sabor 		    serial	not null,
     fk_id_color 		    serial	not null,
     fk_id_categoria		    serial	not null,
-    constraint pk_id_presentacion_ron PRIMARY KEY(id_presentacion_ron, fk_id_catalogo_inventario_ron, fk_id_punto_de_venta)
-);
+    constraint pk_id_presentacion_ron PRIMARY KEY(id_presentacion_ron);
 
 
 --Crear tabla presentacion_ron_oferta
@@ -472,9 +470,7 @@ create table presentacion_ron_oferta(
     id_presentacion_ron_oferta    serial	not null UNIQUE,
     fk_id_oferta                  serial	not null,
     fk_id_presentacion_ron        serial	not null,
-    fk_id_catalogo_inventario_ron serial	not null,
-    fk_id_punto_de_venta          serial	not null,
-    constraint pk_id_presentacion_ron_oferta PRIMARY KEY (id_presentacion_ron_oferta, fk_id_oferta, fk_id_presentacion_ron, fk_id_catalogo_inventario_ron, fk_id_punto_de_venta)
+    constraint pk_id_presentacion_ron_oferta primary key (id_presentacion_ron_oferta,fk_id_presentacion_ron,fk_id_oferta)
 );
 
 
@@ -496,9 +492,7 @@ create table catalogo_inventario_ron(
     fk_id_detalle_compra 	 serial	not null,
     fk_id_compra 		 serial	not null,
     fk_id_presentacion_ron 	 serial	not null,
-    fk_id_catalogo_inventario_ron_2 serial	not null,
-    fk_id_punto_de_venta_2 	    serial	not null,
-    constraint pk_id_catalogo_inventario_ron PRIMARY KEY(id_catalogo_inventario_ron, fk_id_punto_de_venta)
+    constraint pk_id_catalogo_inventario_ron primary key (id_catalogo_inventario_ron,fk_id_punto_de_venta,fk_id_detalle_compra,fk_id_compra,fk_id_presentacion_ron)
 );
 
 
@@ -507,9 +501,7 @@ create table presentacion_ron_evento(
     id_presentacion_ron_evento    serial	not null  UNIQUE,
     fk_id_evento                  serial	not null,
     fk_id_presentacion_ron        serial	not null,
-    fk_id_catalogo_inventario_ron serial	not null,
-    fk_id_punto_de_venta	  serial	not null,
-    constraint pk_id_presentacion_ron_evento PRIMARY KEY (id_presentacion_ron_evento, fk_id_evento, fk_id_presentacion_ron, fk_id_catalogo_inventario_ron,fk_id_punto_de_venta)
+    constraint pk_id_presentacion_ron_evento primary key (id_presentacion_ron_evento,fk_id_evento,fk_id_presentacion_ron)
 );
 
 
@@ -522,9 +514,7 @@ create table detalle_compra(
         constraint check_cant_prod_total_detalle_compra check (cant_prod_total_detalle_compra > 0),
     fk_id_compra                   serial	not null,
     fk_id_presentacion_ron         serial	not null,
-    fk_id_catalogo_inventario_ron  serial	not null,
-    fk_id_punto_de_venta           serial	not null,
-    constraint pk_id_detalle_compra PRIMARY KEY (id_detalle_compra, fk_id_compra, fk_id_presentacion_ron, fk_id_catalogo_inventario_ron, fk_id_punto_de_venta)
+    constraint pk_id_detalle_compra primary key (id_detalle_compra,fk_id_presentacion_ron,fk_id_compra)
 );
 
 
@@ -541,6 +531,9 @@ create table detalle_venta(
     fk_id_pago_entrada		  serial,
     fk_id_entrada		  serial,
     fk_id_evento		  serial,
+    fk_id_detalle_compra serial,
+    fk_id_compra serial,
+    fk_id_presentacion_ron serial,
     constraint pk_id_detalle_venta PRIMARY KEY(id_detalle_venta, fk_id_venta)
 );
 
