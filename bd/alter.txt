@@ -102,6 +102,12 @@ ADD    CONSTRAINT fk_id_presentacion_ron FOREIGN KEY (fk_id_presentacion_ron,fk_
 ;
 
 
+--Agregar llaves de la tabla categoria
+ALTER TABLE categoria
+ADD    CONSTRAINT fk_id_ron FOREIGN KEY(fk_id_ron,fk_id_proveedor) REFERENCES ron(id_ron, fk_id_proveedor)
+;
+
+
 --Agregar llaves de la tabla tipo_ron
 ALTER TABLE tipo_ron
 ADD    CONSTRAINT fk_id_lugar FOREIGN KEY (fk_id_lugar) REFERENCES lugar(id_lugar),
@@ -313,13 +319,6 @@ ADD    CONSTRAINT fk_id_tasa_de_cambio FOREIGN KEY (fk_id_tasa_de_cambio) REFERE
 
 
 --Especificar columnas NULL
-alter table categoria
-    alter column fk_id_ron drop not null;
-
---Especificar columnas NULL
-alter table categoria alter column fk_id_proveedor drop not null;
-
---Especificar columnas NULL
 alter table variedad_ron alter column porcentaje_produccion_variedad_ron drop not null;
 
 --Especificar columnas NULL
@@ -386,3 +385,7 @@ alter column fk_id_punto_de_venta drop not null;
 --Especificar columnas NULL
 alter table usuario
 alter column imagen_usuario drop not null;
+
+--Especificar columnas NULL
+alter table presentacion_ron
+alter column fk_id_categoria drop not null;
