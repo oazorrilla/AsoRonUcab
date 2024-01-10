@@ -438,9 +438,8 @@ create table nota_cata(
     id_nota_cata          serial	not null  UNIQUE,
     descripcion_nota_cata varchar(100) not null,
     fk_id_evento          serial	not null,
-    fk_id_ron             serial	not null,
-    fk_id_proveedor       serial	not null,
-    constraint pk_id_nota_cata PRIMARY KEY (id_nota_cata, fk_id_evento, fk_id_ron, fk_id_proveedor)
+    fk_id_presentacion_ron  serial	not null,
+    constraint pk_id_nota_cata primary key (id_nota_cata,fk_id_evento,fk_id_presentacion_ron)
 );
 
 
