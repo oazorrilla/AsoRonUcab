@@ -55,7 +55,6 @@ ADD    CONSTRAINT fk_id_lugar FOREIGN KEY (fk_id_lugar) REFERENCES lugar(id_luga
 
 --Agregar llaves de la tabla correo_electronico
 ALTER TABLE correo_electronico
-alter table correo_electronico
 add constraint fk_id_punto_de_venta_tienda_fisica FOREIGN KEY(fk_id_punto_de_venta_tienda_fisica,fk_id_punto_de_venta) REFERENCES punto_de_venta_tienda_fisica(id_punto_de_venta_tienda_fisica,fk_id_punto_de_venta),
 ADD    CONSTRAINT fk_id_persona_natural FOREIGN KEY (fk_id_persona_natural) REFERENCES persona_natural(id_persona_natural),
 ADD    CONSTRAINT fk_id_persona_juridica FOREIGN KEY (fk_id_persona_juridica) REFERENCES persona_juridica(id_persona_juridica)
@@ -268,7 +267,7 @@ ADD    CONSTRAINT fk_id_metodo_pago_tarjeta_credito FOREIGN KEY (fk_id_metodo_pa
 
 --Agregar llaves de la tabla punto_de_venta_tienda_fisica
 ALTER TABLE punto_de_venta_tienda_fisica
-ADD    CONSTRAINT fk_id_lugar FOREIGN KEY (fk_id_lugar) REFERENCES lugar(id_lugar)
+ADD    CONSTRAINT fk_id_lugar FOREIGN KEY (fk_id_lugar) REFERENCES lugar(id_lugar),
 add constraint fk_id_punto_de_venta FOREIGN KEY (fk_id_punto_de_venta) REFERENCES punto_de_venta(id_punto_de_venta)
 ;
 
