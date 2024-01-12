@@ -34,7 +34,7 @@ create table empleado(
     fk_id_empleado          integer	null,
     fk_id_persona_natural   integer 	not null,
     fk_id_punto_de_venta    integer	not null,
-    constraint pk_id_empleado PRIMARY KEY (id_empleado),
+    constraint pk_id_empleado PRIMARY KEY (id_empleado)
  );
 
 
@@ -455,7 +455,7 @@ create table presentacion_ron(
     fk_id_sabor 		    integer	not null,
     fk_id_color 		    integer	not null,
     fk_id_categoria		    integer	null,
-    constraint pk_id_presentacion_ron PRIMARY KEY(id_presentacion_ron);
+    constraint pk_id_presentacion_ron PRIMARY KEY(id_presentacion_ron));
 
 
 --Crear tabla presentacion_ron_oferta
@@ -558,7 +558,7 @@ create table metodo_pago_venta(
 create table metodo_pago_pedido(
     id_metodo_pago_pedido             serial	not null  UNIQUE,
     monto_pedido                      numeric(10, 2) not null
-        constraint check_monto_venta check (monto_venta > (0)::numeric),
+        constraint check_monto_venta check (monto_pedido > (0)::numeric),
     fk_id_pedido                      integer	not null,
     fk_id_metodo_pago_efectivo        integer	not null,
     fk_id_metodo_pago_tarjeta_debito  integer	not null,
