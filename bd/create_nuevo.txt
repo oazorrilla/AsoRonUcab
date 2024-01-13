@@ -192,6 +192,7 @@ create table punto(
     fecha_fin_tasa_punto               date           not null,
     fk_id_punto_de_venta_tienda_fisica integer	      not null,
     fk_id_punto_de_venta	       integer	      not null,
+    fk_id_persona_natural	       integer	      null,
     constraint pk_id_punto PRIMARY KEY (id_punto)
 );
 
@@ -698,6 +699,7 @@ create table metodo_pago_tarjeta_debito(
 --Crear tabla metodo_pago_punto_afiliado
 create table metodo_pago_punto_afiliado(
     id_metodo_pago_punto_afiliado serial	not null  UNIQUE,
+    resultado			  numeric(10,2) null,
     fk_id_tasa_de_cambio          integer	not null,
     constraint pk_id_metodo_pago_punto_afiliado PRIMARY KEY (id_metodo_pago_punto_afiliado)
 );
