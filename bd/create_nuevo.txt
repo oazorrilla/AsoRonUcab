@@ -394,7 +394,6 @@ create table premio(
     id_premio                     serial	not null  UNIQUE,
     nombre_premio                 varchar(50)  not null,
     descripcion_premio            varchar(100) not null,
-    fecha_premio                  timestamp    not null,
     fk_id_evento                  integer	not null,
     fk_id_presentacion_ron        integer	not null,
     constraint pk_id_premio primary key(id_premio, fk_id_evento, fk_id_presentacion_ron)
