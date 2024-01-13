@@ -2419,4 +2419,46 @@ INSERT INTO persona_juridica (rif_persona_juridica, denom_comercial_juridica, ra
 ('J-0756018400','Santa Teresa', 'Destilería Santa Teresa C.A.','www.haciendasantateresa.com.ve',20000000,'Hacienda Santa Teresa Carretera Panamericana','Hacienda Santa Teresa Carretera Panamericana',498,498),
 ('J-0001079120','Ron Carupano', 'Destilería Ron Carúpano C.A.','www.roncarupano.com',6000000,'Centro Comercial Bello Monte Ofc3','Hacienda Altamira',1003,1170);
 
+---------------------------------------------------Proveedores----------------------------------------------------------
+insert into proveedor (nombre_proveedor, denom_comercial_proveedor, afiliado_proveedor, fk_id_persona_juridica)
+values
+    ('Pampero', 'Pampero Ron', true, 1),
+    ('Cacique', 'Ron Cacique', true, 2),
+    ('Roble', 'Ron Roble', true, 3),
+    ('Santa Teresa', 'Ron Santa Teresa', true, 4),
+    ('Ron Carupano', 'Ron Carupano', true, 5);
+
+----------------------------------------------------------Ron-----------------------------------------------------------
+insert into ron (nombre_ron, fk_id_tipo, fk_id_proveedor)
+values
+    ('Ron Pampero', 1, 1),
+    ('Ron Cacique', 1, 2),
+    ('Ron Roble', 2, 3),
+    ('Ron Santa Teresa', 2, 4),
+    ('Ron Carupano', 1, 5);
+
+------------------------------------------------------Presentacion Ron--------------------------------------------------
+insert into presentacion_ron (unidad_volumen_presentacion_ron, capacidad_presentacion_ron, nombre_presentacion_ron, descripcion_presentacion_ron, precio_presentacion_ron, edad_anejo_presentacion_ron, fk_id_ron, fk_id_proveedor, fk_id_categoria,fk_id_color,fk_id_sabor)
+values
+    ('L', 0.70, 'Pampero Aniversario', 'Reconocido como uno de los mejores rones del mundo.', 30, 6, 1,1,2,1,4),
+    ('L', 0.75, 'Pampero Seleccion', 'Seleccionado a mano entre 10 barriles diferentes.', 15, 8, 1,1, 2,1,4),
+    ('L', 0.70, 'Pampero Especial', 'Tan reconocido que no usan su nombre, sino que se conoce como Caballito Frenao', 10, 4, 1,1, 2,2,1),
+    ('L', 0.70, 'Pampero Blanco', 'Refrescante, limpio, facil de beber y de alta calidad.', 15, 1, 1,1, 2,2,1),
+    ('L', 1, 'Cacique Añejo Superior', 'Incluye hasta 47 rones diferentes de hasta 2 años de maduracion.', 15, 5, 2,2, 2,2,4),
+    ('L', 0.70, 'Ron Roble Viejo Maestro', 'Facil de disfrutar para degustar solo o en cocteleria de alta gama.', 35, 6, 3,3, 2,4,7),
+    ('L', 0.70, 'Ron Roble Viejo Extra Añejo', 'Creado por reservas de 8 a 12 años.', 50, 8, 3,3, 2,4,1),
+    ('L', 0.70, 'Ron Roble Viejo Ultra Añejo', 'Excelente para degustar solo o mezclado.', 33, 12, 3,3, 2,4,3),
+    ('L', 1.75, 'Ron Roble Viejo Zafra', 'Un single vintage de 15 años en barrica.', 260, 15, 3,3, 2,4,3),
+    ('L', 0.75, 'Santa Teresa 1796', 'Audaz y elegante.', 28, 35, 4,4, 3,4,4),
+    ('L', 0.70, 'Santa Teresa Gran Reserva', 'Ideal para disfrutar con cola negra o cualquier coctel.', 10, 5, 4,4, 1,2,5),
+    ('L', 0.75, 'Santa Teresa Linaje', 'Ideal para disfrutar.', 16, 3, 4,4, 2,2,4),
+    ('L', 0.75, 'Arakú', 'Es el resultado de combinar los añejos de Santa Teresa.', 16, 2, 4,4, 2,4,4),
+    ('L', 0.70, 'Ron Carupano Legendario', 'Unico en Venezuela y en el mundo.', 645, 25, 5,5, 5,4,2),
+    ('L', 0.70, 'Ron Carupano X.O', 'Edicion limitada y numerada anual.', 449, 18, 5,5, 5,5,2),
+    ('L', 0.70, 'Ron Carupano Reserve 1996', 'Edicion especial de tan solo 5.000 botellas de cristal al año.', 170, 15, 5,5, 5,4,4),
+    ('L', 0.75, 'Ron Carupano 21', 'Madres de resrvas privadas hasta 21 años de envejecimiento.', 38, 21, 5,5, 4,4,2),
+    ('L', 0.75, 'Ron Carupano 18', 'Madres de reservas limitadas de hasta 18 años de envejecimiento.', 30, 18, 5,5, 3,4,3),
+    ('L', 0.75, 'Ron Carupano 12', 'Madres de reservas especiales de hasta 12 años de envejecimiento.', 16, 12, 5,5, 2,4,2),
+    ('L', 0.75, 'Ron Carupano 6', 'Madres de reservas especiales de hasta 6 años de envejecimiento.', 10, 6, 5,5, 1,4,1);
+
 
