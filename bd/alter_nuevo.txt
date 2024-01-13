@@ -79,7 +79,8 @@ ADD    CONSTRAINT fk_id_lugar FOREIGN KEY (fk_id_lugar) REFERENCES lugar(id_luga
 
 --Agregar llaves de la tabla punto
 ALTER TABLE punto
-add constraint fk_id_punto_de_venta_tienda_fisica FOREIGN KEY(fk_id_punto_de_venta_tienda_fisica,fk_id_punto_de_venta) REFERENCES punto_de_venta_tienda_fisica(id_punto_de_venta_tienda_fisica,fk_id_punto_de_venta);
+add constraint fk_id_punto_de_venta_tienda_fisica FOREIGN KEY(fk_id_punto_de_venta_tienda_fisica,fk_id_punto_de_venta) REFERENCES punto_de_venta_tienda_fisica(id_punto_de_venta_tienda_fisica,fk_id_punto_de_venta),
+add constraint fk_id_persona_natural foreign key(fk_id_persona_natural) references persona_natural(id_persona_natural);
 
 
 
