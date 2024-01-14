@@ -510,7 +510,6 @@ create table detalle_venta(
     fk_id_venta                   integer	not null,
     fk_id_catalogo_inventario_ron integer	null,
     fk_id_punto_de_venta          integer	null,
-    fk_id_pago_entrada		  integer	null,
     fk_id_entrada		  integer	null,
     fk_id_evento		  integer	null,
     fk_id_detalle_compra 	  integer	null,
