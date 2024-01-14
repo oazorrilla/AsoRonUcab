@@ -164,7 +164,7 @@ create table telefono(
     categoria_telefono     varchar(20) not null
         constraint check_categoria_telefono check ((categoria_telefono)::text = ANY ((ARRAY ['Movil'::character varying, 'Personal'::character varying, 'Oficina'::character varying, 'Casa'::character varying, 'Fijo'::character varying, 'Otro'::character varying, 'Principal'::character varying])::text[])),
     numero_telefono        varchar(20) not null
-        constraint check_numero_telefono check ((numero_telefono)::text ~ '/^(?:\+58)?(?:4[ 126]|2[1246]|8[1 24])?\d{8}$/;'::text),
+        constraint check_numero_telefono check ((numero_telefono)::text ~ '^(?:\+58)?(?:4[ 126]|2[1246]|8[1 24])?\d{8}$'::text),
     fk_id_proveedor        integer	null,
     fk_id_proveedor_2      integer	null,
     fk_id_punto_de_venta   integer	null,
