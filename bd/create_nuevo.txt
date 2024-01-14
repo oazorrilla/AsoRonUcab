@@ -11,7 +11,6 @@ create table usuario(
     imagen_usuario        bytea       null,
     numero_usuario        integer     not null
         constraint check_numero_usuario check (numero_usuario > 0),
-    fk_id_pedido          integer	not null,
     fk_id_persona_natural integer	null,
     fk_id_empleado        integer	null,
     constraint pk_id_usuario PRIMARY KEY (id_usuario)
