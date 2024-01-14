@@ -34,6 +34,8 @@ create table empleado(
     fk_id_empleado          integer	null,
     fk_id_persona_natural   integer 	not null,
     fk_id_punto_de_venta    integer	not null,
+    inicio_turno	    timestamp	not null,
+    fin_turno		    timestamp	not null,
     constraint pk_id_empleado PRIMARY KEY (id_empleado)
  );
 
