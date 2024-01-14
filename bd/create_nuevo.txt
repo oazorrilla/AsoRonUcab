@@ -411,6 +411,7 @@ create table entrada(
         constraint check_precio_entrada check (precio_entrada > (0)::numeric),
     codigo_entrada      varchar(10)    not null,
     fk_id_evento        integer		not null,
+    cantidad_entrada    integer		not null,
     constraint pk_id_entrada PRIMARY KEY (id_entrada, fk_id_evento)
 );
 
