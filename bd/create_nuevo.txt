@@ -221,7 +221,7 @@ create table venta(
     fecha_venta                        timestamp      not null,
     total_venta                        numeric(10, 2) not null
         constraint check_total_venta check (total_venta > (0)::numeric),
-    punto_ganado_venta                 integer        not null
+    punto_ganado_venta                 integer        null
         constraint check_punto_ganado_venta check (punto_ganado_venta > 0),
     fk_id_persona_natural              integer	not null,
     fk_id_punto_de_venta_tienda_fisica integer	not null,
