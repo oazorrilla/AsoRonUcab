@@ -187,12 +187,6 @@ ADD    CONSTRAINT fk_id_evento FOREIGN KEY (fk_id_evento) REFERENCES evento(id_e
 ;
 
 
---Agregar llaves de la tabla pago_entrada
-ALTER TABLE pago_entrada
-ADD    CONSTRAINT fk_id_entrada FOREIGN KEY (fk_id_entrada,fk_id_evento) REFERENCES entrada(id_entrada,fk_id_evento)
-;
-
-
 --Agregar llaves de la tabla nota_cata
 ALTER TABLE nota_cata
 ADD    CONSTRAINT fk_id_evento FOREIGN KEY (fk_id_evento) REFERENCES evento(id_evento),
