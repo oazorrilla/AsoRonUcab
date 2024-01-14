@@ -226,7 +226,7 @@ ADD	CONSTRAINT fk_id_presentacion_ron foreign key (fk_id_presentacion_ron) refer
 ALTER TABLE detalle_venta
 ADD    CONSTRAINT fk_id_venta FOREIGN KEY (fk_id_venta) REFERENCES venta(id_venta),
 add constraint fk_id_catalogo_inventario_ron foreign key (fk_id_catalogo_inventario_ron,fk_id_punto_de_venta,fk_id_detalle_compra,fk_id_compra,fk_id_presentacion_ron) references catalogo_inventario_ron(id_catalogo_inventario_ron,fk_id_punto_de_venta,fk_id_detalle_compra,fk_id_compra,fk_id_presentacion_ron),
-ADD    CONSTRAINT fk_id_pago_entrada FOREIGN KEY (fk_id_pago_entrada,fk_id_entrada,fk_id_evento) REFERENCES pago_entrada(id_pago_entrada,fk_id_entrada,fk_id_evento)
+add constraint fk_id_entrada foreign key (fk_id_entrada,fk_id_evento) references entrada(id_entrada,fk_id_evento)
 ;
 
 
