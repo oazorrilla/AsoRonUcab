@@ -416,20 +416,6 @@ create table entrada(
 );
 
 
---Crear tabla pago_entrada
-create table pago_entrada(
-    id_pago_entrada    serial	      not null   UNIQUE,
-    fecha_pago_entrada timestamp      not null,
-    cantidad_entrada   integer        not null
-        constraint check_cantidad_entrada check (cantidad_entrada > 0),
-    total_pago_entrada numeric(10, 2) not null
-        constraint check_total_pago_entrada check (total_pago_entrada > (0)::numeric),
-    fk_id_entrada      integer		not null,
-    fk_id_evento       integer		not null,
-    constraint pk_id_pago_entrada PRIMARY KEY (id_pago_entrada, fk_id_entrada, fk_id_evento)
-);
-
-
 --Crear tabla nota_cata
 create table nota_cata(
     id_nota_cata          serial	not null  UNIQUE,
