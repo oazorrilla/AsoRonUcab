@@ -1,6 +1,5 @@
 --Agregar llaves de tabla usuario
 ALTER TABLE usuario
-ADD    CONSTRAINT fk_id_pedido FOREIGN KEY (fk_id_pedido) REFERENCES pedido(id_pedido),
 ADD    CONSTRAINT fk_id_persona_natural FOREIGN KEY (fk_id_persona_natural) REFERENCES persona_natural(id_persona_natural),
 ADD    CONSTRAINT fk_id_empleado FOREIGN KEY (fk_id_empleado) REFERENCES empleado(id_empleado)
 ;
