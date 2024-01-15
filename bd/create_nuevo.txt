@@ -544,34 +544,6 @@ create table metodo_pago_venta(
     constraint pk_id_metodo_pago_venta PRIMARY KEY (id_metodo_pago_venta, fk_id_venta)
 );
 
---Crear tabla metodo_pago_pedido
-create table metodo_pago_pedido(
-    id_metodo_pago_pedido             serial	not null  UNIQUE,
-    monto_pedido                      numeric(10, 2) not null
-        constraint check_monto_venta check (monto_pedido > (0)::numeric),
-    fk_id_pedido                      integer	not null,
-    fk_id_metodo_pago_efectivo        integer	not null,
-    fk_id_metodo_pago_tarjeta_debito  integer	not null,
-    fk_id_metodo_pago_punto_afiliado  integer	not null,
-    fk_id_metodo_pago_cheque          integer	not null,
-    fk_id_metodo_pago_tarjeta_credito integer	not null,
-    constraint pk_id_metodo_pago_pedido PRIMARY KEY (id_metodo_pago_pedido, fk_id_pedido,fk_id_metodo_pago_efectivo,fk_id_metodo_pago_tarjeta_debito,fk_id_metodo_pago_punto_afiliado,fk_id_metodo_pago_cheque,fk_id_metodo_pago_tarjeta_credito)
-);
-
-
---Crear tabla metodo_pago_natural
-create table metodo_pago_natural(
-    id_metodo_pago_natural            serial	not null  UNIQUE,
-    fk_id_persona_natural             integer	not null,
-    fk_id_metodo_pago_efectivo        integer	not null,
-    fk_id_metodo_pago_tarjeta_debito  integer	not null,
-    fk_id_metodo_pago_punto_afiliado  integer	not null,
-    fk_id_metodo_pago_cheque          integer	not null,
-    fk_id_metodo_pago_tarjeta_credito integer	not null,
-    constraint pk_id_metodo_pago_natural PRIMARY KEY (id_metodo_pago_natural, fk_id_persona_natural,fk_id_metodo_pago_efectivo,fk_id_metodo_pago_tarjeta_debito,fk_id_metodo_pago_punto_afiliado,fk_id_metodo_pago_cheque,fk_id_metodo_pago_tarjeta_credito)
-);
-
-
 --Crear tabla punto_de_venta
 create table punto_de_venta(
     id_punto_de_venta          serial	    not null   UNIQUE,
