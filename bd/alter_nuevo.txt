@@ -248,19 +248,6 @@ ADD    CONSTRAINT fk_id_metodo_pago_cheque FOREIGN KEY (fk_id_metodo_pago_cheque
 ADD    CONSTRAINT fk_id_metodo_pago_tarjeta_credito FOREIGN KEY (fk_id_metodo_pago_tarjeta_credito) REFERENCES metodo_pago_tarjeta_credito(id_metodo_pago_tarjeta_credito)
 ;
 
-
-
---Agregar llaves de la tabla metodo_pago_pedido
-ALTER TABLE metodo_pago_pedido
-ADD    CONSTRAINT fk_id_pedido FOREIGN KEY (fk_id_pedido) REFERENCES pedido(id_pedido),
-ADD    CONSTRAINT fk_id_metodo_pago_efectivo FOREIGN KEY (fk_id_metodo_pago_efectivo) REFERENCES metodo_pago_efectivo(id_metodo_pago_efectivo),
-ADD    CONSTRAINT fk_id_metodo_pago_tarjeta_debito FOREIGN KEY (fk_id_metodo_pago_tarjeta_debito) REFERENCES metodo_pago_tarjeta_debito(id_metodo_pago_tarjeta_debito),
-ADD    CONSTRAINT fk_id_metodo_pago_punto_afiliado FOREIGN KEY (fk_id_metodo_pago_punto_afiliado) REFERENCES metodo_pago_punto_afiliado(id_metodo_pago_punto_afiliado),
-ADD    CONSTRAINT fk_id_metodo_pago_cheque FOREIGN KEY (fk_id_metodo_pago_cheque) REFERENCES metodo_pago_cheque(id_metodo_pago_cheque),
-ADD    CONSTRAINT fk_id_metodo_pago_tarjeta_credito FOREIGN KEY (fk_id_metodo_pago_tarjeta_credito) REFERENCES metodo_pago_tarjeta_credito(id_metodo_pago_tarjeta_credito)
-;
-
-
 --Agregar llaves de la tabla punto_de_venta_tienda_fisica
 ALTER TABLE punto_de_venta_tienda_fisica
 ADD    CONSTRAINT fk_id_lugar FOREIGN KEY (fk_id_lugar) REFERENCES lugar(id_lugar),
@@ -275,19 +262,6 @@ ADD    CONSTRAINT fk_id_proveedor FOREIGN KEY (fk_id_proveedor) REFERENCES prove
 ADD    CONSTRAINT fk_id_lugar FOREIGN KEY (fk_id_lugar) REFERENCES lugar(id_lugar),
 ADD    CONSTRAINT fk_id_lugar_2 FOREIGN KEY (fk_id_lugar_2) REFERENCES lugar(id_lugar)
 ;
-
-
-
---Agregar llaves de la tabla metodo_pago_natural
-ALTER TABLE metodo_pago_natural
-ADD    CONSTRAINT fk_id_pesona_natural FOREIGN KEY (fk_id_persona_natural) REFERENCES persona_natural(id_persona_natural),
-ADD    CONSTRAINT fk_id_metodo_pago_efectivo FOREIGN KEY (fk_id_metodo_pago_efectivo) REFERENCES metodo_pago_efectivo(id_metodo_pago_efectivo),
-ADD    CONSTRAINT fk_id_metodo_pago_tarjeta_debito FOREIGN KEY (fk_id_metodo_pago_tarjeta_debito) REFERENCES metodo_pago_tarjeta_debito(id_metodo_pago_tarjeta_debito),
-ADD    CONSTRAINT fk_id_metodo_pago_punto_afiliado FOREIGN KEY (fk_id_metodo_pago_punto_afiliado) REFERENCES metodo_pago_punto_afiliado(id_metodo_pago_punto_afiliado),
-ADD    CONSTRAINT fk_id_metodo_pago_cheque FOREIGN KEY (fk_id_metodo_pago_cheque) REFERENCES metodo_pago_cheque(id_metodo_pago_cheque),
-ADD    CONSTRAINT fk_id_metodo_pago_tarjeta_credito FOREIGN KEY (fk_id_metodo_pago_tarjeta_credito) REFERENCES metodo_pago_tarjeta_credito(id_metodo_pago_tarjeta_credito)
-;
-
 
 --Agregar llaves de la tabla pesona_juridica
 ALTER TABLE persona_juridica
