@@ -671,6 +671,10 @@ create table metodo_pago_cheque(
     fecha_pago_cheque     date   not null,
     autoriza_cheque       varchar(10) not null
         constraint check_autoriza_cheque check ((autoriza_cheque)::text = ANY ((ARRAY ['Si'::character varying, 'No'::character varying])::text[])),
+   pagase_orden		varchar(50)	not null,
+   suma         	varchar(200)	not null,
+   nro_cuenta 		varchar(50) 	not null
+	constraint check_nro_cuenta check ((nro_cuenta)::text ~ '^[0-9]+$'::text),
     constraint pk_id_metodo_pago_cheque PRIMARY KEY (id_metodo_pago_cheque)
 );
 
