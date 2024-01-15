@@ -237,6 +237,34 @@ ADD    CONSTRAINT fk_id_sabor FOREIGN KEY (fk_id_sabor) REFERENCES sabor(id_sabo
 ADD    CONSTRAINT fk_id_ingrediente FOREIGN KEY (fk_id_ingrediente) REFERENCES ingrediente(id_ingrediente)
 ;
 
+--Agregar llaves de la tabla metodo_pago_efectivo
+ALTER TABLE metodo_pago_efectivo
+ADD    CONSTRAINT fk_id_tasa_de_cambio FOREIGN KEY (fk_id_tasa_de_cambio) REFERENCES tasa_de_cambio(id_tasa)
+;
+
+
+--Agregar llaves de la tabla metodo_pago_tarjeta_debito
+ALTER TABLE metodo_pago_tarjeta_debito
+ADD    CONSTRAINT fk_id_tasa_de_cambio FOREIGN KEY (fk_id_tasa_de_cambio) REFERENCES tasa_de_cambio(id_tasa)
+;
+
+
+--Agregar llaves de la tabla metodo_pago_punto_afiliado
+ALTER TABLE metodo_pago_punto_afiliado
+ADD    CONSTRAINT fk_id_tasa_de_cambio FOREIGN KEY (fk_id_tasa_de_cambio) REFERENCES tasa_de_cambio(id_tasa)
+;
+
+
+--Agregar llaves de la tabla metodo_pago_cheque
+ALTER TABLE metodo_pago_cheque
+ADD    CONSTRAINT fk_id_tasa_de_cambio FOREIGN KEY (fk_id_tasa_de_cambio) REFERENCES tasa_de_cambio(id_tasa)
+;
+
+
+--Agregar llaves de la tabla metodo_pago_tarjeta_credito
+ALTER TABLE metodo_pago_tarjeta_credito
+ADD    CONSTRAINT fk_id_tasa_de_cambio FOREIGN KEY (fk_id_tasa_de_cambio) REFERENCES tasa_de_cambio(id_tasa)
+;
 
 --Agregar llaves de la tabla metodo_pago_venta
 ALTER TABLE metodo_pago_venta
@@ -266,7 +294,6 @@ ADD    CONSTRAINT fk_id_lugar FOREIGN KEY (fk_id_lugar) REFERENCES lugar(id_luga
 add constraint fk_id_punto_de_venta FOREIGN KEY (fk_id_punto_de_venta) REFERENCES punto_de_venta(id_punto_de_venta)
 ;
 
-
 --Agregar llaves de la tabla persona_natural
 ALTER TABLE persona_natural
 ADD    CONSTRAINT fk_id_persona_juridica FOREIGN KEY (fk_id_persona_juridica) REFERENCES persona_juridica(id_persona_juridica),
@@ -279,34 +306,4 @@ ADD    CONSTRAINT fk_id_lugar_2 FOREIGN KEY (fk_id_lugar_2) REFERENCES lugar(id_
 ALTER TABLE persona_juridica
 ADD    CONSTRAINT fk_id_lugar FOREIGN KEY (fk_id_lugar) REFERENCES lugar(id_lugar),
 ADD    CONSTRAINT fk_id_lugar_2 FOREIGN KEY (fk_id_lugar_2) REFERENCES lugar(id_lugar)
-;
-
-
---Agregar llaves de la tabla metodo_pago_efectivo
-ALTER TABLE metodo_pago_efectivo
-ADD    CONSTRAINT fk_id_tasa_de_cambio FOREIGN KEY (fk_id_tasa_de_cambio) REFERENCES tasa_de_cambio(id_tasa)
-;
-
-
---Agregar llaves de la tabla metodo_pago_tarjeta_debito
-ALTER TABLE metodo_pago_tarjeta_debito
-ADD    CONSTRAINT fk_id_tasa_de_cambio FOREIGN KEY (fk_id_tasa_de_cambio) REFERENCES tasa_de_cambio(id_tasa)
-;
-
-
---Agregar llaves de la tabla metodo_pago_punto_afiliado
-ALTER TABLE metodo_pago_punto_afiliado
-ADD    CONSTRAINT fk_id_tasa_de_cambio FOREIGN KEY (fk_id_tasa_de_cambio) REFERENCES tasa_de_cambio(id_tasa)
-;
-
-
---Agregar llaves de la tabla metodo_pago_cheque
-ALTER TABLE metodo_pago_cheque
-ADD    CONSTRAINT fk_id_tasa_de_cambio FOREIGN KEY (fk_id_tasa_de_cambio) REFERENCES tasa_de_cambio(id_tasa)
-;
-
-
---Agregar llaves de la tabla metodo_pago_tarjeta_credito
-ALTER TABLE metodo_pago_tarjeta_credito
-ADD    CONSTRAINT fk_id_tasa_de_cambio FOREIGN KEY (fk_id_tasa_de_cambio) REFERENCES tasa_de_cambio(id_tasa)
 ;
