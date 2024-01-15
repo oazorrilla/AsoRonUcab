@@ -244,7 +244,8 @@ ADD    CONSTRAINT fk_id_metodo_pago_efectivo FOREIGN KEY (fk_id_metodo_pago_efec
 ADD    CONSTRAINT fk_id_metodo_pago_tarjeta_debito FOREIGN KEY (fk_id_metodo_pago_tarjeta_debito) REFERENCES metodo_pago_tarjeta_debito(id_metodo_pago_tarjeta_debito),
 ADD    CONSTRAINT fk_id_metodo_pago_punto_afiliado FOREIGN KEY (fk_id_metodo_pago_punto_afiliado) REFERENCES metodo_pago_punto_afiliado(id_metodo_pago_punto_afiliado),
 ADD    CONSTRAINT fk_id_metodo_pago_cheque FOREIGN KEY (fk_id_metodo_pago_cheque) REFERENCES metodo_pago_cheque(id_metodo_pago_cheque),
-ADD    CONSTRAINT fk_id_metodo_pago_tarjeta_credito FOREIGN KEY (fk_id_metodo_pago_tarjeta_credito) REFERENCES metodo_pago_tarjeta_credito(id_metodo_pago_tarjeta_credito)
+ADD    CONSTRAINT fk_id_metodo_pago_tarjeta_credito FOREIGN KEY (fk_id_metodo_pago_tarjeta_credito) REFERENCES metodo_pago_tarjeta_credito(id_metodo_pago_tarjeta_credito),
+add constraint fk_id_tasa foreign key(fk_id_tasa) references tasa_de_cambio(id_tasa)
 ;
 
 alter table metodo_pago_usuario
@@ -257,7 +258,9 @@ ADD    CONSTRAINT fk_id_metodo_pago_tarjeta_credito FOREIGN KEY (fk_id_metodo_pa
 
 alter table metodo_pago_pedido
 add constraint fk_id_pedido foreign key (fk_id_pedido) references pedido(id_pedido),
-add constraint fk_id_metodo_paga_usuario foreign key (fk_id_metodo_paga_usuario) references metodo_pago_usuario(id_metodo_pago_usuario);
+add constraint fk_id_metodo_paga_usuario foreign key (fk_id_metodo_paga_usuario) references metodo_pago_usuario(id_metodo_pago_usuario),
+add constraint fk_id_tasa foreign key(fk_id_tasa) references tasa_de_cambio(id_tasa)
+;
 
 --Agregar llaves de la tabla punto_de_venta_tienda_fisica
 ALTER TABLE punto_de_venta_tienda_fisica
