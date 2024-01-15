@@ -91,11 +91,11 @@ create table pedido(
     id_pedido                   serial	  not null  UNIQUE,
     numero_pedido               integer   not null
         constraint check_numero_pedido check (numero_pedido > 0),
-    fecha_realiza_pedido        timestamp not null,
-    fecha_entrega_pedido        timestamp not null,
     fk_id_punto_de_venta_online integer    not null,
     fk_id_punto_de_venta	integer	  not null,
     fk_id_usuario		integer	  not null,
+    fecha_pedido		timestamp not null,
+    total_pedido		numeric(10,2) not null,
     constraint pk_id_pedido PRIMARY KEY (id_pedido)
 );
 
