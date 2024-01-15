@@ -42,7 +42,7 @@ add constraint fk_id_punto_de_venta_online FOREIGN KEY(fk_id_punto_de_venta_onli
 --Agregar llaves de la tabla detalle_pedido
 ALTER TABLE detalle_pedido
 ADD    CONSTRAINT fk_id_pedido FOREIGN KEY (fk_id_pedido) REFERENCES pedido(id_pedido),
-add constraint fk_id_catalogo_inventario_ron foreign key(fk_id_catalogo_inventario_ron,fk_id_detalle_compra,fk_id_compra,fk_id_punto_de_venta,fk_id_presentacion_ron) references catalogo_inventario_ron(id_catalogo_inventario_ron,fk_id_punto_de_venta,fk_id_detalle_compra,fk_id_compra,fk_id_presentacion_ron),
+add constraint fk_id_catalogo_inventario_ron foreign key (fk_id_catalogo_inventario_ron, fk_id_detalle_compra, fk_id_compra,fk_id_punto_de_venta,fk_id_presentacion_ron) references catalogo_inventario_ron (id_catalogo_inventario_ron, fk_id_detalle_compra, fk_id_compra,fk_id_punto_de_venta, fk_id_presentacion_ron),
 add constraint fk_id_cuota_afiliacion foreign key(fk_id_cuota_afiliacion) references cuota_afiliacion(id_cuota_afiliacion)
 ;
 
