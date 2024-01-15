@@ -709,5 +709,6 @@ create table metodo_pago_pedido(
 id_metodo_pago_pedido   serial          not null unique,
 fk_id_pedido            integer         not null,
 fk_id_metodo_paga_usuario   integer     not null,
+monto			    numeric(10,2) not null,
 constraint pk_id_metodo_pago_pedido primary key (id_metodo_pago_pedido,fk_id_pedido,fk_id_metodo_paga_usuario)
 );
