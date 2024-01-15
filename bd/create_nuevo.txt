@@ -693,3 +693,21 @@ create table metodo_pago_tarjeta_credito(
     fk_id_tasa_de_cambio             integer	not null,
     constraint pk_id_metodo_pago_tarjeta_credito PRIMARY KEY (id_metodo_pago_tarjeta_credito)
 );
+
+
+create table metodo_pago_usuario(
+  id_metodo_pago_usuario    serial      not null    unique,
+  fk_id_usuario             integer     not null,
+  fk_id_metodo_pago_efectivo    integer             null,
+  fk_id_metodo_pago_tarjeta_debito    integer       null,
+  fk_id_metodo_pago_cheque    integer               null,
+  fk_id_metodo_pago_tarjeta_credito    integer      null,
+constraint pk_id_metodo_pago_usuario primary key (id_metodo_pago_usuario)
+);
+
+create table metodo_pago_pedido(
+id_metodo_pago_pedido   serial          not null unique,
+fk_id_pedido            integer         not null,
+fk_id_metodo_paga_usuario   integer     not null,
+constraint pk_id_metodo_pago_pedido primary key (id_metodo_pago_pedido,fk_id_pedido,fk_id_metodo_paga_usuario)
+);
