@@ -2461,4 +2461,651 @@ values
     ('L', 0.75, 'Ron Carupano 12', 'Madres de reservas especiales de hasta 12 años de envejecimiento.', 16, 12, 5,5, 2,4,2),
     ('L', 0.75, 'Ron Carupano 6', 'Madres de reservas especiales de hasta 6 años de envejecimiento.', 10, 6, 5,5, 1,4,1);
 
+-------------------------EVENTO--------------------------------------------------------------
+insert into evento(nombre_evento, descripcion_evento, numero_edicion_evento, fecha_inicio_evento, fecha_fin_evento, locacion_evento, limite_ocupacion_evento,fk_id_punto_de_venta,fk_id_lugar) values
+('Premio Cata Venezuela 2022','Promueve la cultura del ron y reconoce la calidad de los rones venezolanos','2022','2022-09-30 10:00:00','2022-10-01 18:00:00','Hotel Eurobuilding',1000,1,1003),
+('Premio Cata Venezuela 2023','Promueve la cultura del ron y reconoce la calidad de los rones venezolanos','2023','2023-09-28 10:00:00','2023-09-30 18:00:00','Hotel Eurobuilding',1000,1,1003),
+('Concurso Nacional de Rones 2022','Promueve laexportacion de rones venezolanos e inversion extranjera.','2022','2022-10-25 10:00:00','2022-10-27 18:00:00','Hotel Eurobuilding',1000,1,1003),
+('Concurso Nacional de Rones 2023','Promueve laexportacion de rones venezolanos e inversion extranjera.','2023','2023-10-24 10:00:00','2023-10-26 18:00:00','Hotel Eurobuilding',1000,1,1003),
+('Festival de Ron de Venezuela','Incluye catas, conciertos, degustaciones y mas actividades.','2023','2023-11-24 10:00:00','2023-11-26 18:00:00','Hotel Pestana',1000,1,1037),
+('Festival del Ron', 'Festival anual dedicado a celebrar y promover la cultura del ron', 1, '2024-07-15 12:00:00', '2024-07-17 23:59:59', 'Centro de Convenciones', 1000, 1, 989),
+('Taller de Cata de Ron', 'Aprendizaje y degustación de diferentes tipos de ron', 3, '2024-09-01 18:00:00', '2024-09-01 20:00:00', 'Club de Degustación de Ron', 20, 1, 990),
+('Exposición de Ron Artesanal', 'Muestra de rones artesanales de diferentes productores locales', 2, '2024-10-10 10:00:00', '2024-10-12 18:00:00', 'Galería de Arte', 200, 1, 991),
+('Cócteles de Ron en la Playa', 'Evento de degustación de cócteles de ron en la playa', 1, '2024-07-20 16:00:00', '2024-07-20 20:00:00', 'Playa Paraíso', 50, 1, 992),
+('Conferencia sobre la Historia del Ron', 'Charla informativa sobre la evolución y cultura del ron a lo largo de la historia', 1, '2024-11-05 15:00:00', '2024-11-05 17:00:00', 'Salón de Conferencias', 100, 1, 993),
+('Cena Maridaje con Ron Premium', 'Exquisita cena maridada con rones premium de distintas regiones', 1, '2024-12-15 19:30:00', '2024-12-15 23:00:00', 'Restaurante Gourmet', 30, 1, 1043),
+('Feria Internacional del Ron', 'Evento anual que reúne a los mejores productores de ron a nivel mundial', 12, '2024-08-10 10:00:00', '2024-08-15 22:00:00', 'Centro de Convenciones', 5000, 1, 994),
+('Taller de Coctelería con Ron', 'Aprende a preparar cocteles clásicos y creativos con ron', 5, '2024-09-05 16:00:00', '2024-09-05 18:00:00', 'Bar de Coctelería', 25, 1, 995),
+('Degustación de Ron Premium', 'Experiencia de degustación de rones premium de diferentes países', 7, '2024-10-20 18:30:00', '2024-10-20 20:30:00', 'Club de Degustación', 50, 1, 996),
+('Cata Vertical de Ron', 'Degustación de diferentes añadas de ron de una misma destilería', 2, '2024-11-10 19:00:00', '2024-11-10 21:00:00', 'Bodega de Ron', 15, 1, 997),
+('Fiesta Temática del Caribe', 'Noche de música, baile y cócteles caribeños con ron', 1, '2024-07-30 21:00:00', '2024-07-31 02:00:00', 'Club Nocturno', 200, 1, 998),
+('Taller de Maridaje de Ron y Chocolate', 'Descubre la combinación perfecta entre ron y chocolate', 1, '2024-12-03 15:00:00', '2024-12-03 17:00:00', 'Tienda de Chocolate', 30, 1, 1037),
+('Exposición de Etiquetas de Ron', 'Muestra de etiquetas históricas y artísticas de botellas de ron', 4, '2024-12-10 10:00:00', '2024-12-12 18:00:00', 'Museo de Arte', 100, 1, 1038),
+('Cócteles de Ron en el Rooftop', 'Disfruta de cócteles de ron en una terraza con vista panorámica', 3, '2024-12-15 19:00:00', '2024-12-15 23:00:00', 'Rooftop Bar', 40, 1, 1039),
+('Concurso Nacional de Bartenders', 'Competencia para elegir al mejor bartender de ron del país', 9, '2024-12-20 14:00:00', '2024-12-20 18:00:00', 'Centro de Convenciones', 200, 1, 1040),
+('Gala de Premiación de Ron', 'Evento de gala para reconocer a los mejores rones del año', 6, '2024-12-30 19:30:00', '2024-12-30 23:00:00', 'Salón de Eventos', 150, 1, 1041),
+('Festival de Ron y Música', 'Evento que combina la degustación de rones con presentaciones musicales en vivo', 3, '2024-08-25 16:00:00', '2024-08-26 02:00:00', 'Parque de la Ciudad', 500, 1, 1042),
+('Tour por Destilería de Ron', 'Recorrido guiado por una destilería de ron para conocer su proceso de producción', 2, '2024-09-10 10:00:00', '2024-09-10 12:00:00', 'Destilería de Ron', 30, 1, 1043),
+('Conferencia sobre Tendencias del Consumo de Ron', 'Charla informativa sobre las últimas tendencias en el consumo de ron a nivel mundial', 5, '2024-09-20 15:00:00', '2024-09-20 17:00:00', 'Centro de Convenciones', 100, 1, 1044),
+('Noche de Ron y Habanos', 'Evento exclusivo de maridaje entre ron y habanos selectos', 4, '2024-10-05 20:00:00', '2024-10-05 23:00:00', 'Cigar Lounge', 40, 1, 1045),
+('Fiesta de Ron y Salsa', 'Noche de baile con música salsa y cócteles de ron', 6, '2024-10-15 21:00:00', '2024-10-16 02:00:00', 'Club de Salsa', 200, 1, 1046),
+('Taller de Elaboración de Mojitos', 'Aprende a preparar mojitos clásicos y variantes con diferentes tipos de ron', 3, '2024-12-05 18:00:00', '2024-12-05 20:00:00', 'Escuela de Cocina', 25, 1, 1066),
+('Cata de Ron y Queso', 'Degustación de rones maridados con una selección de quesos artesanales', 2, '2024-12-10 19:00:00', '2024-12-10 21:00:00', 'Vinoteca', 30, 1, 1067),
+('Tarde de Ron y Arte', 'Exposición de obras de arte con degustación de rones premium', 4, '2024-12-15 17:00:00', '2024-12-15 20:00:00', 'Galería de Arte', 50, 1, 1068),
+('Competencia de Coctelería con Ron', 'Desafío entre bartenders para crear el mejor cóctel con ron', 8, '2024-12-20 16:00:00', '2024-12-20 19:00:00', 'Bar de Coctelería', 100, 1, 1069),
+('Fiesta de Fin de Año con Ron', 'Celebra la llegada del Año Nuevo con música, baile y cócteles de ron', 2, '2024-12-31 21:00:00', '2025-01-01 03:00:00', 'Salón de Eventos', 300, 1, 1070),
+('Maratón del Ron', 'Evento deportivo en el que los participantes recorren diferentes destilerías de ron', 1, '2024-08-10 08:00:00', '2024-08-10 18:00:00', 'Varias Destilerías', 1000, 1, 1071),
+('Taller de Mezcla de Ron', 'Aprende a mezclar diferentes tipos de ron para crear tu propio blend', 4, '2024-09-05 14:00:00', '2024-09-05 16:00:00', 'Academia de Ron', 20, 1, 1072),
+('Festival Gastronómico del Ron', 'Evento culinario donde reconocidos chefs crean platos inspirados en el ron', 7, '2024-10-15 12:00:00', '2024-10-17 22:00:00', 'Centro de Convenciones', 500, 1, 1073),
+('Degustación de Ron y Cigars', 'Experiencia de maridaje entre rones premium y puros de calidad', 3, '2024-11-10 18:30:00', '2024-11-10 20:30:00', 'Terraza de Cigars', 30, 1, 1074),
+('Noche de Ron y Jazz', 'Velada musical con presentaciones de jazz y degustación de rones selectos', 5, '2024-11-20 20:00:00', '2024-11-20 23:00:00', 'Club de Jazz', 50, 1, 1075),
+('Cócteles de Ron y Sunset', 'Disfruta de cócteles de ron mientras contemplas una hermosa puesta de sol', 2, '2024-12-05 17:30:00', '2024-12-05 19:30:00', 'Bar en la Playa', 40, 1, 1076),
+('Concurso de Cata a Ciegas', 'Competencia para identificar diferentes rones a través de la cata a ciegas', 4, '2024-12-10 16:00:00', '2024-12-10 18:00:00', 'Salón de Catas', 30, 1, 1077),
+('Exposición de Coleccionables de Ron', 'Muestra de botellas antiguas, etiquetas y otros objetos relacionados con el ron', 6, '2024-12-15 10:00:00', '2024-12-15 16:00:00', 'Museo del Ron', 100, 1, 1078),
+('Cócteles de Ron y Arte Urbano', 'Degustación de cócteles de ron en un evento de arte callejero', 3, '2024-12-20 19:00:00', '2024-12-20 22:00:00', 'Plaza de la Ciudad', 200, 1, 1079),
+('Gran Fiesta del Ron', 'Evento de clausura con música en vivo, espectáculos y una amplia variedad de rones', 10, '2024-12-31 21:00:00', '2025-01-01 05:00:00', 'Recinto Ferial', 1000, 1, 1080),
+('Taller de Coctelería Tiki', 'Aprende a preparar y decorar cocteles tiki con ron y frutas tropicales', 2, '2024-08-15 17:00:00', '2024-08-15 19:00:00', 'Bar Tiki Lounge', 25, 1, 1081),
+('Feria del Ron Artesanal', 'Exposición y venta de rones artesanales de pequeñas destilerías locales', 6, '2024-09-10 11:00:00', '2024-09-10 18:00:00', 'Plaza del Mercado', 200, 1, 1082),
+('Tarde de Ron y Sushi', 'Degustación de rones maridados con una selección de sushi gourmet', 3, '2024-09-20 19:00:00', '2024-09-20 21:00:00', 'Restaurante de Sushi', 30, 1, 1083),
+('Concurso de Mixología con Ron', 'Competencia entre bartenders para crear el mejor cóctel innovador con ron', 7, '2024-10-05 16:00:00', '2024-10-05 19:00:00', 'Centro de Convenciones', 100, 1, 1084),
+('Noche de Ron y Flamenco', 'Espectáculo de música flamenca acompañado de una selección de rones', 4, '2024-10-15 20:30:00', '2024-10-15 23:30:00', 'Tablao Flamenco', 50, 1, 1085),
+('Cócteles de Ron y Piscina', 'Disfruta de refrescantes cócteles de ron junto a una piscina con vistas al mar', 3, '2024-11-05 14:00:00', '2024-11-05 17:00:00', 'Club de Playa', 40, 1, 1086),
+('Taller de Maridaje de Ron y Chocolate', 'Descubre las mejores combinaciones entre rones y chocolates de calidad', 5, '2024-11-20 18:00:00', '2024-11-20 20:00:00', 'Tienda de Chocolates', 30, 1, 1087),
+('Exposición de Arte Inspirada en el Ron', 'Muestra de obras de artistas locales inspiradas en la cultura del ron', 8, '2024-12-10 10:00:00', '2024-12-10 16:00:00', 'Galería de Arte', 100, 1, 1088),
+('Tarde de Ron y Cigars', 'Disfruta de rones exclusivos maridados con puros de calidad en una terraza', 4, '2024-12-15 17:00:00', '2024-12-15 20:00:00', 'Terraza de Cigars', 50, 1, 1089);
+
+
+----------------------------------PREMIO
+insert into premio(nombre_premio, descripcion_premio, fk_id_evento, fk_id_presentacion_ron) values
+('Oro en Ron Añejo de 12 años o mas PC22','Medalla de Oro',1,10),
+('Oro en Ron Extra Añejo CN23','Medalla de Oro',4,14),
+('Plata en Ron Añejo de 12 años o mas CN22','Medalla de Plata',4,1),
+('Oro en Ron Añejo de 12 años o mas PC23','Medalla de Oro',2,1),
+('Oro en Ron Añejo de 12 años o mas CN22','Medalla de Oro',2,10),
+('Oro en Ron Añejo de 12 años o mas CN23','Medalla de Oro',2,9),
+('Oro en Ron Añejo de 12 años o mas FR23','Medalla de Oro',5,10),
+('Oro en Ron Extra Añejo PC23','Medalla de Oro',2,15),
+('Bronce en Ron Añejo de 7 a 10 años o mas CN23','Medalla de Bronce',4,5);
+
+--------------------------------------ENTRADA-----------------------------------
+insert into entrada (nombre_entrada, descripcion_entrada, precio_entrada, codigo_entrada, fk_id_evento,cantidad_entrada) values
+('Entrada General', 'Acceso general al evento', 20.00, 'EG001', 1,100),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 50.00, 'VIP001', 1,100),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 30.00, 'EE001', 2,80),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 60.00, 'EP001', 2,80),
+('Entrada Básica', 'Entrada básica para disfrutar del evento', 25.00, 'EB001', 3,70),
+('Entrada Deluxe', 'Entrada deluxe con beneficios adicionales', 55.00, 'ED001', 3,70),
+('Entrada Regular', 'Entrada regular para acceder al evento', 40.00, 'ER001', 4,80),
+('Entrada Gold', 'Entrada gold con acceso privilegiado', 70.00, 'EG002', 4,80),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 35.00, 'EE002', 5,90),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 65.00, 'EP002', 5,90),
+('Entrada General', 'Acceso general al evento', 22.00, 'EG003', 6,100),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 55.00, 'VIP002', 6,100),
+('Entrada Básica', 'Entrada básica para disfrutar del evento', 28.00, 'EB002', 7,100),
+('Entrada Deluxe', 'Entrada deluxe con beneficios adicionales', 58.00, 'ED002', 7,100),
+('Entrada Regular', 'Entrada regular para acceder al evento', 45.00, 'ER002', 8,100),
+('Entrada Gold', 'Entrada gold con acceso privilegiado', 75.00, 'EG004', 8,100),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 38.00, 'EE003', 9,100),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 68.00, 'EP003', 9,100),
+('Entrada General', 'Acceso general al evento', 25.00, 'EG005', 10,100),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 60.00, 'VIP003', 10,100),
+('Entrada Básica', 'Entrada básica para disfrutar del evento', 32.00, 'EB003', 11,100),
+('Entrada Deluxe', 'Entrada deluxe con beneficios adicionales', 62.00, 'ED003', 11,100),
+('Entrada Regular', 'Entrada regular para acceder al evento', 48.00, 'ER003', 12,100),
+('Entrada Gold', 'Entrada gold con acceso privilegiado', 78.00, 'EG006', 12,100),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 41.00, 'EE004', 13,100),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 71.00, 'EP004', 13,100),
+('Entrada General', 'Acceso general al evento', 28.00, 'EG007', 14,100),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 65.00, 'VIP004', 14,100),
+('Entrada Básica', 'Entrada básica para disfrutar del evento', 34.00, 'EB004', 15,100),
+('Entrada Deluxe', 'Entrada deluxe con beneficios adicionales', 64.00, 'ED004', 15,100),
+('Entrada Regular', 'Entrada regular para acceder al evento', 50.00, 'ER004', 16,100),
+('Entrada Gold', 'Entrada gold con acceso privilegiado', 80.00, 'EG008', 16,100),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 44.00, 'EE005', 17,100),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 68.00, 'EP003', 18,100),
+('Entrada General', 'Acceso general al evento', 25.00, 'EG005', 19,100),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 60.00, 'VIP003', 20,100),
+('Entrada Básica', 'Entrada básica para disfrutar del evento', 32.00, 'EB003', 21,100),
+('Entrada Deluxe', 'Entrada deluxe con beneficios adicionales', 62.00, 'ED003', 22,100),
+('Entrada Regular', 'Entrada regular para acceder al evento', 48.00, 'ER003', 23,100),
+('Entrada Gold', 'Entrada gold con acceso privilegiado', 78.00, 'EG006', 24,100),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 41.00, 'EE004', 25,100),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 71.00, 'EP004', 26,100),
+('Entrada General', 'Acceso general al evento', 28.00, 'EG007', 27,100),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 65.00, 'VIP004', 28,100),
+('Entrada Básica', 'Entrada básica para disfrutar del evento', 34.00, 'EB004', 29,100),
+('Entrada Deluxe', 'Entrada deluxe con beneficios adicionales', 64.00, 'ED004', 30,100),
+('Entrada Regular', 'Entrada regular para acceder al evento', 50.00, 'ER004', 31,100),
+('Entrada Gold', 'Entrada gold con acceso privilegiado', 80.00, 'EG008', 32,100),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 44.00, 'EE005', 33,100),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 76.00, 'EP005', 33,100),
+('Entrada General', 'Acceso general al evento', 30.00, 'EG009', 34,100),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 70.00, 'VIP005', 34,100),
+('Entrada Básica', 'Entrada básica para disfrutar del evento', 35.00, 'EB005', 35,100),
+('Entrada Deluxe', 'Entrada deluxe con beneficios adicionales', 75.00, 'ED005', 35,100),
+('Entrada Regular', 'Entrada regular para acceder al evento', 55.00, 'ER005', 36,100),
+('Entrada Gold', 'Entrada gold con acceso privilegiado', 85.00, 'EG010', 36,100),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 48.00, 'EE006', 37,100),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 78.00, 'EP006', 37,100),
+('Entrada General', 'Acceso general al evento', 32.00, 'EG011', 38,100),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 75.00, 'VIP006', 38,100),
+('Entrada Básica', 'Entrada básica para disfrutar del evento', 38.00, 'EB006', 39,100),
+('Entrada Deluxe', 'Entrada deluxe con beneficios adicionales', 68.00, 'ED006', 39,100),
+('Entrada Regular', 'Entrada regular para acceder al evento', 50.00, 'ER006', 40,100),
+('Entrada Gold', 'Entrada gold con acceso privilegiado', 80.00, 'EG012', 40,100),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 42.00, 'EE007', 41,100),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 72.00, 'EP007', 41,100),
+('Entrada General', 'Acceso general al evento', 35.00, 'EG013', 42,100),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 80.00, 'VIP007', 42,100),
+('Entrada Básica', 'Entrada básica para disfrutar del evento', 40.00, 'EB007', 43,100),
+('Entrada Deluxe', 'Entrada deluxe con beneficios adicionales', 70.00, 'ED007', 43,50),
+('Entrada Regular', 'Entrada regular para acceder al evento', 52.00, 'ER007', 44,50),
+('Entrada Gold', 'Entrada gold con acceso privilegiado', 82.00, 'EG014', 44,50),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 46.00, 'EE008', 45,50),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 76.00, 'EP008', 45,50),
+('Entrada General', 'Acceso general al evento', 38.00, 'EG015', 46,50),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 85.00, 'VIP008', 46,50),
+('Entrada Básica', 'Entrada básica para disfrutar del evento', 42.00, 'EB008', 47,50),
+('Entrada Deluxe', 'Entrada deluxe con beneficios adicionales', 72.00, 'ED008', 47,50),
+('Entrada Regular', 'Entrada regular para acceder al evento', 54.00, 'ER008', 48,50),
+('Entrada Gold', 'Entrada gold con acceso privilegiado', 84.00, 'EG016', 48,50),
+('Entrada Estándar', 'Entrada estándar para disfrutar del evento', 50.00, 'EE009', 49,50),
+('Entrada Premium', 'Entrada premium con acceso a áreas exclusivas', 80.00, 'EP009', 49,50),
+('Entrada VIP', 'Acceso preferencial al evento con beneficios adicionales', 90.00, 'VIP009', 50,50);
+
+
+----------------------------------------PRESENTACION RON EVENTO
+insert into presentacion_ron_evento (fk_id_evento,fk_id_presentacion_ron) values
+(2,1),(4,1),
+(4,5),
+(2,9),
+(1,10),(3,10),(5,10),
+(4,14),
+(2,15);
+
+
+--------------------------------------NOTA CATA------------------------------------
+insert into nota_cata (descripcion_nota_cata,fk_id_evento,fk_id_presentacion_ron) values
+('Ron de sabor y aromas excepcionales.',2,1),
+('Ron de aromas excepcionales.',2,1),
+('Aroma suave contrastados con notas a madera.',4,5),
+('Aroma con notas a madera.',9,5),
+('Proporciona un final largo, intenso y sedoso.Es la armonia para disfrutar un tabaco.',2,9),
+('Aromas afrutados con notas de madera, y con un sabor unico.',1,10),
+('Aromas afrutados con notas de madera.',3,10),
+('Ron con un sabor unico.',5,10),
+('Permanencia larga en boca y perfecto equilibrio.',4,14),
+('Permanencia larga en boca con un sutil perfume de flores rojas.',2,15);
+
+
+------------------------------------PROVEEDOR PARTICIPA EVENTO
+insert into proveedor_participa_evento (fk_id_proveedor,fk_id_evento) values
+(1,2),(1,4),
+(2,4),
+(3,2),
+(4,1),(4,3),(4,5),
+(5,4),(5,2);
+
+
+-----------------------------------OFERTA
+insert into oferta (nombre_oferta, descripcion_oferta, valor_oferta, fecha_inicio_oferta, fecha_fin_oferta)  values
+('Dia de los enamorados','Para San Valentin recibe un descuento para tu pareja',10,'2023-02-12','2023-02-14'),
+('De vacaciones','Oferta especial gana dinero con una compra mayor a $30',10,'2023-02-01','2023-02-10'),
+('Cumpleaños ronero','En tu cumpleaños te obsequiamos $10', 10,'2023-03-01','2023-03-10'),
+('Ron Robado','Para tu regalo robado te rebajamos 5$', 5,'2023-12-01','2023-12-10'),
+('Ron de Carnaval','En carnavales te rebajamos los precios 10$', 10,'2024-02-09','2024-02-13');
+
+
+---------------------------------PRESENTACION RON OFERTA
+insert into presentacion_ron_oferta (fk_id_presentacion_ron,fk_id_oferta) values
+(1,1),
+(2,4),(2,5),
+(4,5),
+(5,2),(5,5),
+(6,1),
+(8,1),
+(9,3),
+(10,1),(10,2),
+(12,2),(12,4),(12,5),
+(13,5),
+(14,3),
+(15,3),
+(16,3),
+(17,4),
+(18,1),
+(19,5);
+
+
+insert into persona_natural(rif_persona_natural, ci_natural, p_nombre_natural, s_nombre_natural, p_apellido_natural, s_apellido_natural, direc_hab_natural, genero, puntos_natural, direccion_envio, nacionalidad_natural, fecha_nacimiento_natural, fk_id_persona_juridica, fk_id_proveedor, fk_id_lugar, fk_id_lugar_2) VALUES
+('J-1271112220', '27111222', 'Juan', 'Carlos', 'Pérez', 'Gómez', 'Calle Tauro', 'Masculino', null, 'Calle Tauro', 'V', '2000-01-01', null,null, 1002, 1002),                  ----cliente->usuario
+('J-1273334440', '27333444', 'María', 'Isabel', 'López', 'García', 'Calle El Hotel', 'Femenino', null, 'Calle El Hotel', 'V', '1995-05-05', null,null, 1002, 1002),             ----cliente->usuario
+('J-1275556660', '27555666', 'Luis', NULL, 'González', 'Pérez', 'Calle Paris', 'Masculino', 7, null, 'V', '1980-10-10', null, null, 1003, null),               ----cliente
+('J-1277778880', '27777888', 'Ana', 'María', 'Rodríguez', 'Ortiz', 'Calle Manzanares', 'Femenino', 2,null, 'V', '1975-12-12', null, null, 1003, null),
+('J-1279990000', '27999000', 'Luisa', 'Fernanda', 'Hernández', 'Rodriguez', 'Calle Valencia', 'Femenino', 2,null, 'V', '1965-06-06', null, null, 1003, null),
+('J-1271112210', '27111221', 'Elena', 'María', 'Gómez', 'Romero', 'Calle Carmen', 'Femenino', 5,null, 'V', '1960-04-04', null, null, 1003, null),
+('J-1273314410', '27331441', 'Jorge', 'Luis', 'Fernández', 'Nunez', 'Calle Madrid', 'Masculino', 5,null,'V', '1955-02-02', null, null, 1003, null),
+('J-1275516610', '27551661', 'Laura', 'Isabel', 'Pérez', 'Nones', 'Calle Saturno', 'Femenino', 6,null,'V', '1950-01-01', null, null, 1003, null),
+('J-1277718810', '27771881', 'Juan', null,'Jaramillo', null,'Calle Imataca', 'Masculino', 2, null,'V', '2000-01-01', null, null, 704,null),
+('J-1279910010', '27991001', 'Ana', 'Isabel', 'García', 'Batista', 'Calle Real de Sarria', 'Femenino', 2, null,'V', '1990-05-15', null, null, 704,null),
+('J-1271122220', '27112222', 'Pedro',null, 'Saa',null, 'Calle San Pascual', 'Masculino', 3, null,'V', '1985-12-31', null,null,704, null),
+('J-1273324420', '27332442', 'Virginia', 'María', 'Rodríguez', 'Pérez', 'Calle San Fidel', 'Femenino', 2, null,'V', '1995-08-20', null,null, 704,null),
+('J-1275526620', '27552662', 'Alejandro', null,'González', null,'Calle Santa Rosa', 'Masculino', 8, null,'V', '1980-06-10', null, null, 704,null),
+('J-1277728820', '27772882', 'María', 'José', 'Bastidas', 'Valero', 'Calle Fajardo', 'Femenino', 9, null,'V', '1992-11-25', null,null, 704,null),
+('J-1279920020', '27992002', 'Carlos', null,'La Riva', null,'Calle La Ceiba', 'Masculino', 2, null,'V', '1975-03-05', null,null,704, null),
+('J-1271132230', '27113223', 'Alejandra', 'Lucía', 'Ramirez', 'Gomez', 'Calle Elice', 'Femenino',2, null,'V', '1988-02-15', null,null,1009,null),
+('J-1273334420', '27333442', 'Diego', null,'Tejero', null,'Calle Sucre', 'Masculino', 7, null,'V', '1998-09-30', null,null,1009,null),
+('J-1275526620', '27552662', 'Valentina', 'Elena', 'Trejo', 'Ramirez', 'Calle Paez', 'Femenino', 4,null, 'V', '1993-04-12', null,null,1009,null),
+('J-1277728820', '27772882', 'Daniel', null,'Carro',null, 'Calle La Joya', 'Masculino', 4,null, 'V', '2000-01-01', null,null,1009,null),
+('J-1279920020', '27992002', 'Vanessa', 'Isabel', 'Dorta', 'Pérez', 'Calle Urdaneta', 'Femenino', 3,null, 'V', '1990-05-15', null,null,1009,null),
+('J-1281112220', '28111222', 'Ignacio', null,'Col', null,'Los Samanes', 'Masculino',null,null, 'V', '1985-12-31', null,null,1001,null),                        ----empleado
+('J-1283334440', '28333444', 'Victoria', 'María', 'Rodríguez', 'Pineda', 'Santa Ines', 'Femenino',null, null,'V', '1995-08-20', null,null,1001,null),
+('J-1285556660', '28555666', 'Eduardo', null,'Lopez', null,'Terrazas de Santa Ines', 'Masculino',null,null, 'V', '1980-06-10', null,null,1001,null),
+('J-1287778880', '28777888', 'Nicole', 'Andrea', 'Silva', 'Jimenez', 'Guaicay', 'Femenino',null, null,'V', '1992-11-25',null,null,1001,null),
+('J-1289990000', '28999000', 'Vicente',null, 'Gomez',null, 'La Bonita', 'Masculino',null, null,'V', '1975-03-05', null,null,1001,null),
+('J-1281112210', '28111221', 'Reina', 'Lucía', 'Nunez', 'García', 'Las Minas de Baruta', 'Femenino',null, null,'V', '1988-02-15', null,null,1001,null),
+('J-1283314410', '28331441', 'Reinaldo', null,'Nones', null,'El Rosario', 'Masculino',null, null,'V', '1998-09-30', null,null,1001,null),
+('J-1285516610', '28551661', 'Cristina', 'Elena', 'Trombo', 'Troconis', 'La Coromoto', 'Femenino',null,null, 'V', '1993-04-12', null,null,1001,null),
+('J-1287718810', '28771881', 'Marcos', null,'Pombo', null,'Las Minitas', 'Masculino',null,null, 'V', '2000-01-01', null,null,1001,null),
+('J-1289910010', '28991001', 'Geraldine', 'Isabel', 'Tovar', 'Trujillo', 'La Naya', 'Femenino',null,null, 'V', '1990-05-15', null,null,1001,null),
+('J-1281122220', '28112222', 'Jorge', null,'Paredes',null, 'Conjunto Residencial Las Danielas', 'Masculino',null,null, 'V', '1985-12-31', null,null,1001,null),
+('J-1283324420', '28332442', 'Gabriela', 'María', 'Mantilla', 'Jaramillo', 'Miragua', 'Femenino',null,null, 'V', '1995-08-20',null,null,1001,null),
+('J-1285526620', '28552662', 'Luis', null,'Fuentes',null, 'La Colina', 'Masculino',null,null, 'V', '1980-06-10', null,null,1001,null),
+('J-1287728820', '28772882', 'Angelica',null, 'Ostos', 'Puerta', 'Calle Roscio', 'Femenino',null,null, 'V', '1992-11-25', null,null,1015,null),
+('J-1289920020', '28992002', 'Carlos', null,'Soto', null,'Calle Arismendi', 'Masculino',null,null, 'V', '1975-03-05', null,null,1015,null),
+('J-1291112220', '29111222', 'Teresa', 'Lucía', 'Garibaldi', 'Londono', 'Calle Ribas', 'Femenino',null,null, 'V', '1988-02-15', null,null,1015,null),
+('J-1293334440', '29333444', 'Marco',null, 'Padua',null, 'Calle Miquilen', 'Masculino',null,null, 'V', '1998-09-30', null,null,1015,null),
+('J-1295556660', '29555666', 'Margarita', 'Elena', 'Pernia', 'Ferro', 'Calle Roscio Norte', 'Femenino',null, null,'V', '1993-04-12',null,null,1015,null),
+('J-1297778880', '29777888', 'Enrique',null, 'Blanco', null,'Calle Boyaca', 'Masculino',null,null, 'V', '1999-09-30', null,null,1015,null),
+('J-1299990000', '29999000', 'Migdalia', 'Elena', 'Caraasquero', 'Bermudez', 'Calle 28 de Octubre', 'Femenino',null, null,'V', '1996-04-12',null,null,1015,null),
+('J-1291112210', '29111221', 'Andrea',null, 'Col', 'Aponte', 'Calle La Colina', 'Femenino',null,null, 'V', '1996-04-12',null,null,1001,null),           
+('J-1293334440', '29333444', 'Paola',null, 'Nunes',null, 'Calle Flor', 'Femenino', null, null,'V', '1996-05-17',2,2,1001,null),         ---------persona contacto
+('J-1295556660', '29555666', 'Federico',null, 'Albuja',null, 'Calle La Vista', 'Masculino',null, null,'V', '1994-12-12',3,3,1001,null),
+('J-1297778880', '29777888', 'Ernesto',null, 'Ordonez',null, 'Calle Araguaney', 'Masculino',null,null, 'V', '1995-01-12',4,4,1002,null),
+('J-1299990000', '29999000', 'Jon', 'Iker', 'Loynaz', 'Paz', 'Calle Geminis', 'Masculino',null, null,'V', '1996-02-09',5,5,1002,null),
+('J-1291122220', '29112222', 'Fabian',null,'Rubio',null,'Calle El Sol', 'Masculino',null, null,'V', '1997-03-11',1,1,1002,null);
+
+-------------------------------------------EMPLEADO JEFE
+insert into empleado(profesion, titulo_puesto_empleado, fk_id_empleado, fk_id_persona_natural, fk_id_punto_de_venta, inicio_turno, fin_turno) values
+('Ingeniero de Produccion','Jefe Ejecutivo',null,21,1,'2023-01-08 7:00:00','2023-01-08 18:00:00');
+
+-------------------------------------------EMPLEADOS
+insert into empleado(profesion, titulo_puesto_empleado, fk_id_empleado, fk_id_persona_natural, fk_id_punto_de_venta, inicio_turno, fin_turno) values
+('Administrador','Gerente General',1,22,1,'2023-01-08 7:00:00','2023-01-08 19:00:00'),
+('Administrador','Auditor',1,23,1,'2023-01-08 7:00:00','2023-01-08 19:00:00'),
+('Administrador','Encargado de Activos',1,24,1,'2023-01-08 7:00:00','2023-01-08 19:00:00'),
+('Administrador','Encargado de Pasivos',1,25,1,'2023-01-08 7:00:00','2023-01-08 19:00:00'),
+('Administrador','Encargado de Capital',1,26,1,'2023-01-08 7:00:00','2023-01-08 19:00:00'),
+('Ingeniero de Produccion','Encargado de Pedidos',1,27,1,'2023-01-08 7:00:00','2023-01-08 19:00:00'),
+('Ingeniero de Produccion','Encargado de Estado de Pedidos',1,28,1,'2023-01-08 7:00:00','2023-01-08 19:00:00'),
+('Sociologo','Encargado de Proveedores',1,29,1,'2023-01-08 7:00:00','2023-01-08 19:00:00'),
+('Sociologo','Encargado de captar Proveedores',1,30,1,'2023-01-08 7:00:00','2023-01-08 19:00:00'),
+('Marketing','Encargado de Eventos',1,31,1,'2023-01-08 7:00:00','2023-01-08 19:00:00'),
+('Marketing','Encargado de Empaquetado',1,32,1,'2023-01-08 7:00:00','2023-01-08 19:00:00'),
+('Marketing','Encargado de Labeling',1,33,1,'2023-01-08 7:00:00','2023-01-08 19:00:00'),
+('Marketing','Encargado de Publicidad',1,34,1,'2023-01-08 7:00:00','2023-01-08 19:00:00'),
+('Comunicacion Social','Encargado de Red Social Instagram',1,35,1,'2023-01-08 12:00:00','2023-01-08 10:00:00'),
+('Comunicacion Social','Encargado de Red Social TikTok',1,36,1,'2023-01-08 10:00:00','2023-01-08 7:00:00'),
+('Tecnico en Seguridad','Encargado en Seguridad de estacionamiento',1,37,1,'2023-01-08 7:00:00','2023-01-08 13:00:00'),
+('Tecnico en Seguridad','Encargado en Seguridad de estacionamiento',1,38,1,'2023-01-08 13:00:00','2023-01-08 21:00:00'),
+('Tecnico en Seguridad','Encargado en Seguridad de puerta principal',1,39,1,'2023-01-08 7:00:00','2023-01-08 13:00:00'),
+('Tecnico en Seguridad','Encargado en Seguridad de puerta principal',1,40,1,'2023-01-08 13:00:00','2023-01-08 21:00:00'),
+('Tecnico en Seguridad','Encargado en Seguridad de piso',1,41,1,'2023-01-08 7:00:00','2023-01-08 15:00:00');
+
+------------------------------------DEPARTAMENTO
+insert into departamento(numero_departamento, nombre_departamento, descripcion_departamento) values
+(1,'Compra-Venta','Analisis de ventas y compras de la empresa.'),
+(2,'Pedido','Analisis de pedidos y sus estados.'),
+(3,'Proveedor','Manejo y contacto con proveedores.'),
+(4,'Mercadeo','Manejo de publicidad de la empresa y sus prouctos.'),
+(5,'Evento','Manejo de eventos y fiestas de la empresa.'),
+(6,'Seguridad','Proteccion y resguardo de empleados y clientes.'),
+(7,'Comunicacion','Manejo de redes sociales de la empresa.');
+
+---------------------------EMPLEADO DEPARTAMENTO
+insert into empleado_departamento(fk_id_departamento, fk_id_empleado) values
+(1,2),(1,3),(1,4),(1,5),(1,6),
+(2,7),(2,8),
+(3,9),(3,10),
+(4,12),(4,13),(4,14),
+(5,11),
+(6,17),(6,18),(6,19),(6,20),(6,21),
+(7,15),(7,16);
+
+
+---------------------------------------------------BENEFICIO
+INSERT INTO beneficio (nombre_beneficio,descripcion_beneficio,fecha_inicio_beneficio,fecha_fin_beneficio) VALUES
+('Transporte','La empresa le financia a los empleados ticketes de autobus, metro, tren y avion','2023-01-01','2023-12-31'),
+('Formacion','Los empleados recibirán cursos para mejorar en su área.', '2023-02-01','2023-02-05'),
+('Seguro Médico','Los empleados podrán incluir a su núcleo familiar en el seguro de la empresa','2023-01-01','2023-12-31'),
+('Guardería','Los hijos de los empleados serán cuidados por la guardería de la empresa','2023-12-10','2023-12-23'),
+('Comida','Los empleados contarán con un desayuno, merienda, almuerzo y cena gratis','2023-12-01','2023-12-31'),
+('Viaje','Los empleados podrán tomar vacaciones extra.','2023-06-01','2023-06-30'),
+('Coaching','Los empleados recibirán sesiones de coaching para mejorar la moral de su equipo','2023-08-01','2023-08-05');
+
+----------------------------------------------BENEFICIO EMPLEADO
+insert into beneficio_empleado(fk_id_beneficio, fk_id_empleado) values
+(1,17),(1,18),(1,19),(1,20),(1,21),
+(2,3),(2,4),(2,5),(2,6),(2,7),(2,8),
+(3,2),(3,3),(3,4),(3,5),(3,6),(3,7),(3,8),(3,9),(3,10),(3,11),(3,12),(3,13),(3,14),(3,15),(3,16),(3,17),(3,18),(3,19),(3,20),(3,21),
+(4,12),(4,13),(4,14),(4,15),(4,16),
+(5,2),(5,3),(5,4),(5,5),(5,6),(5,7),(5,8),(5,9),(5,10),(5,11),(5,12),(5,13),(5,14),(5,15),(5,16),(5,17),(5,18),(5,19),(5,20),(5,21),
+(6,9),(6,10),
+(7,11),(7,15),(7,16);
+
+------------------------------------------COMPRA
+insert into compra (numero_compra, fecha_compra, total_compra, fk_id_empleado, fk_id_proveedor) values
+(1,'2023-12-01 09:00:00',1050,21,1),
+(2,'2023-12-01 09:00:00',1250,21,1),
+(3,'2023-12-02 10:00:00',750,21,2),
+(4,'2023-12-02 12:00:00',2150,21,3),
+(5,'2023-12-02 12:00:00',3900,21,3),
+(6,'2023-12-03 09:00:00',2800,21,4),
+(7,'2023-12-03 12:00:00',3400,21,4),
+(8,'2022-10-04 08:00:00',18960,21,5),
+(9,'2023-12-04 09:00:00',1360,21,5),
+(10,'2023-12-04 18:00:00',980,21,5);
+
+---------------------------------------DETALLE COMPRA
+insert into detalle_compra (precio_unitario_detalle_compra, cant_prod_total_detalle_compra, fk_id_compra, fk_id_presentacion_ron) values
+(30,20,1,1),(15,30,1,2),
+(10,50,2,3),(15,50,2,4),
+(15,50,3,5),
+(35,20,4,6),(50,15,4,7),(35,20,4,8),
+(260,15,5,9),
+(28,100,6,10),
+(10,100,7,11),(16,100,7,12),(16,50,7,13),
+(645,15,8,14),(449,15,8,15),(170,15,8,16),
+(38,20,9,17),(30,20,9,18),
+(16,30,10,19),(10,50,10,20);
+
+--------------------------------------------CATALOGO INVENTARIO
+insert into catalogo_inventario_ron (fk_id_punto_de_venta, fk_id_detalle_compra, fk_id_compra, fk_id_presentacion_ron) values
+(1,1,1,1),(1,2,1,2),
+(1,3,2,3),(1,4,2,4),
+(1,5,3,5),
+(1,6,4,6),(1,7,4,7),(1,8,4,8),
+(1,9,5,9),
+(1,10,6,10),
+(1,11,7,11),(1,12,7,12),(1,13,7,13),
+(1,14,8,14),(1,15,8,15),(1,16,8,16),
+(1,17,9,17),(1,18,9,18),
+(1,19,10,19),(1,20,10,20);
+
+----------------------------------USUARIO
+insert into usuario (nombre_usuario, contrasena_usuario, imagen_usuario, numero_usuario, fk_id_persona_natural, fk_id_empleado,fk_id_proveedor) values
+('juanpe-01','Juan-2020',null,1,1,null,null),
+('maisalo-05','Lopezmaria-1995',null,2,2,null.null),
+('ignacol-12','Colignacio-12',null,3,null,1,null),
+('reynones-30','Nones199809-',null,4,null,7,null),
+('marpombo-01','Pombo01010-00',null,5,null,9,null),
+('cacique','Cacique22-',null,6,42,null,2),
+('ron-roble','Roble-2023',null,7,null,null,3),
+('santa-teresa','Stteresa-3',null,8,null,null,4),
+('carupano','Carupano-24',null,9,null,null,5),
+('pampero','Pampero-3',null,10,null,null,1);
+
+---------------------------------VENTA
+insert into venta (numero_factura_venta, fecha_venta, total_venta, punto_ganado_venta, fk_id_persona_natural, fk_id_punto_de_venta_tienda_fisica, fk_id_punto_de_venta) values
+(1,'2024-02-12 10:00:00',80,3,3,1,1),(2,'2024-02-10 16:00:00',60,4,3,1,1),
+(3,'2024-01-13 12:00:00',16,1,4,1,1),(4,'2024-01-18 19:00:00',10,1,4,1,1),
+(5,'2024-01-17 19:00:00',1290,2,5,1,1),(6,'2022-09-28 13:00:00',40,null,5,1,1),
+(7,'2024-01-19 13:00:00',40,4,6,1,1),(8,'2024-01-19 15:00:00',16,1,6,1,1),
+(9,'2024-01-21 17:00:00',150,3,7,1,1),(10,'2024-01-21 17:30:00',449,2,7,1,1),
+(11,'2024-01-22 18:00:00',150,3,8,1,1),(12,'2024-01-22 18:45:00',105,3,8,1,1),
+(13,'2022-01-25 15:30:00',20,2,9,1,1),(14,'2023-09-26 15:00:00',90,null,9,1,1),
+(15,'2024-01-28 20:00:00',340,2,10,1,1),(16,'2022-10-22 18:00:00',55,null,10,1,1),
+(17,'2024-01-28 17:00:00',645,1,11,1,1),(18,'2024-01-28 17:15:00',32,2,11,1,1),
+(19,'2024-01-29 15:55:00',38,1,12,1,1),(20,'2024-01-29 17:00:00',170,1,12,1,1),
+(21,'2024-01-30 11:00:00',150,5,13,1,1),(22,'2024-01-30 12:00:00',30,3,13,1,1),
+(23,'2024-01-30 16:00:00',50,5,14,1,1),(24,'2024-01-30 16:30:00',112,4,14,1,1),
+(25,'2024-01-30 17:00:00',520,2,15,1,1),(26,'2023-10-20 14:00:00',80,null,15,1,1),
+(27,'2024-02-02 14:30:00',30,2,16,1,1),(28,'2023-11-22 14:00:00',65,null,16,1,1),
+(29,'2024-02-03 10:00:00',140,5,17,1,1),(30,'2024-02-02 12:30:00',32,2,17,1,1),
+(31,'2024-02-03 11:30:00',20,2,18,1,1),(32,'2024-02-03 14:00:00',20,2,18,1,1),
+(33,'2024-02-04 13:30:00',90,3,19,1,1),(34,'2024-02-04 15:00:00',28,1,19,1,1),
+(35,'2024-02-05 15:35:00',35,1,20,1,1),(36,'2024-02-05 18:45:00',35,2,20,1,1);
+
+
+-------------------------------DETALLE VENTA
+insert into detalle_venta(precio_unitario_detalle_venta, cant_prod_total_detalle_venta, fk_id_venta, fk_id_catalogo_inventario_ron, fk_id_punto_de_venta,fk_id_entrada, fk_id_evento, fk_id_detalle_compra, fk_id_compra, fk_id_presentacion_ron) values
+(30,3,1,1,1,null,null,1,1,1),(15,4,2,5,1,null,null,5,3,5),
+(16,1,3,19,1,null,null,19,10,19),(10,1,4,20,1,null,null,20,10,20),
+(645,2,5,14,1,null,null,14,8,14),(20,2,6,null,null,1,1,null,null,null),
+(10,4,7,11,1,null,null,11,7,11),(16,1,8,13,1,null,null,13,7,13),
+(50,3,9,7,1,null,null,7,4,7),(449,1,10,15,1,null,null,15,8,15),
+(50,3,11,3,1,null,null,3,2,3),(35,3,12,6,1,null,null,6,4,6),
+(10,2,13,11,1,null,null,11,7,11),(30,3,14,null,null,3,2,null,null,null),
+(170,2,15,16,1,null,null,16,8,16),(55,1,16,null,null,6,3,null,null,null),
+(645,1,17,14,1,null,null,14,8,14),(16,2,18,12,1,null,null,12,7,12),
+(38,1,19,17,1,null,null,17,9,17),(170,1,20,16,1,null,null,16,8,16),
+(30,5,21,18,1,null,null,18,9,18),(10,3,22,20,1,null,null,20,10,20),
+(10,5,23,11,1,null,null,11,7,11),(28,4,24,10,1,null,null,10,6,10),
+(260,2,25,9,1,null,null,9,5,9),(40,2,26,null,null,7,4,null,null,null),
+(15,2,27,4,1,null,null,4,2,4),(65,1,28,null,null,10,5,null,null,null),
+(28,5,29,10,1,null,null,10,6,10),(16,2,30,12,1,null,null,12,7,12),
+(10,2,31,3,1,null,null,3,2,3),(10,2,32,11,1,null,null,11,7,11),
+(30,3,33,1,1,null,null,1,1,1),(28,1,34,10,1,null,null,10,6,10),
+(35,1,35,8,1,null,null,8,4,8),(16,2,36,12,1,null,null,12,7,12);
+
+------------------------TELEFONO
+insert into telefono(categoria_telefono, numero_telefono, fk_id_proveedor, fk_id_proveedor_2, fk_id_punto_de_venta, fk_id_persona_natural, fk_id_persona_juridica) values
+('Oficina','+582124456778',null,null,1,null,null),
+('Oficina','+582127782321',1,null,null,null,1),
+('Oficina','+582122137890',2,null,null,null,2),
+('Oficina','+582126007106',3,null,null,null,3),
+('Oficina','+582124002549',4,null,null,null,4),
+('Oficina','+582127017777',5,null,null,null,5),
+('Movil','+584148899018',null,1,null,null,null),
+('Movil','+584143458907',null,2,null,null,null),
+('Movil','+584127659034',null,3,null,null,null),
+('Movil','+584243687217',null,4,null,null,null),
+('Movil','+584243311385',null,5,null,null,null),
+('Personal','+584122347896',null,null,null,1,null),
+('Personal','+584141624209',null,null,null,2,null),
+('Personal','+584142298050',null,null,null,3,null),
+('Personal','+584143387065',null,null,null,4,null),
+('Personal','+584142287648',null,null,null,5,null),
+('Personal','+584149987065',null,null,null,6,null),
+('Personal','+584143312543',null,null,null,7,null),
+('Personal','+584141121131',null,null,null,8,null),
+('Personal','+584140090876',null,null,null,9,null),
+('Personal','+584147765467',null,null,null,10,null),
+('Personal','+584127685647',null,null,null,11,null),
+('Personal','+584129403735',null,null,null,12,null),
+('Personal','+584128493758',null,null,null,13,null),
+('Personal','+584129475903',null,null,null,14,null),
+('Personal','+584128494645',null,null,null,15,null),
+('Personal','+584120274559',null,null,null,16,null),
+('Personal','+584121734290',null,null,null,17,null),
+('Personal','+584121184940',null,null,null,18,null),
+('Personal','+584121132569',null,null,null,19,null),
+('Personal','+584121189303',null,null,null,20,null),
+('Personal','+584168492017',null,null,null,21,null),
+('Personal','+584168930283',null,null,null,22,null),
+('Personal','+584166785930',null,null,null,23,null),
+('Personal','+584160192873',null,null,null,24,null),
+('Personal','+584160193733',null,null,null,25,null),
+('Personal','+584160192783',null,null,null,26,null),
+('Personal','+584169585995',null,null,null,27,null),
+('Personal','+584160197893',null,null,null,28,null),
+('Personal','+584166785095',null,null,null,29,null),
+('Personal','+584168393839',null,null,null,30,null),
+('Personal','+584240393030',null,null,null,31,null),
+('Personal','+584241939202',null,null,null,32,null),
+('Personal','+584248301835',null,null,null,33,null),
+('Personal','+584240797066',null,null,null,34,null),
+('Personal','+584241283930',null,null,null,35,null),
+('Personal','+584240182048',null,null,null,36,null),
+('Personal','+584240284483',null,null,null,37,null),
+('Personal','+584241038594',null,null,null,38,null),
+('Personal','+584249203849',null,null,null,39,null),
+('Personal','+584268202844',null,null,null,40,null),
+('Personal','+584260193843',null,null,null,41,null),
+('Personal','+584261092736',null,null,null,42,null),
+('Personal','+584269068791',null,null,null,43,null),
+('Personal','+584261907689',null,null,null,44,null),
+('Personal','+584268986921',null,null,null,45,null),
+('Personal','+584261093709',null,null,null,46,null);
+
+
+-------------------------------CORREO ELECTRONICO
+insert into correo_electronico(direccion_correo_electronico, fk_id_punto_de_venta_tienda_fisica, fk_id_punto_de_venta, fk_id_persona_juridica,fk_id_persona_natural) values
+('asoron@gmail.com',null,1,null,null),
+('bodegonaso@gmail.com',1,1,null,null),
+('ronpampero@gmail.com',null,null,1,null),
+('roncacique@gmail.com',null,null,2,null),
+('info@ronroble.com',null,null,3,null),
+('reservacioneshst@ronsantateresa.com',null,null,4,null),
+('info@roncarupano.com',null,null,5,null),
+('juanper@gmail.com',null,null,null,1),
+('marilo@hotmail.com',null,null,null,2),
+('luisgonza@hotmail.com',null,null,null,3),
+('anamari@gmail.com',null,null,null,4),
+('luisafh@gmail.com',null,null,null,5),
+('elenag@hotmail.com',null,null,null,6),
+('jorgeluisfer@outlook.com',null,null,null,7),
+('lauraper1@gmail.com',null,null,null,8),
+('juan_jara@gmail.com',null,null,null,9),
+('anai_gar@hotmail.com',null,null,null,10),
+('pedro_saa@gmail.com',null,null,null,11),
+('virginia_rod@gmail.com',null,null,null,12),
+('alegonza_1@gmail.com',null,null,null,13),
+('marij_b1@gmail.com',null,null,null,14),
+('carloslr@outlook.com',null,null,null,15),
+('ale_ramirez@hotmail.com',null,null,null,16),
+('diego-tej@gmail.com',null,null,null,17),
+('valen-trejo@gmail.com',null,null,null,18),
+('danielcarro-1@outlook.com',null,null,null,19),
+('vanedorta@outlook.com',null,null,null,20),
+('ignacio-col@outlook.com',null,null,null,21),
+('vicky-rodri@gmail.com',null,null,null,22),
+('edu-lopez@gmail.com',null,null,null,23),
+('nico-silva1@gmail.com',null,null,null,24),
+('vicente-g@hotmail.com',null,null,null,25),
+('reina-nunez@outlook.com',null,null,null,26),
+('rey-nones@gmail.com',null,null,null,27),
+('cristi-trombo@hotmail.com',null,null,null,28),
+('marcosp@outlook.com',null,null,null,29),
+('geraltovar@gmail.com',null,null,null,30),
+('jorge-paredes@hotmail.com',null,null,null,31),
+('gabymant@hotmail.com',null,null,null,32),
+('luis-fuente1@outlook.com',null,null,null,33),
+('angie-ostos@gmail.com',null,null,null,34),
+('carlos2soto@gmail.com',null,null,null,35),
+('tere-gari2@gmail.com',null,null,null,36),
+('marco-padua@gmail.com',null,null,null,37),
+('marggie-pernia@hotmail.com',null,null,null,38),
+('enrique-blank@outlook.com',null,null,null,39),
+('migdalia_caraa@hotmail.com',null,null,null,40),
+('andrecol1@hotmail.com',null,null,null,41),
+('pao-nunes@gmail.com',null,null,null,42),
+('fede-albu@outlook.com',null,null,null,43),
+('ernestoo4@hotmail.com',null,null,null,44),
+('jon-loynaz@gmail.com',null,null,null,45),
+('fabian-rubio@hotmail.com',null,null,null,46);
+
+-----------------------------------------PUNTO
+insert into punto(precio_punto, fecha_inicio_tasa_punto, fecha_fin_tasa_punto, fk_id_punto_de_venta_tienda_fisica, fk_id_punto_de_venta, fk_id_persona_natural) values
+('0.50','2023-12-01','2023-12-09',1,1,null),
+('1.50','2023-12-10','2023-12-20',1,1,null),
+('1.75','2023-12-21','2023-12-31',1,1,null),
+('3','2024-02-10','2024-02-14',1,1,3),
+('2','2024-01-10','2024-01-20',1,1,4),
+('2','2024-01-10','2024-01-20',1,1,5),
+('2','2024-01-10','2024-01-20',1,1,6),
+('2.50','2024-01-21','2024-01-31',1,1,7),
+('2.50','2024-01-21','2024-01-31',1,1,8),
+('2.50','2024-01-21','2024-01-31',1,1,9),
+('2.50','2024-01-21','2024-01-31',1,1,10),
+('2.50','2024-01-21','2024-01-31',1,1,11),
+('2.50','2024-01-21','2024-01-31',1,1,12),
+('2.50','2024-01-21','2024-01-31',1,1,13),
+('2.50','2024-01-21','2024-01-31',1,1,14),
+('2.50','2024-01-21','2024-01-31',1,1,15),
+('3','2024-02-01','2024-02-10',1,1,16),
+('3','2024-02-01','2024-02-10',1,1,17),
+('3','2024-02-01','2024-02-10',1,1,18),
+('3','2024-02-01','2024-02-10',1,1,19),
+('3','2024-02-01','2024-02-10',1,1,20);
+
+--------------------------------CUOTA AFILIACION
+insert into cuota_afiliacion(precio_cuota_afiliacion, fecha_inicia__cuota_afiliacion, fecha_fin_cuota_afiliacion, cuota_afiliacion_paga, fk_id_proveedor, fk_id_usuario) values
+(4,'2024-01-01','2024-12-31',true,null,1),
+(4,'2024-01-01','2024-12-31',true,null,2),
+(15,'2024-01-01','2024-12-31',true,1,null),
+(15,'2024-01-01','2024-12-31',false,2,null),
+(15,'2024-01-01','2024-12-31',false,3,null),
+(15,'2024-01-01','2024-12-31',false,4,null),
+(15,'2024-01-01','2024-12-31',false,5,null);
+
+
+-----------------------------------ESTADO
+insert into estado(nombre_estado, descripcion_estado) values
+('Retraso','El pedido aun se encuentra en proceso, esta retrasado.'),
+('Entregado','El pedido ya fue entregado al cliente.'),
+('En Proceso','El pedido fue tomado y se encuentra en proceso de armarlo.');
+
+-------------------------------PEDIDO
+insert into pedido(numero_pedido, fk_id_punto_de_venta_online,fk_id_punto_de_venta, fk_id_usuario, fecha_pedido, total_pedido) values
+(1,1,1,1,'2024-03-01 13:00:00',32), (2,1,1,1,'2024-03-01 17:30:00',32),(3,null,null,1,'2024-01-01 12:00:00',4),
+(4,1,1,2,'2024-01-21 09:00:00',10),(5,1,1,2,'2024-04-10 14:00:00',30),(6,null,null,2,'2024-01-01 12:00:00',4),
+(7,null,null,6,'2024-01-01 12:00:00',15);
+
+------------------------------------DETALLE PEDIDO
+insert into detalle_pedido(precio_envio_detalle_pedido, cant_prod_total_detalle_pedido, fk_id_pedido,fk_id_catalogo_inventario_ron, fk_id_punto_de_venta, fk_id_detalle_compra, fk_id_compra, fk_id_presentacion_ron, fk_id_cuota_afiliacion, precio_unit_prod) values
+(5,2,1,13,1,13,7,13,null,16),
+(5,2,2,12,1,12,7,12,null,16),
+(null,1,3,null,null,null,null,null,1,4),
+(4,1,4,20,1,20,10,20,null,10),
+(4,2,5,2,1,2,1,2,null,15),
+(null,1,6,null,null,null,null,null,2,4),
+(null,1,7,null,null,null,null,null,3,15);
+
+---------------------------------------ESTADO PEDIDO
+insert into estado_pedido(fecha_inicio_estado_pedido, fecha_fin_estado_pedido, fk_id_estado, fk_id_pedido) values
+('2024-03-01 13:00:00','2024-03-01 14:59:00',3,1),
+('2024-03-01 15:00:00','2024-03-01 17:00:00',2,1),
+('2024-03-01 17:30:00','2024-03-01 19:29:00',3,2),
+('2024-03-01 19:30:00','2024-03-01 20:00:00',1,2),
+('2024-03-01 20:01:00','2024-03-01 22:00:00',2,2),
+('2024-01-21 09:00:00','2024-01-21 10:59:00',3,4),
+('2024-01-21 11:00:00','2024-01-21 13:00:00',2,4),
+('2024-04-10 14:00:00','2024-04-10 15:59:00',3,5),
+('2024-04-10 16:00:00','2024-04-10 18:00:00',2,5);
+
+-----------------------------TASA DE CAMBIO
+insert into tasa_de_cambio(valor_tasa, fecha_inicio_tasa, fecha_fin_tasa) values
+(32,'2023-12-01','2023-12-31'),
+(35,'2024-01-01','2024-01-31'),
+(37,'2024-02-01','2024-02-29'),
+(35,'2024-03-01','2024-03-31'),
+(37,'2024-04-01','2024-04-30'),
+(38,'2024-05-01','2024-05-31'),
+(38,'2024-06-01','2024-06-30'),
+(38,'2024-07-01','2024-07-31'),
+(40,'2024-08-01','2024-08-31'),
+(37,'2024-09-01','2024-09-30'),
+(41,'2024-10-01','2024-10-31'),
+(34,'2024-11-01','2024-11-30'),
+(45,'2024-12-01','2024-12-31');
+
+---------------------------METODO PAGO EFECTIVO
+insert into metodo_pago_efectivo(denominacion_efectivo) values
+(1),(2),(5),(10),(20),(50),(100);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
