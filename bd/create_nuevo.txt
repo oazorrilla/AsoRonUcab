@@ -541,6 +541,7 @@ create table metodo_pago_venta(
     fk_id_metodo_pago_punto_afiliado  integer	null,
     fk_id_metodo_pago_cheque          integer	null,
     fk_id_metodo_pago_tarjeta_credito integer	null,
+    fk_id_tasa integer not null,
     constraint pk_id_metodo_pago_venta PRIMARY KEY (id_metodo_pago_venta, fk_id_venta)
 );
 
@@ -636,7 +637,6 @@ create table metodo_pago_efectivo(
     id_metodo_pago_efectivo serial	not null  UNIQUE,
     denominacion_efectivo   numeric(10, 2) not null
         constraint check_denominacion_efectivo check (denominacion_efectivo > (0)::numeric),
-    fk_id_tasa_de_cambio    integer	not null,
     constraint pk_id_metodo_pago_efectivo PRIMARY KEY (id_metodo_pago_efectivo)
 );
 
@@ -650,7 +650,6 @@ create table metodo_pago_tarjeta_debito(
         constraint check_fecha_vence_tarjeta_debito check (fecha_vence_tarjeta_debito > CURRENT_DATE),
     codigo_seguridad_tarjeta_debito varchar(10) not null  check ((codigo_seguridad_tarjeta_debito)::text ~ '^[0-9]{3,4} $'::text),
     nombre_banco_tarjeta_debito     varchar(50) not null,
-    fk_id_tasa_de_cambio            integer	not null,
     constraint pk_id_metodo_pago_tarjeta_debito PRIMARY KEY (id_metodo_pago_tarjeta_debito)
 );
 
@@ -659,7 +658,6 @@ create table metodo_pago_tarjeta_debito(
 create table metodo_pago_punto_afiliado(
     id_metodo_pago_punto_afiliado serial	not null  UNIQUE,
     resultado			  numeric(10,2) null,
-    fk_id_tasa_de_cambio          integer	not null,
     constraint pk_id_metodo_pago_punto_afiliado PRIMARY KEY (id_metodo_pago_punto_afiliado)
 );
 
@@ -673,7 +671,6 @@ create table metodo_pago_cheque(
     fecha_pago_cheque     date   not null,
     autoriza_cheque       varchar(10) not null
         constraint check_autoriza_cheque check ((autoriza_cheque)::text = ANY ((ARRAY ['Si'::character varying, 'No'::character varying])::text[])),
-    fk_id_tasa_de_cambio  integer	not null,
     constraint pk_id_metodo_pago_cheque PRIMARY KEY (id_metodo_pago_cheque)
 );
 
@@ -690,7 +687,6 @@ create table metodo_pago_tarjeta_credito(
     tipo_tarjeta_credito             varchar(20) not null
         constraint check_tipo_tarjeta_credito
             check ((tipo_tarjeta_credito)::text = ANY ((ARRAY ['Visa'::character varying, 'Mastercard'::character varying])::text[])),
-    fk_id_tasa_de_cambio             integer	not null,
     constraint pk_id_metodo_pago_tarjeta_credito PRIMARY KEY (id_metodo_pago_tarjeta_credito)
 );
 
@@ -710,5 +706,6 @@ id_metodo_pago_pedido   serial          not null unique,
 fk_id_pedido            integer         not null,
 fk_id_metodo_paga_usuario   integer     not null,
 monto			    numeric(10,2) not null,
+fk_id_tasa integer not null,
 constraint pk_id_metodo_pago_pedido primary key (id_metodo_pago_pedido,fk_id_pedido,fk_id_metodo_paga_usuario)
 );
