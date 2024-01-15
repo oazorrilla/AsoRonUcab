@@ -112,8 +112,8 @@ create table estado(
 --Crear tabla detalle_pedido
 create table detalle_pedido(
     id_detalle_pedido              serial	  not null   UNIQUE,
-    precio_envio_detalle_pedido    numeric(10, 2) not null check (precio_envio_detalle_pedido > (0)::numeric),
-    cant_prod_total_detalle_pedido integer        not null
+    precio_envio_detalle_pedido    numeric(10, 2) null check (precio_envio_detalle_pedido > (0)::numeric),
+    cant_prod_total_detalle_pedido integer        null
         constraint check_cant_prod_total_detalle_pedido check (cant_prod_total_detalle_pedido > 0),
     fk_id_pedido                   integer	  not null,
     fk_id_catalogo_inventario_ron  integer	  null,
@@ -122,6 +122,8 @@ create table detalle_pedido(
     fk_id_compra 		   integer	  null,
     fk_id_presentacion_ron 	   integer	  null,
     fk_id_cuota_afiliacion	   integer	  null,
+    precio_unit_prod  		   integer	  null,
+    cant_prod 			   integer	  null,
     constraint pk_id_detalle_pedido primary key(id_detalle_pedido,fk_id_pedido)
 );
 
