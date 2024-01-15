@@ -34,6 +34,7 @@ add constraint fk_id_punto_de_venta FOREIGN KEY (fk_id_punto_de_venta) REFERENCE
 --Agregar llaves de la tabla pedido
 ALTER TABLE pedido
 add constraint fk_id_usuario foreign key(fk_id_usuario) references usuario(id_usuario),
+add constraint fk_id_proveedor foreign key (fk_id_proveedor) references proveedor (id_proveedor),
 add constraint fk_id_punto_de_venta_online FOREIGN KEY(fk_id_punto_de_venta_online,fk_id_punto_de_venta) REFERENCES punto_de_venta_online(id_punto_de_venta_online,fk_id_punto_de_venta)
 ;
 
