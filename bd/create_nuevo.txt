@@ -123,7 +123,6 @@ create table detalle_pedido(
     fk_id_presentacion_ron 	   integer	  null,
     fk_id_cuota_afiliacion	   integer	  null,
     precio_unit_prod  		   integer	  null,
-    cant_prod 			   integer	  null,
     constraint pk_id_detalle_pedido primary key(id_detalle_pedido,fk_id_pedido)
 );
 
