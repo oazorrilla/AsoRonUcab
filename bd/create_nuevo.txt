@@ -13,6 +13,7 @@ create table usuario(
         constraint check_numero_usuario check (numero_usuario > 0),
     fk_id_persona_natural integer	null,
     fk_id_empleado        integer	null,
+    fk_id_proveedor	  integer	null,
     constraint pk_id_usuario PRIMARY KEY (id_usuario)
 );
 
