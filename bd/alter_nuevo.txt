@@ -118,17 +118,10 @@ ADD    CONSTRAINT fk_id_tipo_ron FOREIGN KEY (fk_id_tipo_ron) REFERENCES tipo_ro
 ;
 
 
-
---Agregar llaves de la tabla permiso_rol
-ALTER TABLE permiso_rol
-ADD    CONSTRAINT fk_id_accion FOREIGN KEY (fk_id_accion) REFERENCES accion_permiso(id_accion)
-;
-
-
 --Agregar llaves de la tabla usuario_rol
 ALTER TABLE usuario_rol
 ADD    CONSTRAINT fk_id_usuario FOREIGN KEY (fk_id_usuario) REFERENCES usuario(id_usuario),
-ADD    CONSTRAINT fk_id_permiso_rol FOREIGN KEY (fk_id_permiso_rol,fk_id_accion_permiso) REFERENCES permiso_rol(id_permiso_rol,fk_id_accion)
+add constraint fk_id_accion_permiso foreign key (fk_id_accion_permiso) references accion_permiso(id_accion)
 ;
 
 
