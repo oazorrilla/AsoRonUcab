@@ -335,21 +335,12 @@ create table tasa_de_cambio(
 );
 
 
---Crear tabla permiso_rol
-create table permiso_rol(
-    id_permiso_rol serial	not null   UNIQUE,
-    fk_id_accion   serial	not null,
-    constraint pk_id_permiso_rol PRIMARY KEY (id_permiso_rol, fk_id_accion)
-);
-
-
 --Crear tabla usuario_rol
 create table usuario_rol(
     id_usuario_rol       serial	not null    UNIQUE,
     fk_id_usuario        integer	not null,
-    fk_id_permiso_rol    integer	not null,
     fk_id_accion_permiso integer	not null,
-    constraint pk_id_usuario_rol PRIMARY KEY (id_usuario_rol, fk_id_usuario, fk_id_permiso_rol, fk_id_accion_permiso)
+    constraint pk_id_usuario_rol PRIMARY KEY (id_usuario_rol, fk_id_usuario, fk_id_accion_permiso)
 );
 
 
