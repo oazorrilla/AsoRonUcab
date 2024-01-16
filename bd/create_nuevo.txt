@@ -678,7 +678,7 @@ create table metodo_pago_tarjeta_credito(
     fecha_vence_tarjeta_credito      date        not null
         constraint check_fecha_vence_tarjeta_credito check (fecha_vence_tarjeta_credito > CURRENT_DATE),
     codigo_seguridad_tarjeta_credito varchar(10) not null
-        constraint check_codigo_seguridad_tarjeta_credito check ((codigo_seguridad_tarjeta_credito)::text ~ '^[0-9]{3,4} $'::text),
+        constraint check_codigo_seguridad_tarjeta_credito check ((codigo_seguridad_tarjeta_credito)::text ~ '([0-9]{3,4})'::text),
     tipo_tarjeta_credito             varchar(20) not null
         constraint check_tipo_tarjeta_credito
             check ((tipo_tarjeta_credito)::text = ANY ((ARRAY ['Visa'::character varying, 'Mastercard'::character varying])::text[])),
