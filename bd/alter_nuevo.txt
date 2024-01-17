@@ -124,6 +124,9 @@ ADD    CONSTRAINT fk_id_usuario FOREIGN KEY (fk_id_usuario) REFERENCES usuario(i
 add constraint fk_id_accion_permiso foreign key (fk_id_accion_permiso) references accion_permiso(id_accion)
 ;
 
+--Agregar llaves de la tabla sesion_usuario
+alter table sesion_usuario
+add constraint fk_id_usuario_rol foreign key (fk_id_usuario_rol,fk_id_usuario,fk_id_accion_permiso) references usuario_rol(id_usuario_rol, fk_id_usuario, fk_id_accion_permiso);
 
 --Agregar llaves de la tabla empleado_departamento
 ALTER TABLE empleado_departamento
