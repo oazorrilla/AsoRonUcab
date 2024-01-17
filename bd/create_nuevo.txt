@@ -25,6 +25,17 @@ create table accion_permiso(
     constraint pk_id_accion PRIMARY KEY (id_accion)
 );
 
+---Crear tabla sesion_usuario
+create table sesion_usuario(
+    id_sesion_usuario   serial    unique    not null,
+    descripcion_sesion  varchar(100)        not null,
+    fecha_inicio_sesion timestamp           not null,
+    fecha_fin_sesion    timestamp           not null,
+    fk_id_usuario_rol   integer             not null,
+    fk_id_accion_permiso    integer         not null,
+    fk_id_usuario           integer         not null,
+    constraint pk_id_sesion_usuario primary key (id_sesion_usuario,fk_id_usuario_rol,fk_id_usuario,fk_id_accion_permiso)
+);
 
 --Crear tabla empleado
 create table empleado(
