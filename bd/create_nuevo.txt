@@ -108,6 +108,8 @@ create table pedido(
     fk_id_usuario		integer	  not null,
     fecha_pedido		timestamp not null,
     total_pedido		numeric(10,2) not null,
+    envio			varchar(50)	null,
+    fk_id_lugar			integer		null,
     constraint pk_id_pedido PRIMARY KEY (id_pedido)
 );
 
